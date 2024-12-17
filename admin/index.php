@@ -2,6 +2,7 @@
 include("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
 $_SERVER["admin"] = true;
 include_once "../includes/css_js.inc.php";
+include_once "../includes/db.inc.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">

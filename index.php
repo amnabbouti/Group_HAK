@@ -20,7 +20,7 @@ include_once "includes/css_js.inc.php";
                 <input type="text" name="search" id="search" placeholder="Search for a planet...">
                 <button type="submit">Search</button>
             </div>
-            <div><img src="/hak_logo_concept1.svg" alt="Miller's World Logo"></div>
+            <div><img src="/public/hak_logo_concept1.svg" alt="Miller's World Logo"></div>
             <div>
                 <ul class="nav_links">
                     <li><a href="#">Add a planet</a></li>
@@ -34,7 +34,7 @@ include_once "includes/css_js.inc.php";
         <?= "php works on the main" ?>
         <section>
             <div id="picture_of_the_month">
-                <img src="/image_moon1.jpg" alt="Image of a Moon">
+                <img src="/public/image_moon1.jpg" alt="Image of a Moon">
             </div>
         </section>
         <section id="socials">

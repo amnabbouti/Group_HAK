@@ -14,8 +14,7 @@ body * {
 }
 
 body {
-  background-color: yellow;
-  padding: 3rem;
+  background-color: black;
   max-width: 1600px;
   margin: 0 auto;
   header {
@@ -26,6 +25,7 @@ body {
     nav {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       .nav_links {
         display: flex;
         gap: 2rem;

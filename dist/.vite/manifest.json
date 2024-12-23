@@ -20,12 +20,12 @@
     "src": "fonts/icomoon.svg"
   },
   "js/index.js": {
-    "file": "assets/index-DYX_l4BT.js",
+    "file": "assets/index-CPKzo60N.js",
     "name": "index",
     "src": "js/index.js",
     "isEntry": true,
     "css": [
-      "assets/index-CkZb5Yd9.css"
+      "assets/index-BTz81UNU.css"
     ],
     "assets": [
       "assets/icomoon-BeRJgAey.svg"

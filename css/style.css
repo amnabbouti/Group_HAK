@@ -9,7 +9,7 @@
   box-sizing: border-box;
 }
 body * {
-  line-height: calc(2px + 2ex + 2px);
+  line-height: calc(2px + 2px + 2px);
   font-size: 2rem;
 }
 

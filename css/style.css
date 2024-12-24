@@ -8,69 +8,71 @@
 * {
   box-sizing: border-box;
 }
-body * {
-  line-height: calc(2px + 2px + 2px);
-  font-size: 2rem;
-}
-
 body {
-  background-color: black;
-  max-width: 1600px;
-  margin: 0 auto;
+  font-size: 2rem;
+  background-color: darkgrey;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
   header {
-    background-color: lightcoral;
-    padding: 3rem;
-    width: 100%;
-    /* height: 100%; */
-    nav {
+    background-color: red;
+    .container {
+      padding: 3rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      .nav_links {
-        display: flex;
-        gap: 2rem;
+      nav {
+        ul {
+          display: flex;
+          gap: 3rem;
+        }
       }
     }
   }
   main {
-    background-color: aqua;
-    width: 100%;
-    height: 100%;
-    section {
-      &:first-of-type {
-        #picture_of_the_month {
-          background-color: blueviolet;
-          width: 100%;
-          height: 100%;
-          img {
-            object-fit: cover;
-            width: 100%;
-          }
+    background-color: green;
+    .main_banner {
+      background-image: url("../image_moon1.jpg");
+      background-size: cover;
+      background-position: center;
+      a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        h3 {
+          font-size: 4rem;
+        }
+        p {
+          font-size: 3rem;
         }
       }
-      &:nth-of-type(2) {
-        padding: 2rem;
-      }
-      &:nth-of-type(3) {
-        padding: 2rem;
+    }
+    .socials {
+      .container {
+        background-color: lightblue;
+        padding: 1rem;
+        ul {
+          display: flex;
+          justify-content: space-around;
+          font-size: 3rem;
+        }
       }
     }
-
-    #socials {
-      background-color: lightgreen;
-      width: 100%;
-      height: 5vh;
-    }
-    #grid_planets {
-      background-color: lightgray;
-      width: 100%;
-      height: 40vh;
+    .planets {
+      .container {
+        background-color: orange;
+        min-height: 50rem;
+        padding: 3rem;
+      }
     }
   }
   footer {
-    background-color: lightseagreen;
-    width: 100%;
-    height: 100%;
-    padding: 3rem;
+    background-color: blue;
+    .container {
+      display: flex;
+      justify-content: space-between;
+      padding: 3rem;
+    }
   }
 }

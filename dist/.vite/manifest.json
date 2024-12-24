@@ -4,15 +4,15 @@
     "src": "admin/fonts/icomoon.svg"
   },
   "admin/js/index.js": {
-    "file": "assets/index-CkIKW53M.js",
+    "file": "assets/index-BIPtfWZg.js",
     "name": "index",
     "src": "admin/js/index.js",
     "isEntry": true,
     "css": [
-      "assets/index-DOhnUrP3.css"
+      "assets/index-DejGbVd5.css"
     ],
     "assets": [
-      "assets/icomoon-C-EAromZ.svg"
+      "assets/icomoon-BeRJgAey.svg"
     ]
   },
   "fonts/icomoon.svg": {
@@ -20,15 +20,19 @@
     "src": "fonts/icomoon.svg"
   },
   "js/index.js": {
-    "file": "assets/index-Dphyq4kM.js",
+    "file": "assets/index-Dc8-WrON.js",
     "name": "index",
     "src": "js/index.js",
     "isEntry": true,
     "css": [
-      "assets/index-Cif5PDub.css"
+      "assets/index-C5cQQ8Qp.css"
     ],
     "assets": [
       "assets/icomoon-BeRJgAey.svg"
     ]
+  },
+  "public/image_moon1.jpg": {
+    "file": "assets/image_moon1-DFSEQKMh.jpg",
+    "src": "public/image_moon1.jpg"
   }
 }

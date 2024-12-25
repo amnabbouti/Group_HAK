@@ -1,6 +1,5 @@
 <?php
 include_once "includes/css_js.inc.php";
-// include("data_planets.php");
 
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
@@ -10,11 +9,26 @@ error_reporting(E_ALL);
 // var_dump($planet_images);
 // print "</pre>";
 
+$accessKey = 'vGiBVlx1ebXeCPSQrofSg68UGu9A_BH2hDitylo3gUU';
+$endpoint = 'https://api.unsplash.com/search/photos';
 
+$query = 'planet';
+$url = $endpoint . '?query=' . urlencode($query) . '&client_id=' . $accessKey;
 
+$response = file_get_contents($url);
+$data = json_decode($response, true);
 
-
-
+if (isset($data['results']) && count($data['results']) > 0) {
+    $imageUrls = [];
+    foreach ($data['results'] as $photo) {
+        $imageUrls[] = $photo['urls']['regular'];
+    }
+    echo '<pre>';
+    print_r($imageUrls);
+    echo '</pre>';
+} else {
+    echo "No planets found.";
+}
 
 
 ?>
@@ -71,10 +85,11 @@ error_reporting(E_ALL);
         <section class="planets">
 
 
-            <?php foreach ($planet_images as $planet_image): ?>
+            <?php foreach ($imageUrls as $photo): ?>
                 <div class="container">
-                    <a href="#"></a>
-                    <img src="<?php echo $planet_image; ?>" alt="">
+                    <ul>
+                        <li><a href="#"></a><img src="<?= $photo; ?>" alt=""></li>
+                    </ul>
                 </div>
             <?php endforeach; ?>
 

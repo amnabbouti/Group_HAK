@@ -56,21 +56,50 @@ body {
       }
     }
     .socials {
+      background-color: lightblue;
       .container {
-        background-color: lightblue;
         padding: 1rem;
         ul {
           display: flex;
           justify-content: space-around;
           font-size: 3rem;
+          li {
+            a {
+              text-decoration: none;
+              color: white;
+            }
+          }
         }
       }
     }
     .planets {
+      min-height: 20rem;
+      padding: 2rem 0;
       .container {
-        background-color: orange;
-        min-height: 50rem;
-        padding: 3rem;
+        display: grid;
+        gap: 3rem;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        article {
+          background-color: purple;
+          min-height: 200px;
+          border-radius: 1rem;
+          .head {
+            div {
+              aspect-ratio: 16/9;
+              img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+              }
+            }
+          }
+          .foot {
+            height: 100%;
+            height: 10rem;
+            text-align: center;
+            padding-top: 2.5rem;
+          }
+        }
       }
     }
   }

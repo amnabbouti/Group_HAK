@@ -83,18 +83,25 @@ if (isset($data['results']) && count($data['results']) > 0) {
             </div>
         </section>
         <section class="planets">
+            <div class="container">
 
+                <?php foreach ($imageUrls as $photo): ?>
+                    <article>
+                        <div class="head">
+                            <div>
+                                <a href="#">
+                                    <img src="<?= $photo; ?>" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="foot">
+                            <h3>Name planet</h3>
+                            <p>Small description</p>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
 
-            <?php foreach ($imageUrls as $photo): ?>
-                <div class="container">
-                    <ul>
-                        <li><a href="#"></a><img src="<?= $photo; ?>" alt=""></li>
-                    </ul>
-                </div>
-            <?php endforeach; ?>
-
-
-
+            </div>
         </section>
     </main>
     <footer>

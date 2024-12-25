@@ -1,5 +1,22 @@
 <?php
 include_once "includes/css_js.inc.php";
+// include("data_planets.php");
+
+ini_set("display_errors", 1);
+ini_set("display_startup_errors", 1);
+error_reporting(E_ALL);
+
+// print "<pre>";
+// var_dump($planet_images);
+// print "</pre>";
+
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,9 +69,17 @@ include_once "includes/css_js.inc.php";
             </div>
         </section>
         <section class="planets">
-            <div class="container">
-                <h3>GRID of all the planets in db with pagination</h3>
-            </div>
+
+
+            <?php foreach ($planet_images as $planet_image): ?>
+                <div class="container">
+                    <a href="#"></a>
+                    <img src="<?php echo $planet_image; ?>" alt="">
+                </div>
+            <?php endforeach; ?>
+
+
+
         </section>
     </main>
     <footer>

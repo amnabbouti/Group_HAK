@@ -9,7 +9,7 @@ include_once "includes/css_js.inc.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miller's World</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
+    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
 </head>
 
@@ -20,7 +20,11 @@ include_once "includes/css_js.inc.php";
                 <input type="text" name="search" id="search" placeholder="Search for a planet...">
                 <button type="submit">Search</button>
             </div>
-            <div><img src="./hak_logo_concept1.svg" alt="Miller's World Logo"></div>
+            <div class="logo">
+                <a href="#logo">
+                    <img src="public/hak_logo_concept1.svg" alt="Miller's World Logo">
+                </a>
+            </div>
             <div>
                 <ul class="nav_links">
                     <li><a href="#">Add a planet</a></li>

@@ -21,7 +21,7 @@ include_once "includes/css_js.inc.php";
                 <button type="submit">Search</button>
             </div>
             <div class="logo">
-                <a href="#logo">
+                <a href="#">
                     <img src="public/hak_logo_concept1.svg" alt="Miller's World Logo">
                 </a>
             </div>
@@ -35,8 +35,8 @@ include_once "includes/css_js.inc.php";
         </nav>
     </header>
     <main>
-        <?= "php works on the main" ?>
-        <section>
+        <!--php works on the main -->
+        <section class="featured-banner">
             <div id="picture_of_the_month">
                 <!-- TODO -> Picture of the month links to the detail.php of that picture -->
                 <a href="#">

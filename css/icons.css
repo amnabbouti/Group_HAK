@@ -14,7 +14,6 @@
 [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: "icomoon" !important;
-  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -46,4 +45,16 @@
 }
 .icon-star-half:before {
   content: "\e9d8";
+}
+.icon-hak_logo_concept1:before {
+  content: "\e900";
+}
+.icon-cross:before {
+  content: "\ea0f";
+}
+.icon-flickr:before {
+  content: "\eaa3";
+}
+.icon-earth:before {
+  content: "\e9ca";
 }

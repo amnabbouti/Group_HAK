@@ -1,16 +1,12 @@
 @import url("./reset.css");
 @import url("./icons.css");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
-
-:root{
-    font-size: 62.5%;
-    --soft-orange: hsl(35, 77%, 62%);
-    --background-header: #FFF8DC;
-    --buttons-color: #1d3557;
+:root {
+  font-size: 62.5%;
+  --soft-orange: hsl(35, 77%, 62%);
 }
-
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 body *{
@@ -151,17 +147,93 @@ body{
         width: 100%;
         height: 5vh;
     }
-    
-    #grid_planets{
-        background-color: lightgray;
-        width: 100%;
-        height: 40vh;
+  }
+.socials {
+    background-color: lightblue;
+    .container {
+        padding: 1rem;
+        ul {
+            display: flex;
+            justify-content: space-around;
+            font-size: 3rem;
+            li {
+                a {
+                    text-decoration: none;
+                    color: white;
+                }
+            }
+        }
     }
-    
-    footer{
-        background-color: lightseagreen;
-        width: 100%;
-        height: 100%;
+}
+.planets {
+    min-height: 20rem;
+    padding: 2rem 0;
+    .container {
+        display: grid;
+        gap: 3rem;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        article {
+            background-color: purple;
+            min-height: 200px;
+            border-radius: 1rem;
+            .head {
+                div {
+                    aspect-ratio: 16/9;
+                    img {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                    }
+                }
+            }
+            .foot {
+                height: 100%;
+                height: 10rem;
+                text-align: center;
+                padding-top: 2.5rem;
+            }
+        }
+    }
+}
+.pagination {
+    background-color: orange;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    ul {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+    }
+    a {
+        text-decoration: none;
+        padding: 5px 10px;
+        background-color: #f1f1f1;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        &:hover {
+            background-color: #ddd;
+        }
+        &.active {
+            font-weight: bold;
+            background-color: #4caf50;
+            color: white;
+        }
+    }
+}
+}
+footer {
+    background-color: blue;
+    .container {
+        display: flex;
+        justify-content: space-between;
         padding: 3rem;
+        ul {
+            display: flex;
+            gap: 2rem;
+        }
     }
+}
 }

@@ -78,7 +78,7 @@ body{
                     background-color: #1d1d1d;
                     color: #ffffff;
                     border: 1px solid #6c757d;
-                    border-radius: 8px;
+                    border-radius: 4px;
                     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
                     outline: none;
                     transition: all 0.3s ease-in-out;
@@ -102,8 +102,8 @@ body{
                 color: #ffffff;
                 background-color: #343a40;
                 padding: 1rem 3rem;
-                border: 1px solid #17d4fc;
-                border-radius: 30px;
+                border: 1px solid #6c757d;
+                border-radius: 4px;
                 cursor: pointer;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                 text-transform: uppercase;
@@ -135,7 +135,35 @@ body{
             overflow: hidden;
         }
         
-        .featured-banner::after{
+        /* .featured-banner::after{ */
+        /*     content: ""; */
+        /*     position: absolute; */
+        /*     top: 0; */
+        /*     left: 0; */
+        /*     right: 0; */
+        /*     bottom: 0; */
+        /*     z-index: 2; */
+        /*     background: linear-gradient( */
+        /*             to top, */
+        /*             rgba(0, 0, 0, 1) 5%, */
+        /*             rgba(0, 0, 0, 0.9) 15%, */
+        /*             rgba(0, 0, 0, 0.8) 25%, */
+        /*             rgba(0, 0, 0, 0.7) 35%, */
+        /*             rgba(0, 0, 0, 0.6) 45%, */
+        /*             rgba(0, 0, 0, 0.5) 55%, */
+        /*             rgba(0, 0, 0, 0.4) 65%, */
+        /*             rgba(0, 0, 0, 0.3) 75%, */
+        /*             rgba(0, 0, 0, 0.2) 85%, */
+        /*             rgba(0, 0, 0, 0.1) 95%, */
+        /*             rgba(0, 0, 0, 0) 100% */
+        /*     ); */
+        /* } */
+        
+        #picture_of_the_month{
+            position: relative;
+        }
+        
+        #picture_of_the_month::after{
             content: "";
             position: absolute;
             top: 0;
@@ -146,9 +174,9 @@ body{
             background: linear-gradient(
                     to top,
                     rgba(0, 0, 0, 1) 5%,
-                    rgba(0, 0, 0, 0.9) 15%,
-                    rgba(0, 0, 0, 0.8) 25%,
-                    rgba(0, 0, 0, 0.7) 35%,
+                    rgba(0, 0, 0, 0.9) 25%,
+                    rgba(0, 0, 0, 0.8) 35%,
+                    rgba(0, 0, 0, 0.7) 40%,
                     rgba(0, 0, 0, 0.6) 45%,
                     rgba(0, 0, 0, 0.5) 55%,
                     rgba(0, 0, 0, 0.4) 65%,
@@ -159,12 +187,12 @@ body{
             );
         }
         
-        #picture_of_the_month{
-            img{
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
+        #picture_of_the_month img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative; /* Ensure the image is below the gradient */
+            z-index: 1; /* Position the image below the gradient */
         }
         
         .featured-banner .content{
@@ -386,6 +414,111 @@ footer{
             color: rgba(255, 255, 255, 0.8);
             font-size: 1.4rem;
             padding: 0.5rem 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px){
+    body{
+        header{
+            padding: 1rem 2rem;
+            
+            nav{
+                .nav_links{
+                    display: none;
+                }
+            }
+        }
+        
+        main{
+            .featured-banner{
+                height: 600px;
+                
+                .content{
+                    bottom: 10rem;
+                    left: 5rem;
+                    max-width: 60%;
+                }
+            }
+            
+            .planets{
+                padding: 10rem 10rem;
+                
+                .container{
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px){
+    body{
+        header{
+            padding: 1rem 2rem;
+            
+            nav{
+                .search input{
+                    font-size: 1.5rem;
+                    padding: 0.5rem;
+                }
+                
+                button{
+                    font-size: 1.2rem;
+                    padding: 0.5rem 1rem;
+                }
+            }
+        }
+        
+        main{
+            display: contents;
+            
+            .featured-banner{
+                display: contents;
+                
+                .content{
+                    text-align: left;
+                    max-width: 100%;
+                    position: unset;
+                    padding: 4rem;
+                    
+                    h3{
+                        font-size: 4rem;
+                    }
+                    
+                    p{
+                        font-size: 1.6rem;
+                    }
+                    
+                    button{
+                        Width: 100%;
+                        Padding: 1.2rem;
+                        font-size: 1.2rem;
+                        
+                    }
+                    
+                }
+                
+                
+            }
+            
+            .socials{
+                padding: 5rem;
+            }
+            
+            .planets{
+                .container{
+                    grid-template-columns: 1fr;
+                }
+            }
+        }
+    }
+    
+    footer{
+        .container{
+            flex-direction: column;
+            justify-content: center;
         }
     }
 }

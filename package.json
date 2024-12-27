@@ -9,7 +9,7 @@
     "build": "vite build",
     "build:php": "vite build --config vite.config-with-php.js",
     "preview": "vite preview --open --host",
-    "preview:php": "php -S localhost:8080"
+    "preview:php": "php -S localhost:8888"
   },
   "author": "David Verhulst",
   "license": "ISC"

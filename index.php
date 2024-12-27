@@ -25,7 +25,7 @@ if (isset($data['results']) && count($data['results']) > 0) {
 }
 
 
-$itemsPerPage = 6;
+$itemsPerPage = 9;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $totalItems = count($imageUrls);
 $totalPages = ceil($totalItems / $itemsPerPage);
@@ -55,9 +55,9 @@ $nextPage = ($page < $totalPages) ? $page + 1 : null;
                 <input type="text" name="search" id="search" placeholder="Search for a planet...">
                 <button type="submit">Search</button>
             </div>
-                <a href="#" class="logo">
-                    <img src="public/hak_logo_concept1.svg" alt="Miller's World Logo">
-                </a>
+            <a href="#" class="logo">
+                <img src="public/hak_logo_concept1.svg" alt="Miller's World Logo">
+            </a>
             <div>
                 <ul class="nav_links">
                     <li><a href="#">Add a planet</a></li>
@@ -72,10 +72,24 @@ $nextPage = ($page < $totalPages) ? $page + 1 : null;
             <div id="picture_of_the_month">
                 <a href="#">
                     <img src="public/image_moon1.jpg" alt="Image of a Moon">
-                    <h3>Picture of the month</h3>
-                    <p>Name - Description/Article of planet</p>
                 </a>
             </div>
+
+            <div class="content">
+                <h3>Europa</h3>
+                <p>Europa, a captivating moon of Jupiter, renowned for its strikingly icy surface that hints at an
+                    intriguing geological history, and the strong possibility of a subsurface ocean beneath its frozen
+                    crust, making it one of the most promising candidates for extraterrestrial life in our solar
+                    system.
+                </p>
+
+                <button>Explore more</button>
+            </div>
+        </section>
+
+
+        <section class="socials">
+            <h3>social section </h3>
         </section>
 
         <section class="planets">

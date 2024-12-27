@@ -7,6 +7,10 @@
     --soft-orange: hsl(35, 77%, 62%);
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
 *{
     box-sizing: border-box;
 }

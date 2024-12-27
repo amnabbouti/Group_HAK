@@ -83,7 +83,9 @@ $nextPage = ($page < $totalPages) ? $page + 1 : null;
                     system.
                 </p>
 
-                <button>Explore more</button>
+                <a href="#planets">
+                    <button>Explore More</button>
+                </a>
             </div>
         </section>
 
@@ -93,7 +95,7 @@ $nextPage = ($page < $totalPages) ? $page + 1 : null;
         </section>
 
         <section class="planets">
-            <div class="container">
+            <div class="container" id="planets">
                 <?php foreach ($paginatedItems as $photo): ?>
                     <article>
                         <div class="head">

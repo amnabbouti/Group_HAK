@@ -1,141 +1,21 @@
-@import url("./reset.css");
-@import url("./icons.css");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
-
-:root{
-    font-size: 62.5%;
-    --soft-orange: hsl(35, 77%, 62%);
-}
-
-html{
-    scroll-behavior: smooth;
-}
-
-*{
-    box-sizing: border-box;
-}
-
-body *{
-    line-height: calc(2px + 2ex + 2px);
-    font-size: 2rem;
-}
-
 body{
-    background-color: black;
-    
-    header{
-        background-color: #0a152c;
-        box-shadow: 0 4px 20px rgb(0, 0, 0);
-        position: sticky;
-        padding: 1rem 5rem;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        
-        nav{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            
-            .logo{
-                a img{
-                    width: 50px;
-                    height: 50px;
-                }
-            }
-            
-            .nav_links{
-                display: flex;
-                gap: 2rem;
-                
-                li a{
-                    font-family: 'Inter', sans-serif;
-                    font-weight: bold;
-                    font-size: 1.5rem;
-                    color: #ffffff;
-                    text-decoration: none;
-                    /* background-color: var(--buttons-color); */
-                    padding: 1.2rem 2rem;
-                    /* border-radius: 4px; */
-                    /* box-shadow: 0 4px 10px rgba(7, 64, 248, 0.87); */
-                    transition: all 0.3s ease-in-out;
-                    
-                    &:hover{
-                        color: #17d4fc;
-                    }
-                }
-            }
-            
-            .search{
-                display: flex;
-                gap: 1.5rem;
-                align-items: center;
-                
-                input{
-                    font-size: 1.6rem;
-                    padding: 1rem 1.5rem;
-                    background-color: #1d1d1d;
-                    color: #ffffff;
-                    border: 1px solid #6c757d;
-                    border-radius: 4px;
-                    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
-                    outline: none;
-                    transition: all 0.3s ease-in-out;
-                    
-                    &:hover, :focus{
-                        background-color: #2c2c2c;
-                        color: #f8f9fa;
-                        border: 1px solid #17d4fc;
-                        box-shadow: 0 0 10px rgba(23, 212, 252, 0.8);
-                    }
-                    
-                    &::placeholder{
-                        color: #6c757d;
-                        font-size: 1.4rem;
-                    }
-                }
-            }
-            
-            button{
-                font-size: 1.4rem;
-                color: #ffffff;
-                background-color: #343a40;
-                padding: 1rem 3rem;
-                border: 1px solid #6c757d;
-                border-radius: 4px;
-                cursor: pointer;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                transition: all 0.3s ease-in-out;
-                
-                &:hover{
-                    background-color: #495057;
-                    color: #17d4fc;
-                    box-shadow: 0px 5px 15px rgba(23, 212, 252, 0.6);
-                }
-            }
-        }
-    }
-    
     main{
-        background-color: black;
-        background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
-        background-repeat: repeat;
-        
         .featured-banner{
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            height: 800px;
+            height: 75vh;
             position: relative;
             align-items: flex-end;
-            box-shadow: 0 4px 20px rgb(0, 0, 0);
             overflow: hidden;
         }
         
-        /* .featured-banner::after{ */
+        #picture_of_the_month{
+            position: relative;
+            height: 75vh;
+        }
+        
+        /* #picture_of_the_month::after{ */
         /*     content: ""; */
         /*     position: absolute; */
         /*     top: 0; */
@@ -143,49 +23,21 @@ body{
         /*     right: 0; */
         /*     bottom: 0; */
         /*     z-index: 2; */
-        /*     background: linear-gradient( */
-        /*             to top, */
-        /*             rgba(0, 0, 0, 1) 5%, */
-        /*             rgba(0, 0, 0, 0.9) 15%, */
-        /*             rgba(0, 0, 0, 0.8) 25%, */
-        /*             rgba(0, 0, 0, 0.7) 35%, */
-        /*             rgba(0, 0, 0, 0.6) 45%, */
-        /*             rgba(0, 0, 0, 0.5) 55%, */
-        /*             rgba(0, 0, 0, 0.4) 65%, */
-        /*             rgba(0, 0, 0, 0.3) 75%, */
-        /*             rgba(0, 0, 0, 0.2) 85%, */
-        /*             rgba(0, 0, 0, 0.1) 95%, */
-        /*             rgba(0, 0, 0, 0) 100% */
-        /*     ); */
+        /*     !* background: linear-gradient( *! */
+        /*     !*         to top, *! */
+        /*     !*         rgba(0, 0, 0, 1) 5%, *! */
+        /*     !*         rgba(0, 0, 0, 0.9) 25%, *! */
+        /*     !*         rgba(0, 0, 0, 0.8) 35%, *! */
+        /*     !*         rgba(0, 0, 0, 0.7) 40%, *! */
+        /*     !*         rgba(0, 0, 0, 0.6) 45%, *! */
+        /*     !*         rgba(0, 0, 0, 0.5) 55%, *! */
+        /*     !*         rgba(0, 0, 0, 0.4) 65%, *! */
+        /*     !*         rgba(0, 0, 0, 0.3) 75%, *! */
+        /*     !*         rgba(0, 0, 0, 0.2) 85%, *! */
+        /*     !*         rgba(0, 0, 0, 0.1) 95%, *! */
+        /*     !*         rgba(0, 0, 0, 0) 100% *! */
+        /*     !* ); *! */
         /* } */
-        
-        #picture_of_the_month{
-            position: relative;
-        }
-        
-        #picture_of_the_month::after{
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 2;
-            background: linear-gradient(
-                    to top,
-                    rgba(0, 0, 0, 1) 5%,
-                    rgba(0, 0, 0, 0.9) 25%,
-                    rgba(0, 0, 0, 0.8) 35%,
-                    rgba(0, 0, 0, 0.7) 40%,
-                    rgba(0, 0, 0, 0.6) 45%,
-                    rgba(0, 0, 0, 0.5) 55%,
-                    rgba(0, 0, 0, 0.4) 65%,
-                    rgba(0, 0, 0, 0.3) 75%,
-                    rgba(0, 0, 0, 0.2) 85%,
-                    rgba(0, 0, 0, 0.1) 95%,
-                    rgba(0, 0, 0, 0) 100%
-            );
-        }
         
         #picture_of_the_month img{
             width: 100%;
@@ -197,12 +49,11 @@ body{
         
         .featured-banner .content{
             position: absolute;
-            bottom: 20rem;
+            bottom: 5rem;
             left: 15rem;
             z-index: 3;
             color: white;
-            max-width: 35%;
-            font-family: 'Inter', sans-serif;
+            max-width: 50%;
             
             h3{
                 font-size: 7rem;
@@ -244,11 +95,11 @@ body{
 }
 
 .socials{
-    background-color: transparent;
-    height: 10vh;
+    height: 20vh;
     color: white;
     padding: 1rem 2rem;
     text-align: center;
+    background-color: #252525;
     
     .container{
         padding: 1rem;
@@ -270,7 +121,7 @@ body{
 
 .planets{
     min-height: 100vh;
-    padding: 5rem 15rem;
+    padding: 5rem 20rem;
     
     .container{
         display: grid;
@@ -391,33 +242,6 @@ body{
 }
 
 
-footer{
-    background-color: #1d3557;
-    color: white;
-    padding: 2rem 2rem;
-    text-align: center;
-    box-shadow: 0 4px 20px rgb(252, 241, 241);
-    
-    .container{
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        gap: 2rem;
-    }
-    
-    ul{
-        display: flex;
-        gap: 1.5rem;
-        
-        li a{
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.4rem;
-            padding: 0.5rem 1rem;
-        }
-    }
-}
-
 @media screen and (max-width: 1024px){
     body{
         header{
@@ -455,22 +279,6 @@ footer{
 
 @media screen and (max-width: 768px){
     body{
-        header{
-            padding: 1rem 2rem;
-            
-            nav{
-                .search input{
-                    font-size: 1.5rem;
-                    padding: 0.5rem;
-                }
-                
-                button{
-                    font-size: 1.2rem;
-                    padding: 0.5rem 1rem;
-                }
-            }
-        }
-        
         main{
             display: contents;
             
@@ -499,8 +307,6 @@ footer{
                     }
                     
                 }
-                
-                
             }
             
             .socials{
@@ -508,6 +314,8 @@ footer{
             }
             
             .planets{
+                padding: 5rem;
+                
                 .container{
                     grid-template-columns: 1fr;
                 }
@@ -515,10 +323,4 @@ footer{
         }
     }
     
-    footer{
-        .container{
-            flex-direction: column;
-            justify-content: center;
-        }
-    }
 }

@@ -1,20 +1,42 @@
 <?php
 include_once "includes/css_js.inc.php";
 require("functions.php");
+require 'vendor/autoload.php';
+require 'vendor/autoload.php';
 
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
-$accessKey = 'vGiBVlx1ebXeCPSQrofSg68UGu9A_BH2hDitylo3gUU';
-$endpoint = 'https://api.unsplash.com/search/photos';
 
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+// image of the day from nasa API
+$nasaApiKey = $_ENV['NASA_API_KEY'];
+$unsplashAccessKey = $_ENV['UNSPLASH_ACCESS_KEY'];
+$nasaApiUrl = "https://api.nasa.gov/planetary/apod?api_key={$nasaApiKey}";
+$response = file_get_contents($nasaApiUrl);
+$nasaData = json_decode($response, true);
+if (isset($nasaData['error']) || !$response) {
+    $featuredTitle = "Astronomy Picture of the Day Unavailable";
+    $featuredDescription = "no description available";
+    $featuredImage = "";
+    $mediaType = "error";
+} else {
+    $featuredTitle = $nasaData['title'] ?? "Astronomy Picture of the Day";
+    $featuredDescription = $nasaData['explanation'] ?? "Explore the cosmos with miller's world!";
+    $featuredImage = $nasaData['url'] ?? "";
+    $mediaType = $nasaData['media_type'] ?? "image";
+}
+
+// unsplash for testing
 $query = 'planet';
-$url = $endpoint . '?query=' . urlencode($query) . '&client_id=' . $accessKey;
-
-$response = file_get_contents($url);
+$unsplashApiUrl = "https://api.unsplash.com/search/photos?query=" . urlencode($query) . "&client_id={$unsplashAccessKey}";
+$response = file_get_contents($unsplashApiUrl);
 $data = json_decode($response, true);
-
 if (isset($data['results']) && count($data['results']) > 0) {
     $imageUrls = [];
     foreach ($data['results'] as $photo) {
@@ -23,7 +45,6 @@ if (isset($data['results']) && count($data['results']) > 0) {
 } else {
     echo "No planets found.";
 }
-
 
 $itemsPerPage = 9;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -45,6 +66,7 @@ $nextPage = ($page < $totalPages) ? $page + 1 : null;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miller's World</title>
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
+    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>  <!--added a path for global css -->
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
 </head>
 
@@ -71,27 +93,31 @@ $nextPage = ($page < $totalPages) ? $page + 1 : null;
         <section class="featured-banner">
             <div id="picture_of_the_month">
                 <a href="#">
-                    <img src="public/image_moon1.jpg" alt="Image of a Moon">
+                    <?php if ($mediaType === "image"): ?>
+                        <img src="<?= $featuredImage; ?>"
+                             alt="<?= $featuredTitle; ?>">
+                    <?php elseif ($mediaType === "video"): ?>
+                        <video controls>
+                            <source src="<?= $featuredImage; ?>" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    <?php else: ?>
+                        <p>No media available for today.</p>
+                    <?php endif; ?>
                 </a>
             </div>
 
             <div class="content">
-                <h3>Europa</h3>
-                <p>Europa, a captivating moon of Jupiter, renowned for its strikingly icy surface that hints at an
-                    intriguing geological history, and the strong possibility of a subsurface ocean beneath its frozen
-                    crust, making it one of the most promising candidates for extraterrestrial life in our solar
-                    system.
-                </p>
+                <h3><?= $featuredTitle; ?></h3>
+                <p><?= $featuredDescription; ?></p>
 
                 <a href="#planets">
                     <button>Explore More</button>
                 </a>
             </div>
         </section>
-
-
         <section class="socials">
-            <h3>social section </h3>
+            empty space for extra info
         </section>
 
         <section class="planets">
@@ -100,7 +126,7 @@ $nextPage = ($page < $totalPages) ? $page + 1 : null;
                     <article>
                         <div class="head">
                             <div>
-                                <a href="#">
+                                <a href="detail.php">
                                     <img src="<?= $photo; ?>" alt="">
                                 </a>
                             </div>

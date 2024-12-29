@@ -5,4 +5,7 @@ vendor/
 .db
 .idea/
 .vscode/
+# Ignore .env file
+.env
+
 

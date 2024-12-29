@@ -1,60 +1,39 @@
 <?php
 include_once "includes/css_js.inc.php";
-require("functions.php");
+require 'functions.php';
 require 'vendor/autoload.php';
-require 'vendor/autoload.php';
-
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
-
 use Dotenv\Dotenv;
 
+// Load environment variables
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-// image of the day from nasa API
 $nasaApiKey = $_ENV['NASA_API_KEY'];
 $unsplashAccessKey = $_ENV['UNSPLASH_ACCESS_KEY'];
-$nasaApiUrl = "https://api.nasa.gov/planetary/apod?api_key={$nasaApiKey}";
-$response = file_get_contents($nasaApiUrl);
-$nasaData = json_decode($response, true);
-if (isset($nasaData['error']) || !$response) {
-    $featuredTitle = "Astronomy Picture of the Day Unavailable";
-    $featuredDescription = "no description available";
-    $featuredImage = "";
-    $mediaType = "error";
-} else {
-    $featuredTitle = $nasaData['title'] ?? "Astronomy Picture of the Day";
-    $featuredDescription = $nasaData['explanation'] ?? "Explore the cosmos with miller's world!";
-    $featuredImage = $nasaData['url'] ?? "";
-    $mediaType = $nasaData['media_type'] ?? "image";
-}
 
-// unsplash for testing
+// NASA API
+$nasaData = getNasaApodData($nasaApiKey);
+$featuredTitle = $nasaData['title'];
+$featuredDescription = $nasaData['description'];
+$featuredImage = $nasaData['image'];
+$mediaType = $nasaData['mediaType'];
+
+// Unsplash API
 $query = 'planet';
-$unsplashApiUrl = "https://api.unsplash.com/search/photos?query=" . urlencode($query) . "&client_id={$unsplashAccessKey}";
-$response = file_get_contents($unsplashApiUrl);
-$data = json_decode($response, true);
-if (isset($data['results']) && count($data['results']) > 0) {
-    $imageUrls = [];
-    foreach ($data['results'] as $photo) {
-        $imageUrls[] = $photo['urls']['regular'];
-    }
-} else {
-    echo "No planets found.";
-}
+$imageUrls = getUnsplashImages($query, $unsplashAccessKey);
 
+// Pagination
 $itemsPerPage = 9;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$totalItems = count($imageUrls);
-$totalPages = ceil($totalItems / $itemsPerPage);
-$startIndex = ($page - 1) * $itemsPerPage;
-$paginatedItems = array_slice($imageUrls, $startIndex, $itemsPerPage);
-$previousPage = ($page > 1) ? $page - 1 : null;
-$nextPage = ($page < $totalPages) ? $page + 1 : null;
-
+$pagination = paginate($imageUrls, $itemsPerPage, $page);
+$paginatedItems = $pagination['items'];
+$previousPage = $pagination['previousPage'];
+$nextPage = $pagination['nextPage'];
+$totalPages = $pagination['totalPages'];
 ?>
 
 <!DOCTYPE html>

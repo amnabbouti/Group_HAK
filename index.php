@@ -95,6 +95,8 @@ if ($page > $totalPages) {
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
     <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script type="module" src="/public/main.js" defer></script>
 </head>
 
 <body>
@@ -165,11 +167,28 @@ if ($page > $totalPages) {
                 </a>
             </div>
         </section>
-        <Section class="socials">
-
-        
-        </Section>
-        
+        <section class="socials">
+            <div class="curiosity-model">
+                <p id="flight">Discover Space With Miller's World</p>
+                <model-viewer
+                      id="curiosity"
+                      src="public/assets/models/space_shuttle.glb"
+                      alt="Curiosity Rover"
+                      shadow-intensity="1"
+                      background-color="#000000"
+                      camera-orbit="-75deg auto 1m"
+                      min-camera-orbit="auto auto 20m"
+                      max-camera-orbit="auto auto 20m"
+                      exposure="1"
+                      ground-plane
+                      style="width: 300px; height: 200px; overflow: hidden"
+                      shadow-intensity="1"
+                      environment-image="neutral"
+                      scale="0.5 0.5 0.5"
+                      field-of-view="90deg">
+                </model-viewer>
+            </div>
+        </section>
         <section class="planets">
             <div class="container" id="planets">
                 <?php foreach ($paginatedItems as $planet): ?>

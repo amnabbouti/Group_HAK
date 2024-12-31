@@ -233,13 +233,19 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                                 }
                                 ?></td>
                         </tr>
-
-
                     </table>
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+                        <a href="index.php" class="bt"
+                           style="text-align: center;text-wrap: nowrap; padding: 1rem; width: 170px; text-decoration: none; background-color: #0c0c3b; color: white; border-radius: 5px;">Back
+                            to Planets</a>
+                        <a href="#" class="bt"
+                           style="text-align: center; padding: 1rem; width: 170px; text-decoration: none; background-color: #0c0c3b; color: white; border-radius: 5px;">Add
+                            image</a>
+                    </div>
+
                 </div>
             </div>
         </section>
-        <a href="index.php" class="button">Back to Planets</a>
     </main>
     <footer>
         <div class="container">

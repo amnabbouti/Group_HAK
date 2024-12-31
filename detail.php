@@ -13,26 +13,14 @@ error_reporting(E_ALL);
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id'];
-
-    try {
-        $db = connectToDB();
-        $sql = "SELECT * FROM planets WHERE id = :id";
-        $stmt = $db->prepare($sql);
-        $stmt->execute([':id' => $id]);
-        $planet = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!$planet) {
-            echo "<p>No planet details found for ID: {$id}</p>";
-            exit;
-        }
-    } catch (PDOException $e) {
-        error_log("Error fetching planet details: " . $e->getMessage());
-        die("Error: Could not fetch details.");
+    $planet = get_planet_by_id($id);
+    if (!$planet) {
+        echo "<p>No planet details found for ID: {$id}</p>";
+        exit;
     }
 } else {
     die("<p>Invalid or missing planet ID.</p>");
 }
-
-
 ?>
 
 <!DOCTYPE html>

@@ -70,17 +70,6 @@ if (isset($_POST['mail'])) {
             </div>
         </div>
     </section>
-    <footer>
-        <div class="container">
-            <h3>Logo HAK</h3>
-            <?= "php works on the main & footer" ?>
-            <ul>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </div>
-    </footer>
 </body>
 
 </html>

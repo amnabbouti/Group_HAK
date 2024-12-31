@@ -210,7 +210,10 @@ if ($page > $totalPages) {
     
     <footer>
         <div class="container">
-            <h3>Logo HAK</h3>
+
+            <div class="logo">
+                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
+            </div>
             <?= "php works on the main & footer" ?>
             <ul>
                 <li><a href="#">Terms of Service</a></li>

@@ -76,7 +76,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <model-viewer
                           src="<?= $planet['model_path'] ?>"
                           alt="<?= $planet['name'] ?> Model"
-                          start-rotation="0 0 0"
                           auto-rotate
                           auto-rotate-speed="4"
                           camera-controls

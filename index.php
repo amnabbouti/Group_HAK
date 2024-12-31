@@ -65,8 +65,8 @@ $nextPage = ($page < $totalPages) ? $page + 1 : null;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miller's World</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>  <!--added a path for global css -->
+    <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
+    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>" /> <!--added a path for global css -->
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
 </head>
 
@@ -95,7 +95,7 @@ $nextPage = ($page < $totalPages) ? $page + 1 : null;
                 <a href="#">
                     <?php if ($mediaType === "image"): ?>
                         <img src="<?= $featuredImage; ?>"
-                             alt="<?= $featuredTitle; ?>">
+                            alt="<?= $featuredTitle; ?>">
                     <?php elseif ($mediaType === "video"): ?>
                         <video controls>
                             <source src="<?= $featuredImage; ?>" type="video/mp4">
@@ -155,18 +155,6 @@ $nextPage = ($page < $totalPages) ? $page + 1 : null;
             </div>
         </section>
     </main>
-
-    <footer>
-        <div class="container">
-            <h3>Logo HAK</h3>
-            <?= "php works on the main & footer" ?>
-            <ul>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </div>
-    </footer>
 </body>
 
 </html>

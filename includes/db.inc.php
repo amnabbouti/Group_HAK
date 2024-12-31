@@ -1,10 +1,10 @@
 <?php
 function connectToDB()
 {
-    $db_host = 'localhost';
+    $db_host = '127.0.0.1';
     $db_user = 'root';
     $db_password = 'root';
-    $db_db = 'db_planets';
+    $db_db = 'hak';
     $db_port = 8889;
 
     try {

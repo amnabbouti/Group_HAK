@@ -1,41 +1,89 @@
 <?php
-include_once "includes/css_js.inc.php";
-require 'functions.php';
-require 'vendor/autoload.php';
+// Display errors for development
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
-use Dotenv\Dotenv;
+// Include necessary files and libraries
+require "includes/db.inc.php";
+include_once "includes/css_js.inc.php";
+require 'functions.php';
+require 'vendor/autoload.php';
+$db = connectToDB();
 
-// Load environment variables
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
-$nasaApiKey = $_ENV['NASA_API_KEY'];
-$unsplashAccessKey = $_ENV['UNSPLASH_ACCESS_KEY'];
-
-// NASA API
-$nasaData = getNasaApodData($nasaApiKey);
+// Get featured NASA data
+$nasaData = getNasaFeaturedData();
 $featuredTitle = $nasaData['title'];
 $featuredDescription = $nasaData['description'];
 $featuredImage = $nasaData['image'];
 $mediaType = $nasaData['mediaType'];
 
-// Unsplash API
-$query = 'planet';
-$imageUrls = getUnsplashImages($query, $unsplashAccessKey);
+// query filters and parameters
+$filters = [];
+$params = [];
+
+// Sorting logic
+$orderBy = "ORDER BY id ASC"; //by id
+if (!empty($_GET['sort']) && in_array($_GET['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
+    $orderBy = "ORDER BY " . htmlspecialchars($_GET['sort'], ENT_QUOTES, 'UTF-8') . " ASC";
+}
+
+// Search functionality
+if (!empty($_GET['name'])) {
+    $name = $_GET['name'];
+    $filters[] = "name LIKE :name";
+    $params[':name'] = "%$name%";
+}
+
+// Filtering by moons count
+if (isset($_GET['moons']) && !empty($_GET['moons'])) {
+    $moons = $_GET['moons'];
+    if ($moons == 'No Moons') {
+        $filters[] = "moons = 0";
+    } elseif ($moons == '1 Moon') {
+        $filters[] = "moons = 1";
+    } elseif ($moons == 'More than 1 Moon') {
+        $filters[] = "moons > 1";
+    }
+}
+
+// query and count query using helper functions
+list($query, $params) = buildPlanetQuery($filters, $params, $orderBy);
+$countQuery = buildCountQuery($filters, $params);
+
+// paginated planet data
+$stmt = $db->prepare($query);
+foreach ($params as $key => $value) {
+    $stmt->bindValue($key, $value);
+}
+$stmt->execute();
+$planetData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//total planet count for pagination
+$countStmt = $db->prepare($countQuery);
+foreach ($params as $key => $value) {
+    $countStmt->bindValue($key, $value);
+}
+$countStmt->execute();
+$totalPlanets = $countStmt->fetchColumn();
+$itemsPerPage = 16;
+$totalPages = ceil($totalPlanets / $itemsPerPage);
+
+// current page number (integer)
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
 // Pagination
-$itemsPerPage = 9;
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$pagination = paginate($imageUrls, $itemsPerPage, $page);
+$pagination = paginate($planetData, $itemsPerPage, $page);
 $paginatedItems = $pagination['items'];
 $previousPage = $pagination['previousPage'];
 $nextPage = $pagination['nextPage'];
-$totalPages = $pagination['totalPages'];
-?>
 
+// Redirect to the last page if page exceeds
+if ($page > $totalPages) {
+    header("Location: ?page=$totalPages");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +93,7 @@ $totalPages = $pagination['totalPages'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miller's World</title>
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>  <!--added a path for global css -->
+    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
 </head>
 
@@ -53,11 +101,15 @@ $totalPages = $pagination['totalPages'];
     <header>
         <nav>
             <div class="search">
-                <input type="text" name="search" id="search" placeholder="Search for a planet...">
-                <button type="submit">Search</button>
+                <!-- Planet Search -->
+                <form method="get" action="">
+                    <input type="text" name="name" placeholder="Search for a planet..."
+                           value="<?= $_GET['name'] ?? '' ?>">
+                    <button type="submit">Search</button>
+                </form>
             </div>
             <a href="#" class="logo">
-                <img src="public/hak_logo_concept1.svg" alt="Miller's World Logo">
+                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </a>
             <div>
                 <ul class="nav_links">
@@ -68,56 +120,77 @@ $totalPages = $pagination['totalPages'];
             </div>
         </nav>
     </header>
+    
     <main>
+        <section class="filters">
+            <form method="GET" action="">
+                <select name="moons" id="moons">
+                    <option value="">Moon Count</option>
+                    <option
+                          value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
+                        No Moons
+                    </option>
+                    <option value="1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == '1 Moon' ? 'selected' : '' ?>>
+                        1 Moon
+                    </option>
+                    <option
+                          value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
+                        More than 1 Moon
+                    </option>
+                </select>
+                <button type="submit">Filter</button>
+            </form>
+
+        </section>
         <section class="featured-banner">
             <div id="picture_of_the_month">
-                <a href="#">
-                    <?php if ($mediaType === "image"): ?>
-                        <img src="<?= $featuredImage; ?>"
-                             alt="<?= $featuredTitle; ?>">
-                    <?php elseif ($mediaType === "video"): ?>
-                        <video controls>
-                            <source src="<?= $featuredImage; ?>" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    <?php else: ?>
-                        <p>No media available for today.</p>
-                    <?php endif; ?>
-                </a>
+                <?php if ($mediaType === "image"): ?>
+                    <img src="<?= $featuredImage; ?>" alt="<?= $featuredTitle; ?>">
+                <?php elseif ($mediaType === "video"): ?>
+                    <video controls>
+                        <source src="<?= $featuredImage; ?>" type="video/mp4">
+                        Your browser does not support video.
+                    </video>
+                <?php else: ?>
+                    <p>No media available for today.</p>
+                <?php endif; ?>
             </div>
-
+            
             <div class="content">
+                <h2>Picture of The Day</h2>
                 <h3><?= $featuredTitle; ?></h3>
                 <p><?= $featuredDescription; ?></p>
-
                 <a href="#planets">
                     <button>Explore More</button>
                 </a>
             </div>
         </section>
-        <section class="socials">
-            empty space for extra info
-        </section>
+        <Section class="socials">
 
+        
+        </Section>
+        
         <section class="planets">
             <div class="container" id="planets">
-                <?php foreach ($paginatedItems as $photo): ?>
+                <?php foreach ($paginatedItems as $planet): ?>
                     <article>
                         <div class="head">
                             <div>
-                                <a href="detail.php">
-                                    <img src="<?= $photo; ?>" alt="">
+                                <a href="detail.php?id=<?= $planet['id']; ?>">
+                                    <img src="<?= $planet['image'] ?>"
+                                         alt="<?= $planet['name'] ?>">
                                 </a>
                             </div>
                         </div>
                         <div class="foot">
-                            <h3>Name planet</h3>
-                            <p>Small description</p>
+                            <h3><?= $planet['name'] ?></h3>
                         </div>
                     </article>
                 <?php endforeach; ?>
             </div>
         </section>
+
+        <!-- Pagination -->
         <section class="pagination">
             <div class="container">
                 <ul>
@@ -134,7 +207,7 @@ $totalPages = $pagination['totalPages'];
             </div>
         </section>
     </main>
-
+    
     <footer>
         <div class="container">
             <h3>Logo HAK</h3>

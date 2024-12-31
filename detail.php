@@ -44,6 +44,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
     <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
+    <script type="module"
+            src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.0.1/dist/model-viewer.min.js"></script>
+
 </head>
 
 <body>
@@ -54,7 +57,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <button type="submit">Search</button>
             </div>
             <a href="#" class="logo">
-                <img src="public/hak_logo_concept1.svg" alt="Miller's World Logo">
+                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </a>
             <div>
                 <ul class="nav_links">
@@ -69,7 +72,18 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <section class="planet-detail">
             <div class="container">
                 <div class="planet-image">
-                    <img src="<?= $planet['image'] ?>" alt="<?= $planet['name'] ?>">
+                    <h2>Explore the 3D Model of <?= $planet['name'] ?></h2>
+                    <model-viewer
+                          src="<?= $planet['model_path'] ?>"
+                          alt="<?= $planet['name'] ?> Model"
+                          start-rotation="0 0 0"
+                          auto-rotate
+                          auto-rotate-speed="4"
+                          camera-controls
+                          disable-zoom
+                          style="width: 100%; height: 500px;">
+                    </model-viewer>
+                
                 </div>
                 <div class="planet-info-container">
                     <h1><?= $planet['name'] ?></h1>
@@ -85,6 +99,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             </div>
         </section>
         <a href="index.php" class="button">Back to Planets</a>
+        <?php if (!empty($planet['model_path'])): ?>
+            <div style="display: flex; justify-content: center;">
+                <img src="<?= $planet['image'] ?>" alt="<?= $planet['name'] ?>">
+
+            </div>
+        <?php else: ?>
+            <p>No 3D model available for this planet.</p>
+        <?php endif; ?>
     </main>
     <footer>
         <div class="container">

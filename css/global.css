@@ -28,7 +28,7 @@ body *{
 header{
     background-color: black;
     position: sticky;
-    padding: 1rem 5rem;
+    padding: 0.5rem 5rem;
     top: 0;
     left: 0;
     right: 0;
@@ -48,16 +48,15 @@ header{
         
         .nav_links{
             display: flex;
-            gap: 2rem;
+            gap: 1rem;
             
             li a{
                 font-family: 'Inter', sans-serif;
-                font-weight: bold;
                 font-size: 1.5rem;
                 color: #ffffff;
                 text-decoration: none;
                 /* background-color: var(--buttons-color); */
-                padding: 1.2rem 2rem;
+                padding: 1rem 2rem;
                 /* border-radius: 4px; */
                 /* box-shadow: 0 4px 10px rgba(7, 64, 248, 0.87); */
                 transition: all 0.3s ease-in-out;
@@ -70,16 +69,15 @@ header{
         
         .search{
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             align-items: center;
             
             input{
                 font-size: 1rem;
-                padding: 1rem 3rem;
+                padding: 0.7rem 3rem;
                 background-color: #1d1d1d;
                 color: #ffffff;
                 border: 1px solid #6c757d;
-                border-radius: 2px;
                 outline: none;
                 transition: all 0.3s ease-in-out;
                 
@@ -101,9 +99,8 @@ header{
             font-size: 1rem;
             color: #ffffff;
             background-color: #343a40;
-            padding: 1rem 3rem;
+            padding: 0.7rem 2rem;
             border: 1px solid #6c757d;
-            border-radius: 4px;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -119,7 +116,7 @@ header{
 
 
 footer{
-    background-color: #1d3557;
+    background-color: black;
     color: white;
     padding: 2rem 2rem;
     text-align: center;

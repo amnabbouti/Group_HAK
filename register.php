@@ -7,6 +7,7 @@ requiredLoggedOut();
 
 $errors = [];
 
+$username = "";
 $firstname = "";
 $lastname = "";
 $mail = "";
@@ -36,6 +37,10 @@ $password = "";
         <?php endif; ?>
         <div>
             <form method="post" action="register.php">
+                <div class="username">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" value="<?= $username; ?>" />
+                </div>
                 <div class="firstname">
                     <label for="firstname">Firstname</label>
                     <input type="text" id="firstname" name="firstname" value="<?= $firstname; ?>" />

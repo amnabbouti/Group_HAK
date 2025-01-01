@@ -35,7 +35,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
     <script type="module"
-            src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.0.1/dist/model-viewer.min.js"></script>
+            src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.0.1/dist/model-viewer.min.js">
+
+    </script>
+    <script type="module" src="public/main.js" defer></script>
 
 </head>
 
@@ -46,7 +49,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <input type="text" name="search" id="search" placeholder="Search for a planet...">
                 <button type="submit">Search</button>
             </div>
-            <a href="#" class="logo">
+            <a href="index.php" class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </a>
             <div>
@@ -230,7 +233,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                            style="text-align: center; padding: 1rem; width: 170px; text-decoration: none; background-color: #0c0c3b; color: white; border-radius: 5px;">Add
                             image</a>
                     </div>
-
+                
                 </div>
             </div>
         </section>

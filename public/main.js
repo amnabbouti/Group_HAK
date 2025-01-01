@@ -1,5 +1,16 @@
+// Smooth scrolling to the top when clicking logo
+const logo = document.querySelector("header .logo");
+if (logo) {
+    logo.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({top: 0, behavior: "smooth"});
+    });
+}
+
+
+// shuttle
 document.addEventListener("DOMContentLoaded", () => {
-    const shuttle = document.querySelector("model-viewer#curiosity"); // Selecteer het shuttle-element
+    const shuttle = document.querySelector("model-viewer#curiosity");
     const exploreMoreButton = document.querySelector("a[href='#planets'] button");
     const screenHeight = window.innerHeight;
     const screenWidth = window.innerWidth;
@@ -72,5 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
+
 
 

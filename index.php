@@ -110,7 +110,7 @@ if ($page > $totalPages) {
                     <button type="submit">Search</button>
                 </form>
             </div>
-            <a href="#" class="logo">
+            <a href="index.php" class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </a>
             <div>

@@ -1,0 +1,58 @@
+{
+  "_global-!~{005}~.js": {
+    "file": "assets/global-D1AMD5fm.css",
+    "src": "_global-!~{005}~.js"
+  },
+  "admin/fonts/icomoon.svg": {
+    "file": "assets/icomoon-C-EAromZ.svg",
+    "src": "admin/fonts/icomoon.svg"
+  },
+  "admin/js/detail.js": {
+    "file": "assets/detail-DAS1KZO0.js",
+    "name": "detail",
+    "src": "admin/js/detail.js",
+    "isEntry": true
+  },
+  "admin/js/index.js": {
+    "file": "assets/index-CkIKW53M.js",
+    "name": "index",
+    "src": "admin/js/index.js",
+    "isEntry": true,
+    "css": [
+      "assets/index-DOhnUrP3.css"
+    ],
+    "assets": [
+      "assets/icomoon-C-EAromZ.svg"
+    ]
+  },
+  "fonts/icomoon.svg": {
+    "file": "assets/icomoon-BeRJgAey.svg",
+    "src": "fonts/icomoon.svg"
+  },
+  "js/detail.js": {
+    "file": "assets/detail-DfL1thB-.js",
+    "name": "detail",
+    "src": "js/detail.js",
+    "isEntry": true,
+    "css": [
+      "assets/detail-B5bMNnOk.css",
+      "assets/global-D1AMD5fm.css"
+    ],
+    "assets": [
+      "assets/icomoon-BeRJgAey.svg"
+    ]
+  },
+  "js/index.js": {
+    "file": "assets/index-Cb5xb74E.js",
+    "name": "index",
+    "src": "js/index.js",
+    "isEntry": true,
+    "css": [
+      "assets/index-ywdDQcZa.css",
+      "assets/global-D1AMD5fm.css"
+    ],
+    "assets": [
+      "assets/icomoon-BeRJgAey.svg"
+    ]
+  }
+}

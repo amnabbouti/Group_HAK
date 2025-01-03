@@ -1,6 +1,8 @@
 <?php
 require('db.inc.php');
 require('functions.php');
+
+
 ?>
 
 <!DOCTYPE html>

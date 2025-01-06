@@ -99,9 +99,32 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/global.css">
 </head>
 
 <body>
+    <header>
+        <nav>
+            <div class="search">
+                <!-- Planet Search -->
+                <form method="get" action="">
+                    <input type="text" name="name" placeholder="Search for a planet..."
+                           value="<?= $_GET['name'] ?? '' ?>">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <a href="index.php" class="logo">
+                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
+            </a>
+            <div>
+                <ul class="nav_links">
+                    <li><a href="#">Add a planet</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Log In</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
     <section>
         <h1>Register</h1>
         <?php if (count($errors)): ?>
@@ -117,15 +140,15 @@ if (isset($_POST['submit'])) {
             <form method="post" action="register.php">
                 <div class="username">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" value="<?= $username; ?>" />
+                    <input type="text" id="username" name="username" value="<?= $username; ?>"/>
                 </div>
                 <div class="firstname">
                     <label for="firstname">Firstname</label>
-                    <input type="text" id="firstname" name="firstname" value="<?= $firstname; ?>" />
+                    <input type="text" id="firstname" name="firstname" value="<?= $firstname; ?>"/>
                 </div>
                 <div class="lastname">
                     <label for="lastname">Lastname</label>
-                    <input type="text" id="lastname" name="lastname" value="<?= $lastname; ?>" />
+                    <input type="text" id="lastname" name="lastname" value="<?= $lastname; ?>"/>
                 </div>
                 <div class="mail">
                     <label for="mail">E-mail</label>
@@ -133,7 +156,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="password">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" value="<?= $password; ?>" />
+                    <input type="password" id="password" name="password" value="<?= $password; ?>"/>
                 </div>
                 <button type="submit" value="submit" name="submit">Register</button>
             </form>
@@ -143,7 +166,20 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </section>
+    <footer>
+        <div class="container">
 
+            <div class="logo">
+                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
+            </div>
+            <?= "php works on the main & footer" ?>
+            <ul>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 
 </html>

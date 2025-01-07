@@ -3,9 +3,10 @@ ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
-require_once "includes/db.inc.php";
+require("includes/db.inc.php");
 include_once "includes/css_js.inc.php";
 require("functions.inc.php");
+
 
 requiredLoggedOut();
 
@@ -61,9 +62,9 @@ if (isset($_POST['mail'])) {
             </a>
             <div>
                 <ul class="nav_links">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="index.php">HOME</a></li>
+                    <li><a href="#">PPROFILE</a></li>
+                    <li><a href="#">CONTACT US</a></li>
                 </ul>
             </div>
         </nav>

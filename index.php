@@ -3,14 +3,14 @@ ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
-require_once "includes/db.inc.php";
+// Include necessary files and libraries
+require "includes/db.inc.php";
 include_once "includes/css_js.inc.php";
-require_once 'functions.inc.php';
+require 'functions.inc.php';
 require 'vendor/autoload.php';
-
 $db = connectToDB();
 
-//NASA data
+// Get featured NASA data
 $nasaData = getNasaFeaturedData();
 $featuredTitle = $nasaData['title'];
 $featuredDescription = $nasaData['description'];
@@ -21,8 +21,8 @@ $mediaType = $nasaData['mediaType'];
 $filters = [];
 $params = [];
 
-// Sorting logic by id
-$orderBy = "ORDER BY id ASC";
+// Sorting logic
+$orderBy = "ORDER BY id ASC"; //by id
 if (!empty($_GET['sort']) && in_array($_GET['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
     $orderBy = "ORDER BY " . htmlspecialchars($_GET['sort'], ENT_QUOTES, 'UTF-8') . " ASC";
 }
@@ -83,6 +83,7 @@ if ($page > $totalPages) {
     exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,10 +93,10 @@ if ($page > $totalPages) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miller's World</title>
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script type="module" src="main.js" defer></script>
+    <script type="module" src="/public/main.js" defer></script>
 </head>
 
 <body>
@@ -188,32 +189,7 @@ if ($page > $totalPages) {
                 </div>
             </section>
         </section>
-        <<<<<<< HEAD
-        <section class="socials">
-            <div class="curiosity-model">
-                <p id="flight">Discover Space With Miller's World</p>
-                <model-viewer
-                      id="curiosity"
-                      src="public/assets/models/space_shuttle.glb"
-                      alt="Curiosity Rover"
-                      shadow-intensity="1"
-                      background-color="#000000"
-                      camera-orbit="-75deg auto 1m"
-                      min-camera-orbit="auto auto 20m"
-                      max-camera-orbit="auto auto 20m"
-                      exposure="1"
-                      ground-plane
-                      style="width: 300px; height: 200px; overflow: hidden"
-                      shadow-intensity="1"
-                      environment-image="neutral"
-                      scale="0.5 0.5 0.5"
-                      field-of-view="90deg">
-                </model-viewer>
-            </div>
-        </section>
-        =======
 
-        >>>>>>> f956906faf9c3a30d02d540ba1dc1a941e651880
         <section class="planets">
             <div class="container" id="planets">
                 <?php foreach ($paginatedItems as $planet): ?>

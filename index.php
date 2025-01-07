@@ -92,11 +92,11 @@ if ($page > $totalPages) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miller's World</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>
+    <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
+    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>" />
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script type="module" src="/public/main.js" defer></script>
+    <script type="module" src="main.js" defer></script>
 </head>
 
 <body>
@@ -106,7 +106,7 @@ if ($page > $totalPages) {
                 <!-- Planet Search -->
                 <form method="get" action="">
                     <input type="text" name="name" placeholder="Search for a planet..."
-                           value="<?= $_GET['name'] ?? '' ?>">
+                        value="<?= $_GET['name'] ?? '' ?>">
                     <button type="submit">Search</button>
                 </form>
             </div>
@@ -122,21 +122,21 @@ if ($page > $totalPages) {
             </div>
         </nav>
     </header>
-    
+
     <main>
         <section class="filters">
             <form method="GET" action="">
                 <select name="moons" id="moons">
                     <option value="">Moon Count</option>
                     <option
-                          value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
+                        value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
                         No Moons
                     </option>
                     <option value="1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == '1 Moon' ? 'selected' : '' ?>>
                         1 Moon
                     </option>
                     <option
-                          value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
+                        value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
                         More than 1 Moon
                     </option>
                 </select>
@@ -157,7 +157,7 @@ if ($page > $totalPages) {
                     <p>No media available for today.</p>
                 <?php endif; ?>
             </div>
-            
+
             <div class="content">
                 <h2>Picture of The Day</h2>
                 <h3><?= $featuredTitle; ?></h3>
@@ -171,21 +171,21 @@ if ($page > $totalPages) {
             <div class="curiosity-model">
                 <p id="flight">Discover Space With Miller's World</p>
                 <model-viewer
-                      id="curiosity"
-                      src="public/assets/models/space_shuttle.glb"
-                      alt="Curiosity Rover"
-                      shadow-intensity="1"
-                      background-color="#000000"
-                      camera-orbit="-75deg auto 1m"
-                      min-camera-orbit="auto auto 20m"
-                      max-camera-orbit="auto auto 20m"
-                      exposure="1"
-                      ground-plane
-                      style="width: 300px; height: 200px; overflow: hidden"
-                      shadow-intensity="1"
-                      environment-image="neutral"
-                      scale="0.5 0.5 0.5"
-                      field-of-view="90deg">
+                    id="curiosity"
+                    src="public/assets/models/space_shuttle.glb"
+                    alt="Curiosity Rover"
+                    shadow-intensity="1"
+                    background-color="#000000"
+                    camera-orbit="-75deg auto 1m"
+                    min-camera-orbit="auto auto 20m"
+                    max-camera-orbit="auto auto 20m"
+                    exposure="1"
+                    ground-plane
+                    style="width: 300px; height: 200px; overflow: hidden"
+                    shadow-intensity="1"
+                    environment-image="neutral"
+                    scale="0.5 0.5 0.5"
+                    field-of-view="90deg">
                 </model-viewer>
             </div>
         </section>
@@ -197,7 +197,7 @@ if ($page > $totalPages) {
                             <div>
                                 <a href="detail.php?id=<?= $planet['id']; ?>">
                                     <img src="<?= $planet['image'] ?>"
-                                         alt="<?= $planet['name'] ?>">
+                                        alt="<?= $planet['name'] ?>">
                                 </a>
                             </div>
                         </div>
@@ -226,7 +226,7 @@ if ($page > $totalPages) {
             </div>
         </section>
     </main>
-    
+
     <footer>
         <div class="container">
 

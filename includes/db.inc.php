@@ -2,11 +2,11 @@
 require 'vendor/autoload.php';
 function connectToDB()
 {
-    $db_host = getenv('DB_HOST') ?: 'localhost';
-    $db_user = getenv('DB_USER') ?: 'root';
-    $db_password = getenv('DB_PASSWORD') ?: 'root';
-    $db_db = getenv('DB_NAME') ?: 'db_planets';
-    $db_port = getenv('DB_PORT') ?: 8889;
+    $db_host = getenv('DB_HOST') ?: 'j9mt6.h.filess.io';
+    $db_user = getenv('DB_USER') ?: 'planets_fellowduty';
+    $db_password = getenv('DB_PASSWORD') ?: '318ff839f41592cfd90fedf58d90c5a19c839364';
+    $db_db = getenv('DB_NAME') ?: 'planets_fellowduty';
+    $db_port = getenv('DB_PORT') ?: 3307;
 
     try {
         $db = new PDO(
@@ -22,14 +22,6 @@ function connectToDB()
     return $db;
 }
 
-function getPlanets(): array
-{
-    $sql = "SELECT * FROM planets";
-
-    $stmt = connectToDB()->prepare($sql);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 //function connectToDB()
 //{
 //    $db_host = 'localhost';

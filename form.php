@@ -222,20 +222,17 @@ if (isset($_POST['submit'])) {
                 <?php foreach ($discoveryMethods as $dm): ?>
                     <option value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
                 <?php endforeach; ?>
-                <!-- Dynamically add options from the `discovery_methods` table -->
             </select>
 
             <!-- Habitability (Dropdown) -->
             <label for="habitability">Habitability*:</label>
             <select id="habitability" name="habitability" required>
-                <option value="">Select habitability level</option>
-                <option value="1">Habitable</option>
-                <option value="2">Potentially Habitable</option>
-                <option value="3">Non-Habitable</option>
-                <!-- Dynamically add options from the `habitability` table -->
+                <option <?= @$habitability_id == null ? 'selected' : ''; ?> value="0">Please select a habitability</option>
+                <?php foreach ($habitabilities as $habit): ?>
+                    <option value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
+                <?php endforeach; ?>
             </select>
 
-            <!-- Submit Button -->
             <button type="submit" name="submit" id="submit">Submit Planet</button>
         </form>
     </main>

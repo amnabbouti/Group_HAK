@@ -58,10 +58,10 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    if (!isset($_POST['inputmail'])) {
+    if (!isset($_POST['mail'])) {
         $errors[] = "E-mail is required.";
     } else {
-        $mail = $_POST['inputmail'];
+        $mail = $_POST['mail'];
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             $errors[] = "E-mail address is invalid.";
         }

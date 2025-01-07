@@ -15,7 +15,6 @@ $planets = getPlanets();
 // print_r($planets);
 // print "</pre>";
 
-
 ?>
 
 <!DOCTYPE html>

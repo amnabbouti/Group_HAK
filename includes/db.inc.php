@@ -4,7 +4,7 @@ function connectToDB()
     $db_host = 'localhost';
     $db_user = 'root';
     $db_password = 'root';
-    $db_db = 'hak';
+    $db_db = 'db_planets';
     $db_port = 8889;
 
     try {
@@ -15,4 +15,13 @@ function connectToDB()
     }
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
     return $db;
+}
+
+function getPlanets(): array
+{
+    $sql = "SELECT * FROM planets";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

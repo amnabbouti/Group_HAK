@@ -1,6 +1,12 @@
 <?php
-require('db.inc.php');
+require('includes/db.inc.php');
 require('functions.php');
+
+$planets = getPlanets();
+
+print "<pre>";
+print_r($planets);
+print "</pre>";
 
 
 ?>
@@ -29,14 +35,18 @@ require('functions.php');
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Planet</td>
-                    <td>Description</td>
-                    <td>Date added</td>
-                    <td>Date edited</td>
-                    <td>Actions</td>
-                </tr>
+                <?php foreach ($planets as $planet): ?>
+                    <tr>
+                        <td><?= $planet['id']; ?></td>
+                        <td><?= $planet['name']; ?></td>
+                        <td><?= $planet['description']; ?></td>
+                        <td><?= $planet['date_discovered']; ?></td>
+                        <td>Not yet added</td>
+                        <td>View</td>
+                        <td>Edit</td>
+                        <td>Delete</td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </section>

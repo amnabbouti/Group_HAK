@@ -58,10 +58,10 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    if (!isset($_POST['inputmail'])) {
+    if (!isset($_POST['mail'])) {
         $errors[] = "E-mail is required.";
     } else {
-        $mail = $_POST['inputmail'];
+        $mail = $_POST['mail'];
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             $errors[] = "E-mail address is invalid.";
         }
@@ -100,8 +100,8 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
+    <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>" />
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
 
 </head>
@@ -113,7 +113,7 @@ if (isset($_POST['submit'])) {
                 <!-- Planet Search -->
                 <form method="get" action="">
                     <input type="text" name="name" placeholder="Search for a planet..."
-                           value="<?= $_GET['name'] ?? '' ?>">
+                        value="<?= $_GET['name'] ?? '' ?>">
                     <button type="submit">Search</button>
                 </form>
             </div>
@@ -147,27 +147,27 @@ if (isset($_POST['submit'])) {
                     <div class="form-group username">
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username" placeholder="Enter a username"
-                               value="<?= $username; ?>"/>
+                            value="<?= $username; ?>" />
                     </div>
                     <div class="form-group firstname">
                         <label for="firstname">Firstname</label>
                         <input type="text" id="firstname" name="firstname" placeholder="Enter your Firstname"
-                               value="<?= $firstname; ?>"/>
+                            value="<?= $firstname; ?>" />
                     </div>
                     <div class="form-group lastname">
                         <label for="lastname">Lastname</label>
                         <input type="text" id="lastname" name="lastname" placeholder="Enter your Lastname"
-                               value="<?= $lastname; ?>"/>
+                            value="<?= $lastname; ?>" />
                     </div>
                     <div class="form-group mail">
                         <label for="mail">E-mail</label>
                         <input type="email" id="mail" name="mail" placeholder="Enter your a valid E-mail"
-                               value="<?= $mail; ?>">
+                            value="<?= $mail; ?>">
                     </div>
                     <div class="form-group password">
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" placeholder="Enter a valid Password"
-                               value="<?= $password; ?>"/>
+                            value="<?= $password; ?>" />
                     </div>
                     <button type="submit" value="submit" name="submit">Register</button>
                 </form>

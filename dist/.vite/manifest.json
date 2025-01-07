@@ -1,7 +1,7 @@
 {
-  "_global-!~{005}~.js": {
-    "file": "assets/global-BWj3x7_P.css",
-    "src": "_global-!~{005}~.js"
+  "_global-!~{007}~.js": {
+    "file": "assets/global-BaHuIDdu.css",
+    "src": "_global-!~{007}~.js"
   },
   "admin/fonts/icomoon.svg": {
     "file": "assets/icomoon-C-EAromZ.svg",
@@ -30,26 +30,52 @@
     "src": "fonts/icomoon.svg"
   },
   "js/detail.js": {
-    "file": "assets/detail-DYOIZZD7.js",
+    "file": "assets/detail-CUsPSmJ7.js",
     "name": "detail",
     "src": "js/detail.js",
     "isEntry": true,
     "css": [
-      "assets/detail-Bw0dBMYM.css",
-      "assets/global-BWj3x7_P.css"
+      "assets/detail-B5bMNnOk.css",
+      "assets/global-BaHuIDdu.css"
     ],
     "assets": [
       "assets/icomoon-BeRJgAey.svg"
     ]
   },
   "js/index.js": {
-    "file": "assets/index-CL-eexz1.js",
+    "file": "assets/index-Bk4K4GYj.js",
     "name": "index",
     "src": "js/index.js",
     "isEntry": true,
     "css": [
-      "assets/index-Darnee2S.css",
-      "assets/global-BWj3x7_P.css"
+      "assets/index-Cdxs2viv.css",
+      "assets/global-BaHuIDdu.css"
+    ],
+    "assets": [
+      "assets/icomoon-BeRJgAey.svg"
+    ]
+  },
+  "js/login.js": {
+    "file": "assets/login-D-cw36Ii.js",
+    "name": "login",
+    "src": "js/login.js",
+    "isEntry": true,
+    "css": [
+      "assets/login-Drw8Iv3s.css",
+      "assets/global-BaHuIDdu.css"
+    ],
+    "assets": [
+      "assets/icomoon-BeRJgAey.svg"
+    ]
+  },
+  "js/register.js": {
+    "file": "assets/register-CLtW5e6t.js",
+    "name": "register",
+    "src": "js/register.js",
+    "isEntry": true,
+    "css": [
+      "assets/register-DZK8-wND.css",
+      "assets/global-BaHuIDdu.css"
     ],
     "assets": [
       "assets/icomoon-BeRJgAey.svg"

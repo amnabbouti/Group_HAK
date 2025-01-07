@@ -21,12 +21,3 @@ function connectToDB()
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     return $db;
 }
-
-function getPlanets(): array
-{
-    $sql = "SELECT * FROM planets";
-
-    $stmt = connectToDB()->prepare($sql);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}

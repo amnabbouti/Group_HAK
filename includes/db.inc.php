@@ -4,7 +4,7 @@ function connectToDB()
     $db_host = 'localhost';
     $db_user = 'root';
     $db_password = 'root';
-    $db_db = 'hak';
+    $db_db = 'db_planets';
     $db_port = 8889;
 
     try {

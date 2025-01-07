@@ -44,7 +44,7 @@ $planets = getPlanets();
                         <td>Not yet in db</td>
                         <td>Not yet in db</td>
                         <td>
-                            <a href="view.php?id=<?= $planet['id']; ?>">View</a>
+                            <a href="detail.php?id=<?= $planet['id']; ?>">View</a>
                             <a href="edit.php?id=<?= $planet['id']; ?>">Edit</a>
                             <a href="delete.php?id=<?= $planet['id']; ?>">Delete</a>
                         </td>

@@ -218,10 +218,10 @@ if (isset($_POST['submit'])) {
             <!-- Discovery Method (Dropdown) -->
             <label for="discovery_method">Discovery Method*:</label>
             <select id="discovery_method" name="discovery_method" required>
-                <option value="">Select a discovery method</option>
-                <option value="1">Transit</option>
-                <option value="2">Radial Velocity</option>
-                <option value="3">Direct Imaging</option>
+                <option <?= @$discovery_method_id == null ? 'selected' : ''; ?> value="0">Please select a discovery method</option>
+                <?php foreach ($discoveryMethods as $dm): ?>
+                    <option value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
+                <?php endforeach; ?>
                 <!-- Dynamically add options from the `discovery_methods` table -->
             </select>
 

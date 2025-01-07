@@ -1,5 +1,5 @@
 <?php
-$page = basename($_SERVER["PHP_SELF"]);
+$page = basename($_SERVER["PHP_SELF"]); // Deze lijn haalt de bestandsnaam op van het huidige script dat wordt uitgevoerd, zonder het pad. 
 
 if (isset($_SERVER["admin"])) {
     $manifestUrl = "../dist/.vite/manifest.json";

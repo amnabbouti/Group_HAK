@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 // Include necessary files and libraries
 require "includes/db.inc.php";
 include_once "includes/css_js.inc.php";
+require 'functions.php';
 require 'functions.inc.php';
 require 'vendor/autoload.php';
 $planets = getPlanets();
@@ -14,7 +15,6 @@ $planets = getPlanets();
 // print "<pre>";
 // print_r($planets);
 // print "</pre>";
-
 
 ?>
 
@@ -34,7 +34,11 @@ $planets = getPlanets();
                 <!-- Planet Search -->
                 <form method="get" action="">
                     <input type="text" name="name" placeholder="Search for a planet..."
+                        <<<<<<< HEAD
                         value="<?= $_GET['name'] ?? '' ?>">
+                    =======
+                    value="<?= $_GET['name'] ?? '' ?>">
+                    >>>>>>> f956906faf9c3a30d02d540ba1dc1a941e651880
                     <button type="submit">Search</button>
                 </form>
             </div>
@@ -55,7 +59,8 @@ $planets = getPlanets();
             <h1>Planets overview</h1>
             <table>
                 <thead>
-                    <tr>
+                    <<<<<<< HEAD
+                        <tr>
                         <th>#ID</th>
                         <th>Planet</th>
                         <th>Description</th>
@@ -63,7 +68,7 @@ $planets = getPlanets();
                         <th>Date added</th>
                         <th>Date edited</th>
                         <th>Actions</th>
-                    </tr>
+                        </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($planets as $planet): ?>
@@ -82,13 +87,45 @@ $planets = getPlanets();
                                 <!-- TODO delete page or modal(js) to delete planets? -->
                                 <form method="post" action="delete.php">
                                     <input type="hidden" name="id" value="<?= $planet['id']; ?>">
-                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this article?');">
+                                    <button type="submit"
+                                        onclick="return confirm('Are you sure you want to delete this article?');">
                                         Delete
                                     </button>
                                 </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
+                    =======
+                    <tr>
+                        <th>#ID</th>
+                        <th>Planet</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Date added</th>
+                        <th>Date edited</th>
+                        <th>Actions</th>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <?php foreach ($planets as $planet): ?>
+                        <tr>
+                            <td><?= $planet['id']; ?></td>
+                            <td><?= $planet['name']; ?></td>
+                            <td><?= mb_strimwidth($planet['description'], 0, 100, "..."); ?></td>
+                            <td><img src="<?= $planet['image']; ?>" alt="<?= $planet['name']; ?>" width="100" height="100">
+                            </td>
+                            <td>Not yet in db</td>
+                            <td>Not yet in db</td>
+                            <td>
+                                <a href="detail.php?id=<?= $planet['id']; ?>">View</a>
+                                <!-- TODO edit page needs to be created -->
+                                <a href="edit.php?id=<?= $planet['id']; ?>">Edit</a>
+                                <!-- TODO delete page or modal(js) to delete planets? -->
+                                <a href="delete.php?id=<?= $planet['id']; ?>">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    >>>>>>> f956906faf9c3a30d02d540ba1dc1a941e651880
                 </tbody>
             </table>
         </section>

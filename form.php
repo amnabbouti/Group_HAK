@@ -1,3 +1,11 @@
+<?php
+require 'functions.inc.php';
+requiredLoggedIn();
+
+$habitabilities = getHabitabilities();
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 

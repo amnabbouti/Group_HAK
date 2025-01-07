@@ -193,3 +193,12 @@ function getPlanets(): array
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getHabitabilities(): array
+{
+    $sql = "SELECT * FROM habitability";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

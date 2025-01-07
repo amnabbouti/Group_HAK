@@ -1,10 +1,10 @@
 {
-  "_global-!~{005}~.js": {
-    "file": "assets/global-BWj3x7_P.css",
-    "src": "_global-!~{005}~.js"
+  "_global-BUE_52hT.css": {
+    "file": "assets/global-BUE_52hT.css",
+    "src": "_global-BUE_52hT.css"
   },
   "admin/fonts/icomoon.svg": {
-    "file": "assets/icomoon-C-EAromZ.svg",
+    "file": "assets/icomoon-DQfcDdS4.svg",
     "src": "admin/fonts/icomoon.svg"
   },
   "admin/js/detail.js": {
@@ -14,45 +14,71 @@
     "isEntry": true
   },
   "admin/js/index.js": {
-    "file": "assets/index-CkIKW53M.js",
+    "file": "assets/index-D2UwDeTn.js",
     "name": "index",
     "src": "admin/js/index.js",
     "isEntry": true,
     "css": [
-      "assets/index-DOhnUrP3.css"
+      "assets/index-CPrwYw2y.css"
     ],
     "assets": [
-      "assets/icomoon-C-EAromZ.svg"
+      "assets/icomoon-DQfcDdS4.svg"
     ]
   },
   "fonts/icomoon.svg": {
-    "file": "assets/icomoon-BeRJgAey.svg",
+    "file": "assets/icomoon-Dd2_tEE8.svg",
     "src": "fonts/icomoon.svg"
   },
   "js/detail.js": {
-    "file": "assets/detail-DYOIZZD7.js",
+    "file": "assets/detail-Bn5pqP-8.js",
     "name": "detail",
     "src": "js/detail.js",
     "isEntry": true,
     "css": [
-      "assets/detail-Bw0dBMYM.css",
-      "assets/global-BWj3x7_P.css"
+      "assets/detail-B5bMNnOk.css",
+      "assets/global-BUE_52hT.css"
     ],
     "assets": [
-      "assets/icomoon-BeRJgAey.svg"
+      "assets/icomoon-Dd2_tEE8.svg"
     ]
   },
   "js/index.js": {
-    "file": "assets/index-CL-eexz1.js",
+    "file": "assets/index-CrYf8kah.js",
     "name": "index",
     "src": "js/index.js",
     "isEntry": true,
     "css": [
-      "assets/index-Darnee2S.css",
-      "assets/global-BWj3x7_P.css"
+      "assets/index-Cdxs2viv.css",
+      "assets/global-BUE_52hT.css"
     ],
     "assets": [
-      "assets/icomoon-BeRJgAey.svg"
+      "assets/icomoon-Dd2_tEE8.svg"
+    ]
+  },
+  "js/login.js": {
+    "file": "assets/login-CFAkvr-Y.js",
+    "name": "login",
+    "src": "js/login.js",
+    "isEntry": true,
+    "css": [
+      "assets/login-Drw8Iv3s.css",
+      "assets/global-BUE_52hT.css"
+    ],
+    "assets": [
+      "assets/icomoon-Dd2_tEE8.svg"
+    ]
+  },
+  "js/register.js": {
+    "file": "assets/register-C73a7bhR.js",
+    "name": "register",
+    "src": "js/register.js",
+    "isEntry": true,
+    "css": [
+      "assets/register-DZK8-wND.css",
+      "assets/global-BUE_52hT.css"
+    ],
+    "assets": [
+      "assets/icomoon-Dd2_tEE8.svg"
     ]
   }
 }

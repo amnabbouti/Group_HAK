@@ -194,6 +194,15 @@ function getPlanets(): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function getDiscoveryMethods(): array
+{
+    $sql = "SELECT * FROM discovery_method";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function getHabitabilities(): array
 {
     $sql = "SELECT * FROM habitability";

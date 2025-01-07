@@ -2,8 +2,26 @@
 require 'functions.inc.php';
 requiredLoggedIn();
 
+$discoveryMethods = getDiscoveryMethods();
 $habitabilities = getHabitabilities();
 
+$errors = [];
+$submitted = false;
+
+if (isset($_POST['submit'])) {
+
+    $submitted = true;
+
+    $name = "";
+    $description = "";
+    $image = "";
+    $length_of_year = null;
+    $moons = null;
+    $temperature = "";
+    $diameter = null;
+    $discovery_method_id = null;
+    $habitability_id = null;
+}
 
 ?>
 <!DOCTYPE html>
@@ -62,8 +80,8 @@ $habitabilities = getHabitabilities();
             <input type="number" id="distance_from_sun" name="distance_from_sun" step="0.01">
 
             <!-- Discovery Method (Dropdown) -->
-            <label for="discovery_method_id">Discovery Method*:</label>
-            <select id="discovery_method_id" name="discovery_method_id" required>
+            <label for="discovery_method">Discovery Method*:</label>
+            <select id="discovery_method" name="discovery_method" required>
                 <option value="">Select a discovery method</option>
                 <option value="1">Transit</option>
                 <option value="2">Radial Velocity</option>
@@ -72,8 +90,8 @@ $habitabilities = getHabitabilities();
             </select>
 
             <!-- Habitability (Dropdown) -->
-            <label for="habitability_id">Habitability*:</label>
-            <select id="habitability_id" name="habitability_id" required>
+            <label for="habitability">Habitability*:</label>
+            <select id="habitability" name="habitability" required>
                 <option value="">Select habitability level</option>
                 <option value="1">Habitable</option>
                 <option value="2">Potentially Habitable</option>
@@ -82,7 +100,7 @@ $habitabilities = getHabitabilities();
             </select>
 
             <!-- Submit Button -->
-            <button type="submit">Submit Planet</button>
+            <button type="submit" name="submit" id="submit">Submit Planet</button>
         </form>
     </main>
 

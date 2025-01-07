@@ -1,11 +1,11 @@
 <?php
 
-global $cssPath, $jsPath, $globalcssPath;
+global $cssPath, $jsPath, $globalcssPath, $cssGlobal;
 $source = "js/detail.js";
-require("functions.php");
-require 'includes/db.inc.php';
-require 'includes/css_js.inc.php';
-require 'vendor/autoload.php';
+require_once("functions.inc.php");
+require_once 'includes/db.inc.php';
+require_once 'includes/css_js.inc.php';
+require_once 'vendor/autoload.php';
 
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
@@ -32,10 +32,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $planet['name'] ?></title>
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
     <script type="module"
-            src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.0.1/dist/model-viewer.min.js"></script>
+            src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.0.1/dist/model-viewer.min.js">
+
+    </script>
+    <script type="module" src="public/main.js" defer></script>
 
 </head>
 
@@ -43,17 +46,19 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <header>
         <nav>
             <div class="search">
-                <input type="text" name="search" id="search" placeholder="Search for a planet...">
-                <button type="submit">Search</button>
+                <form method="get" action="index.php">
+                    <input type="text" name="name" id="search" placeholder="Search for a planet...">
+                    <button type="submit">Search</button>
+                </form>
             </div>
-            <a href="#" class="logo">
+            <a href="index.php" class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </a>
             <div>
                 <ul class="nav_links">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="#">Profile</a></li>
-                    <li><a href="#">Log In</a></li>
+                    <li><a href="login.php">Log In</a></li>
                 </ul>
             </div>
         </nav>
@@ -71,7 +76,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                               auto-rotate-speed="4"
                               camera-controls
                               disable-zoom
-                              style="width: 100%; height: 400px;">
+                              style="width: 100%; height: 300px;">
                         </model-viewer>
                         <?php if (!empty($planet['image'])): ?>
                             <div style="text-align: center; margin-top: 4rem;">
@@ -230,7 +235,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                            style="text-align: center; padding: 1rem; width: 170px; text-decoration: none; background-color: #0c0c3b; color: white; border-radius: 5px;">Add
                             image</a>
                     </div>
-
+                
                 </div>
             </div>
         </section>
@@ -241,7 +246,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>
-            <?= "php works on the main & footer" ?>
             <ul>
                 <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Privacy Policy</a></li>

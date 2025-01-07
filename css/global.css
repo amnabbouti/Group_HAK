@@ -33,6 +33,7 @@ header{
     left: 0;
     right: 0;
     z-index: 100;
+    box-shadow: 0 1px 10px rgb(79, 77, 77);
     
     nav{
         display: flex;
@@ -118,9 +119,9 @@ header{
 footer{
     background-color: black;
     color: white;
-    padding: 2rem 2rem;
+    padding: 1rem 4rem;
     text-align: center;
-    box-shadow: 0 4px 20px rgb(252, 241, 241);
+    box-shadow: 0 4px 10px rgb(252, 241, 241);
     
     .container{
         display: flex;
@@ -128,7 +129,10 @@ footer{
         flex-wrap: nowrap;
         gap: 2rem;
         align-items: center;
+        
+        
     }
+    
     
     ul{
         display: flex;
@@ -137,8 +141,8 @@ footer{
         li a{
             text-decoration: none;
             color: rgba(255, 255, 255, 0.8);
-            font-size: 1.4rem;
-            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            padding: 0.5rem;
         }
     }
 }

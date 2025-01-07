@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 // Include necessary files and libraries
 require "includes/db.inc.php";
 include_once "includes/css_js.inc.php";
-require 'functions.php';
+require 'functions.inc.php';
 require 'vendor/autoload.php';
 $planets = getPlanets();
 
@@ -71,7 +71,8 @@ $planets = getPlanets();
                             <td><?= $planet['id']; ?></td>
                             <td><?= $planet['name']; ?></td>
                             <td><?= mb_strimwidth($planet['description'], 0, 100, "..."); ?></td>
-                            <td><img src="<?= $planet['image']; ?>" alt="<?= $planet['name']; ?>" width="100" height="100"></td>
+                            <td><img src="<?= $planet['image']; ?>" alt="<?= $planet['name']; ?>" width="100" height="100">
+                            </td>
                             <td>Not yet in db</td>
                             <td>Not yet in db</td>
                             <td>
@@ -79,12 +80,7 @@ $planets = getPlanets();
                                 <!-- TODO edit page needs to be created -->
                                 <a href="edit.php?id=<?= $planet['id']; ?>">Edit</a>
                                 <!-- TODO delete page or modal(js) to delete planets? -->
-                                <form method="post" action="delete.php">
-                                    <input type="hidden" name="id" value="<?= $planet['id']; ?>">
-                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this article?');">
-                                        Delete
-                                    </button>
-                                </form>
+                                <a href="delete.php?id=<?= $planet['id']; ?>">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

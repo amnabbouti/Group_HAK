@@ -1,5 +1,28 @@
+// Smooth scrolling to the top when clicking logo
+const logo = document.querySelector("header .logo");
+if (logo) {
+    logo.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({top: 0, behavior: "smooth"});
+    });
+}
+
+// Scroll to the results section when searching
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const search = urlParams.get("name"); // Get the 'name' parameter
+    if (search) {
+        const results = document.getElementById("planets");
+        if (results) {
+            results.scrollIntoView({behavior: "smooth"});
+        }
+    }
+});
+
+
+// shuttle
 document.addEventListener("DOMContentLoaded", () => {
-    const shuttle = document.querySelector("model-viewer#curiosity"); // Selecteer het shuttle-element
+    const shuttle = document.querySelector("model-viewer#curiosity");
     const exploreMoreButton = document.querySelector("a[href='#planets'] button");
     const screenHeight = window.innerHeight;
     const screenWidth = window.innerWidth;
@@ -72,5 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
+
 
 

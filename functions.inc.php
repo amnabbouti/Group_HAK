@@ -196,7 +196,7 @@ function getPlanets(): array
 
 function getDiscoveryMethods(): array
 {
-    $sql = "SELECT * FROM discovery_method";
+    $sql = "SELECT * FROM discovery_methods";
 
     $stmt = connectToDB()->prepare($sql);
     $stmt->execute();
@@ -210,4 +210,28 @@ function getHabitabilities(): array
     $stmt = connectToDB()->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function insertPlanet(String $name, String $description, String $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id)
+{
+    $db = connectToDB();
+    $sql = "INSERT INTO planets (name, description, image, length_of_year, moons, temperature, diameter, date_discovered, mass, distance_from_sun, discovery_method_id, habitability_id) VALUES (
+        :name, :description, :image, :length_of_year, :moons, :temperature, :diameter, :date_discovered, :mass, :distance_from_sun, :discovery_method_id, :habitability_id
+    )";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':name' => $name,
+        ':description' => $description,
+        ':image' => $image,
+        ':length_of_year' => $length_of_year,
+        ':moons' => $moons,
+        ':temperature' => $temperature,
+        ':diameter' => $diameter,
+        ':date_discovered' => $date_discovered,
+        ':mass' => $mass,
+        ':distance_from_sun' => $distance_from_sun,
+        ':discovery_method_id' => $discovery_method_id,
+        ':habitability_id' => $habitability_id
+    ]);
+    return $db->lastInsertId();
 }

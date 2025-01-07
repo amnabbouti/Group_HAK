@@ -21,6 +21,142 @@ if (isset($_POST['submit'])) {
     $diameter = null;
     $discovery_method_id = null;
     $habitability_id = null;
+
+    if (isset($_POST['submit'])) {
+        $submitted = true;
+
+        // Validatie voor naam
+        if (!isset($_POST['name'])) {
+            $errors[] = "Planet name is missing.";
+        } else {
+            if (strlen($_POST['name']) == 0) {
+                $errors[] = "Planet name cannot be empty.";
+            } else {
+                $name = $_POST['name'];
+            }
+        }
+
+        // Validatie voor beschrijving
+        if (!isset($_POST['description'])) {
+            $errors[] = "Description is missing.";
+        } else {
+            if (strlen($_POST['description']) == 0) {
+                $errors[] = "Description cannot be empty.";
+            } else {
+                $description = $_POST['description'];
+            }
+        }
+
+        // Validatie voor afbeelding
+        if (isset($_POST['image']) && strlen($_POST['image']) > 0) {
+            if (!filter_var($_POST['image'], FILTER_VALIDATE_URL)) {
+                $errors[] = "Image must be a valid URL.";
+            } else {
+                $image = $_POST['image'];
+            }
+        } else {
+            $image = null;
+        }
+
+        // Validatie voor lengte van het jaar
+        if (isset($_POST['length_of_year']) && strlen($_POST['length_of_year']) > 0) {
+            if (!is_numeric($_POST['length_of_year'])) {
+                $errors[] = "Length of year must be a valid number.";
+            } else {
+                $length_of_year = (float)$_POST['length_of_year'];
+            }
+        } else {
+            $length_of_year = null;
+        }
+
+        // Validatie voor aantal manen
+        if (isset($_POST['moons']) && strlen($_POST['moons']) > 0) {
+            if (!is_numeric($_POST['moons']) || (int)$_POST['moons'] < 0) {
+                $errors[] = "Number of moons must be a valid positive integer.";
+            } else {
+                $moons = (int)$_POST['moons'];
+            }
+        } else {
+            $moons = null;
+        }
+
+        // Validatie voor temperatuur
+        if (isset($_POST['temperature']) && strlen($_POST['temperature']) > 0) {
+            $temperature = $_POST['temperature'];
+        } else {
+            $temperature = null;
+        }
+
+        // Validatie voor diameter
+        if (isset($_POST['diameter']) && strlen($_POST['diameter']) > 0) {
+            if (!is_numeric($_POST['diameter']) || (float)$_POST['diameter'] <= 0) {
+                $errors[] = "Diameter must be a positive number.";
+            } else {
+                $diameter = (float)$_POST['diameter'];
+            }
+        } else {
+            $diameter = null;
+        }
+
+        // Validatie voor ontdekkingsdatum
+        if (isset($_POST['date_discovered']) && strlen($_POST['date_discovered']) > 0) {
+            $date_discovered = $_POST['date_discovered'];
+        } else {
+            $date_discovered = null;
+        }
+
+        // Validatie voor massa
+        if (isset($_POST['mass']) && strlen($_POST['mass']) > 0) {
+            $mass = $_POST['mass'];
+        } else {
+            $mass = null;
+        }
+
+        // Validatie voor afstand tot de zon
+        if (isset($_POST['distance_from_sun']) && strlen($_POST['distance_from_sun']) > 0) {
+            if (!is_numeric($_POST['distance_from_sun']) || (float)$_POST['distance_from_sun'] <= 0) {
+                $errors[] = "Distance from the sun must be a positive number.";
+            } else {
+                $distance_from_sun = (float)$_POST['distance_from_sun'];
+            }
+        } else {
+            $distance_from_sun = null;
+        }
+
+        // Validatie voor discovery method
+        if (!isset($_POST['discovery_method'])) {
+            $errors[] = "Discovery method is missing.";
+        } else {
+            if (!array_key_exists($_POST['discovery_method'], $discoveryMethods)) {
+                $errors[] = "Invalid discovery method.";
+            } else {
+                $discovery_method_id = (int)$_POST['discovery_method'];
+            }
+        }
+
+        // Validatie voor habitability
+        if (!isset($_POST['habitability'])) {
+            $errors[] = "Habitability is missing.";
+        } else {
+            if (!array_key_exists($_POST['habitability'], $habitabilities)) {
+                $errors[] = "Invalid habitability.";
+            } else {
+                $habitability_id = (int)$_POST['habitability'];
+            }
+        }
+
+        // Als er geen fouten zijn, verwerk de gegevens
+        if (count($errors) == 0) {
+            // Plaats hier de code om de gegevens in de database op te slaan.
+            $result = insertPlanet($name, $description, $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id);
+            if ($result) {
+                header("Location: index.php?message=Planet successfully added.");
+                exit;
+            } else {
+                $errors[] = "Failed to insert planet into the database.";
+            }
+        }
+    }
 }
 
 ?>

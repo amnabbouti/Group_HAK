@@ -142,31 +142,33 @@ if (isset($_POST['submit'])) {
                     </ul>
                 </div>
             <?php endif; ?>
-            <form method="post" action="register.php">
-                <div class="form-group username">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" value="<?= $username; ?>"/>
+            <div class="form-wrapper">
+                <form method="post" action="register.php">
+                    <div class="form-group username">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" value="<?= $username; ?>"/>
+                    </div>
+                    <div class="form-group firstname">
+                        <label for="firstname">Firstname</label>
+                        <input type="text" id="firstname" name="firstname" value="<?= $firstname; ?>"/>
+                    </div>
+                    <div class="form-group lastname">
+                        <label for="lastname">Lastname</label>
+                        <input type="text" id="lastname" name="lastname" value="<?= $lastname; ?>"/>
+                    </div>
+                    <div class="form-group mail">
+                        <label for="mail">E-mail</label>
+                        <input type="email" id="mail" name="mail" value="<?= $mail; ?>">
+                    </div>
+                    <div class="form-group password">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" value="<?= $password; ?>"/>
+                    </div>
+                    <button type="submit" value="submit" name="submit">Register</button>
+                </form>
+                <div class="signup-link">
+                    <p>Already have an account? <a href="login.php">Login</a></p>
                 </div>
-                <div class="form-group firstname">
-                    <label for="firstname">Firstname</label>
-                    <input type="text" id="firstname" name="firstname" value="<?= $firstname; ?>"/>
-                </div>
-                <div class="form-group lastname">
-                    <label for="lastname">Lastname</label>
-                    <input type="text" id="lastname" name="lastname" value="<?= $lastname; ?>"/>
-                </div>
-                <div class="form-group mail">
-                    <label for="mail">E-mail</label>
-                    <input type="email" id="mail" name="mail" value="<?= $mail; ?>">
-                </div>
-                <div class="form-group password">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" value="<?= $password; ?>"/>
-                </div>
-                <button type="submit" value="submit" name="submit">Register</button>
-            </form>
-            <div class="login-link">
-                <p>Already have an account? <a href="login.php">Login</a></p>
             </div>
         </section>
     </main>

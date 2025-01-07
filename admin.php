@@ -79,8 +79,13 @@ $planets = getPlanets();
                                 <a href="detail.php?id=<?= $planet['id']; ?>">View</a>
                                 <!-- TODO edit page needs to be created -->
                                 <a href="edit.php?id=<?= $planet['id']; ?>">Edit</a>
-                                <!-- TODO delete page or modal(js) to delete planets? -->
-                                <a href="delete.php?id=<?= $planet['id']; ?>">Delete</a>
+                                <!--  delete page  -->
+                                <form method="post" action="delete.php">
+                                    <input type="hidden" name="id" value="<?= $planet['id']; ?>">
+                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this article?');">
+                                        Delete
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>

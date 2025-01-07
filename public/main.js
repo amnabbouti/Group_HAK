@@ -7,6 +7,18 @@ if (logo) {
     });
 }
 
+// Scroll to the results section when searching
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const search = urlParams.get("name"); // Get the 'name' parameter
+    if (search) {
+        const results = document.getElementById("planets");
+        if (results) {
+            results.scrollIntoView({behavior: "smooth"});
+        }
+    }
+});
+
 
 // shuttle
 document.addEventListener("DOMContentLoaded", () => {

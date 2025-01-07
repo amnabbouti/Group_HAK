@@ -142,7 +142,7 @@ if ($page > $totalPages) {
                 </select>
                 <button type="submit">Filter</button>
             </form>
-
+        
         </section>
         <section class="featured-banner">
             <div id="picture_of_the_month">
@@ -163,32 +163,33 @@ if ($page > $totalPages) {
                 <h3><?= $featuredTitle; ?></h3>
                 <p><?= $featuredDescription; ?></p>
                 <a href="#planets">
-                    <button>Explore More</button>
+                    <button>Explore The Universe</button>
                 </a>
             </div>
+            <section class="socials">
+                <div class="curiosity-model">
+                    <p id="flight">Discover Space With Miller's World</p>
+                    <model-viewer
+                          id="curiosity"
+                          src="public/assets/models/space_shuttle.glb"
+                          alt="Curiosity Rover"
+                          shadow-intensity="1"
+                          background-color="#000000"
+                          camera-orbit="-75deg auto 1m"
+                          min-camera-orbit="auto auto 20m"
+                          max-camera-orbit="auto auto 20m"
+                          exposure="1"
+                          ground-plane
+                          style="width: 300px; height: 200px; overflow: hidden"
+                          shadow-intensity="1"
+                          environment-image="neutral"
+                          scale="0.5 0.5 0.5"
+                          field-of-view="90deg">
+                    </model-viewer>
+                </div>
+            </section>
         </section>
-        <section class="socials">
-            <div class="curiosity-model">
-                <p id="flight">Discover Space With Miller's World</p>
-                <model-viewer
-                      id="curiosity"
-                      src="public/assets/models/space_shuttle.glb"
-                      alt="Curiosity Rover"
-                      shadow-intensity="1"
-                      background-color="#000000"
-                      camera-orbit="-75deg auto 1m"
-                      min-camera-orbit="auto auto 20m"
-                      max-camera-orbit="auto auto 20m"
-                      exposure="1"
-                      ground-plane
-                      style="width: 300px; height: 200px; overflow: hidden"
-                      shadow-intensity="1"
-                      environment-image="neutral"
-                      scale="0.5 0.5 0.5"
-                      field-of-view="90deg">
-                </model-viewer>
-            </div>
-        </section>
+
         <section class="planets">
             <div class="container" id="planets">
                 <?php foreach ($paginatedItems as $planet): ?>
@@ -208,7 +209,7 @@ if ($page > $totalPages) {
                 <?php endforeach; ?>
             </div>
         </section>
-
+        
         <!-- Pagination -->
         <section class="pagination">
             <div class="container">
@@ -229,7 +230,7 @@ if ($page > $totalPages) {
     
     <footer>
         <div class="container">
-
+            
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>

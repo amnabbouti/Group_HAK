@@ -46,8 +46,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <header>
         <nav>
             <div class="search">
-                <input type="text" name="search" id="search" placeholder="Search for a planet...">
-                <button type="submit">Search</button>
+                <form method="get" action="index.php">
+                    <input type="text" name="name" id="search" placeholder="Search for a planet...">
+                    <button type="submit">Search</button>
+                </form>
             </div>
             <a href="index.php" class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">

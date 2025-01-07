@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 // Include necessary files and libraries
 require "includes/db.inc.php";
 include_once "includes/css_js.inc.php";
-require 'functions.php';
+require 'functions.inc.php';
 require 'vendor/autoload.php';
 $planets = getPlanets();
 

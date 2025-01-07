@@ -1,4 +1,5 @@
 <?php
+include_once "includes/db.inc.php";
 
 use Dotenv\Dotenv;
 
@@ -112,7 +113,7 @@ function isLoggedIn(): bool
     return $loggedin;
 }
 
-function isValidLogin(String $mail, String $password): bool
+function isValidLogin(string $mail, string $password): bool
 {
     $sql = "SELECT id FROM users WHERE mail=:mail AND password=:password AND status = 1";
 
@@ -140,15 +141,16 @@ function requiredLoggedOut()
     }
 }
 
-function existingUsername(String $username): bool
+function existingUsername($username)
 {
-    $sql = "SELECT username FROM users WHERE usernmae = :username";
-    $stmt = connectToDB()->prepare($sql);
-    $stmt->execute([':username' => $username]);
-    return $stmt->fetch(PDO::FETCH_COLUMN);
+    $pdo = connectToDB();
+    $stmt = $pdo->prepare("SELECT username FROM users WHERE username = :username");
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
 }
 
-function existingMail(String $mail): bool
+function existingMail(string $mail): bool
 {
     $sql = "SELECT mail FROM users WHERE mail = :mail";
     $stmt = connectToDB()->prepare($sql);
@@ -156,7 +158,7 @@ function existingMail(String $mail): bool
     return $stmt->fetch(PDO::FETCH_COLUMN);
 }
 
-function registerNewMember(String $username, String $firstname, String $lastname, String $mail, String $password): bool|int
+function registerNewMember(string $username, string $firstname, string $lastname, string $mail, string $password): bool|int
 {
     $db = connectToDB();
     $sql = "INSERT INTO users(username, firstname, lastname, mail, password) VALUES (:username, :firstname, :lastname, :mail, :password)";

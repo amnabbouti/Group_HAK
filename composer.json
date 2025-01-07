@@ -1,15 +1,14 @@
 {
-    "name": "amine/group_hak",
-    "type": "project",
-    "require": {
-        "vlucas/phpdotenv": "^5.6",
-      "ext-pdo": "*"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "amnabbouti",
-            "email": "amine.abbouti@hotmail.com"
-        }
-    ]
+  "name": "amine/group_hak",
+  "type": "project",
+  "require": {
+    "vlucas/phpdotenv": "^5.6"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "amnabbouti",
+      "email": "amine.abbouti@hotmail.com"
+    }
+  ]
 }

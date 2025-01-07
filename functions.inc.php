@@ -136,7 +136,7 @@ function requiredLoggedIn()
 function requiredLoggedOut()
 {
     if (isLoggedIn()) {
-        header("Location: admin.php");
+        header("Location: index.php");
         exit;
     }
 }
@@ -169,6 +169,18 @@ function registerNewMember(string $username, string $firstname, string $lastname
         ':lastname' => $lastname,
         ':mail' => $mail,
         ':password' => md5($password),
+    ]);
+    return $db->lastInsertId();
+}
+
+function deletePlanet(int $id)
+{
+    $db = connectToDB();
+    $sql = "DELETE FROM planets
+            WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':id' => $id
     ]);
     return $db->lastInsertId();
 }

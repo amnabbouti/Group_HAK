@@ -1,21 +1,16 @@
 <?php
-// Display errors for development
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-error_reporting(E_ALL);
+session_start();
 
-// Include necessary files and libraries
+if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit;
+}
+
 require "includes/db.inc.php";
 include_once "includes/css_js.inc.php";
 require 'functions.inc.php';
-require 'vendor/autoload.php';
+
 $planets = getPlanets();
-
-// print "<pre>";
-// print_r($planets);
-// print "</pre>";
-
-
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +26,6 @@ $planets = getPlanets();
     <header>
         <nav>
             <div class="search">
-                <!-- Planet Search -->
                 <form method="get" action="">
                     <input type="text" name="name" placeholder="Search for a planet..."
                            value="<?= $_GET['name'] ?? '' ?>">
@@ -43,9 +37,10 @@ $planets = getPlanets();
             </a>
             <div>
                 <ul class="nav_links">
-                    <li><a href="#">Add a planet</a></li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Log In</a></li>
+                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="admin_register.php" class="btn btn-register-admin">Add New Admin</a></li>
                 </ul>
             </div>
         </nav>

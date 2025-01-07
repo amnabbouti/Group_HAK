@@ -116,7 +116,7 @@ if ($page > $totalPages) {
             <div>
                 <ul class="nav_links">
                     <li><a href="#">Add a planet</a></li>
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="profile.php">Profile</a></li>
                     <li><a href="login.php">Log In</a></li>
                 </ul>
             </div>

@@ -1,13 +1,11 @@
 <?php
+session_start(); // Start the session
+
 include_once "includes/css_js.inc.php";
 require_once "includes/db.inc.php";
 require("functions.inc.php");
-
-
 requiredLoggedOut();
-
 $errors = [];
-
 $username = "";
 $firstname = "";
 $lastname = "";
@@ -26,7 +24,7 @@ if (isset($_POST['submit'])) {
         if (!preg_match("/^[a-zA-Z0-9_-]+$/", $username)) {
             $errors[] = "Username can not contain spaces or special characters.";
         }
-        if (existingUsername($username) == true) {
+        if (existingUsername($username)) {
             $errors[] = "Username already exists.";
         }
     }
@@ -40,7 +38,7 @@ if (isset($_POST['submit'])) {
             $errors[] = "First name is required.";
         }
         if (preg_match("/[^a-zA-Z\s'-]/", $firstname)) {
-            $errors[] = "First name can not contain special characters";
+            $errors[] = "First name can not contain special characters.";
         }
     }
 
@@ -54,7 +52,7 @@ if (isset($_POST['submit'])) {
         }
 
         if (preg_match("/[^a-zA-Z\s'-]/", $lastname)) {
-            $errors[] = "First name can not contain special characters";
+            $errors[] = "Last name can not contain special characters.";
         }
     }
 
@@ -65,7 +63,7 @@ if (isset($_POST['submit'])) {
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             $errors[] = "E-mail address is invalid.";
         }
-        if (existingMail($mail) == true) {
+        if (existingMail($mail)) {
             $errors[] = "Mail already exists.";
         }
     }
@@ -79,19 +77,20 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    if (count($errors) == 0) { // er werden geen fouten geregistreerd tijdens validatie
-        $newId = registerNewMember($username, $firstname, $lastname, $mail, $password);
+    if (count($errors) == 0) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $newId = registerNewMember($username, $firstname, $lastname, $mail, $hashedPassword, 'user');
         if (!$newId) {
-            $errors[] = "An unknown error has occured, pleace contact us...";
+            $errors[] = "An unknown error has occurred, please contact us...";
         } else {
-            setLogin();
+            setLogin($newId);
+            $_SESSION['id'] = $newId; // Store user ID in session
             $_SESSION['message'] = "Welcome $firstname!";
-            header("Location: admin.php");
+            header("Location: profile.php");
             exit;
         }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,20 +99,18 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
-    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>" />
+    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
-
 </head>
 
 <body>
     <header>
         <nav>
             <div class="search">
-                <!-- Planet Search -->
                 <form method="get" action="">
                     <input type="text" name="name" placeholder="Search for a planet..."
-                        value="<?= $_GET['name'] ?? '' ?>">
+                           value="<?= $_GET['name'] ?? '' ?>">
                     <button type="submit">Search</button>
                 </form>
             </div>
@@ -137,7 +134,7 @@ if (isset($_POST['submit'])) {
                 <div class="error-messages">
                     <ul>
                         <?php foreach ($errors as $error): ?>
-                            <li><?= $error; ?></li>
+                            <li><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -147,27 +144,26 @@ if (isset($_POST['submit'])) {
                     <div class="form-group username">
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username" placeholder="Enter a username"
-                            value="<?= $username; ?>" />
+                               value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?>"/>
                     </div>
                     <div class="form-group firstname">
                         <label for="firstname">Firstname</label>
                         <input type="text" id="firstname" name="firstname" placeholder="Enter your Firstname"
-                            value="<?= $firstname; ?>" />
+                               value="<?= htmlspecialchars($firstname, ENT_QUOTES, 'UTF-8'); ?>"/>
                     </div>
                     <div class="form-group lastname">
                         <label for="lastname">Lastname</label>
                         <input type="text" id="lastname" name="lastname" placeholder="Enter your Lastname"
-                            value="<?= $lastname; ?>" />
+                               value="<?= htmlspecialchars($lastname, ENT_QUOTES, 'UTF-8'); ?>"/>
                     </div>
                     <div class="form-group mail">
                         <label for="mail">E-mail</label>
-                        <input type="email" id="mail" name="mail" placeholder="Enter your a valid E-mail"
-                            value="<?= $mail; ?>">
+                        <input type="email" id="mail" name="mail" placeholder="Enter a valid E-mail"
+                               value="<?= htmlspecialchars($mail, ENT_QUOTES, 'UTF-8'); ?>">
                     </div>
                     <div class="form-group password">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Enter a valid Password"
-                            value="<?= $password; ?>" />
+                        <input type="password" id="password" name="password" placeholder="Enter a valid Password"/>
                     </div>
                     <button type="submit" value="submit" name="submit">Register</button>
                 </form>

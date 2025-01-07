@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-document.addEventListener("DOMContentLoaded", () => {
-    const shuttle = document.querySelector("model-viewer#curiosity"); // Selecteer het shuttle-element
-=======
 // Smooth scrolling to the top when clicking logo
 const logo = document.querySelector("header .logo");
 if (logo) {
@@ -27,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // shuttle
 document.addEventListener("DOMContentLoaded", () => {
     const shuttle = document.querySelector("model-viewer#curiosity");
->>>>>>> f956906faf9c3a30d02d540ba1dc1a941e651880
     const exploreMoreButton = document.querySelector("a[href='#planets'] button");
     const screenHeight = window.innerHeight;
     const screenWidth = window.innerWidth;
@@ -102,9 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> f956906faf9c3a30d02d540ba1dc1a941e651880

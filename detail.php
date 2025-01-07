@@ -1,6 +1,6 @@
 <?php
 
-global $cssPath, $jsPath, $globalcssPath;
+global $cssPath, $jsPath, $globalcssPath, $cssGlobal;
 $source = "js/detail.js";
 require("functions.php");
 require 'includes/db.inc.php';
@@ -32,7 +32,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $planet['name'] ?></title>
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
     <script type="module"
             src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.0.1/dist/model-viewer.min.js">
@@ -56,7 +56,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <ul class="nav_links">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="#">Profile</a></li>
-                    <li><a href="#">Log In</a></li>
+                    <li><a href="login.php">Log In</a></li>
                 </ul>
             </div>
         </nav>
@@ -74,7 +74,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                               auto-rotate-speed="4"
                               camera-controls
                               disable-zoom
-                              style="width: 100%; height: 400px;">
+                              style="width: 100%; height: 300px;">
                         </model-viewer>
                         <?php if (!empty($planet['image'])): ?>
                             <div style="text-align: center; margin-top: 4rem;">

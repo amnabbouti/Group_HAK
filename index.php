@@ -93,7 +93,7 @@ if ($page > $totalPages) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miller's World</title>
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $globalcssPath ?>"/>
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script type="module" src="/public/main.js" defer></script>
@@ -117,7 +117,7 @@ if ($page > $totalPages) {
                 <ul class="nav_links">
                     <li><a href="#">Add a planet</a></li>
                     <li><a href="#">Profile</a></li>
-                    <li><a href="#">Log In</a></li>
+                    <li><a href="login.php">Log In</a></li>
                 </ul>
             </div>
         </nav>

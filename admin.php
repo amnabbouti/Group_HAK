@@ -75,10 +75,11 @@ $planets = getPlanets();
                             <td>Not yet in db</td>
                             <td>
                                 <a href="detail.php?id=<?= $planet['id']; ?>">View</a>
+                                <!-- TODO edit page needs to be created -->
                                 <a href="edit.php?id=<?= $planet['id']; ?>">Edit</a>
+                                <!-- TODO delete page or modal(js) to delete planets? -->
                                 <a href="delete.php?id=<?= $planet['id']; ?>">Delete</a>
                             </td>
-
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

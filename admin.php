@@ -59,6 +59,7 @@ $planets = getPlanets();
                         <th>#ID</th>
                         <th>Planet</th>
                         <th>Description</th>
+                        <th>Image</th>
                         <th>Date added</th>
                         <th>Date edited</th>
                         <th>Actions</th>

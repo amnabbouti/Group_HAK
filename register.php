@@ -146,23 +146,28 @@ if (isset($_POST['submit'])) {
                 <form method="post" action="register.php">
                     <div class="form-group username">
                         <label for="username">Username</label>
-                        <input type="text" id="username" name="username" value="<?= $username; ?>"/>
+                        <input type="text" id="username" name="username" placeholder="Enter a username"
+                               value="<?= $username; ?>"/>
                     </div>
                     <div class="form-group firstname">
                         <label for="firstname">Firstname</label>
-                        <input type="text" id="firstname" name="firstname" value="<?= $firstname; ?>"/>
+                        <input type="text" id="firstname" name="firstname" placeholder="Enter your Firstname"
+                               value="<?= $firstname; ?>"/>
                     </div>
                     <div class="form-group lastname">
                         <label for="lastname">Lastname</label>
-                        <input type="text" id="lastname" name="lastname" value="<?= $lastname; ?>"/>
+                        <input type="text" id="lastname" name="lastname" placeholder="Enter your Lastname"
+                               value="<?= $lastname; ?>"/>
                     </div>
                     <div class="form-group mail">
                         <label for="mail">E-mail</label>
-                        <input type="email" id="mail" name="mail" value="<?= $mail; ?>">
+                        <input type="email" id="mail" name="mail" placeholder="Enter your a valid E-mail"
+                               value="<?= $mail; ?>">
                     </div>
                     <div class="form-group password">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" value="<?= $password; ?>"/>
+                        <input type="password" id="password" name="password" placeholder="Enter a valid Password"
+                               value="<?= $password; ?>"/>
                     </div>
                     <button type="submit" value="submit" name="submit">Register</button>
                 </form>

@@ -2,10 +2,10 @@
 
 global $cssPath, $jsPath, $globalcssPath, $cssGlobal;
 $source = "js/detail.js";
-require("functions.php");
-require 'includes/db.inc.php';
-require 'includes/css_js.inc.php';
-require 'vendor/autoload.php';
+require_once("functions.inc.php");
+require_once 'includes/db.inc.php';
+require_once 'includes/css_js.inc.php';
+require_once 'vendor/autoload.php';
 
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);

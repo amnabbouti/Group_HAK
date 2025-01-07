@@ -1,17 +1,16 @@
 <?php
-// Display errors for development
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
-// Include necessary files and libraries
-require "includes/db.inc.php";
+require_once "includes/db.inc.php";
 include_once "includes/css_js.inc.php";
-require 'functions.php';
+require_once 'functions.inc.php';
 require 'vendor/autoload.php';
+
 $db = connectToDB();
 
-// Get featured NASA data
+//NASA data
 $nasaData = getNasaFeaturedData();
 $featuredTitle = $nasaData['title'];
 $featuredDescription = $nasaData['description'];
@@ -22,8 +21,8 @@ $mediaType = $nasaData['mediaType'];
 $filters = [];
 $params = [];
 
-// Sorting logic
-$orderBy = "ORDER BY id ASC"; //by id
+// Sorting logic by id
+$orderBy = "ORDER BY id ASC";
 if (!empty($_GET['sort']) && in_array($_GET['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
     $orderBy = "ORDER BY " . htmlspecialchars($_GET['sort'], ENT_QUOTES, 'UTF-8') . " ASC";
 }

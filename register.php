@@ -1,7 +1,7 @@
 <?php
 include_once "includes/css_js.inc.php";
-require("includes/db.inc.php");
-require("functions.php");
+require_once "includes/db.inc.php";
+require("functions.inc.php");
 
 
 requiredLoggedOut();

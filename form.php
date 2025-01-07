@@ -127,18 +127,15 @@ if (isset($_POST['submit'])) {
         }
 
         // Validatie voor discovery method
-        if (!isset($_POST['discovery_method'])) {
+        if (!isset($_POST['discovery_method']) || (int)$_POST['discovery_method'] === 0) {
             $errors[] = "Discovery method is missing.";
         } else {
-            if (!array_key_exists($_POST['discovery_method'], $discoveryMethods)) {
-                $errors[] = "Invalid discovery method.";
-            } else {
-                $discovery_method_id = (int)$_POST['discovery_method'];
-            }
+            $discovery_method_id = (int)$_POST['discovery_method'];
         }
 
+
         // Validatie voor habitability
-        if (!isset($_POST['habitability']) && (int)$_POST['habitability'] === 0) {
+        if (!isset($_POST['habitability']) || (int)$_POST['habitability'] === 0) {
             $errors[] = "Habitability is missing.";
         } else {
             $habitability_id = (int)$_POST['habitability'];

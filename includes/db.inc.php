@@ -22,6 +22,16 @@ function connectToDB()
     return $db;
 }
 
+<<<<<<< HEAD
+function getPlanets(): array
+{
+    $sql = "SELECT * FROM planets";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+=======
 //function connectToDB()
 //{
 //    $db_host = 'localhost';
@@ -39,3 +49,4 @@ function connectToDB()
 //    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
 //    return $db;
 //}
+>>>>>>> f956906faf9c3a30d02d540ba1dc1a941e651880

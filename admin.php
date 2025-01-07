@@ -4,9 +4,9 @@ require('functions.php');
 
 $planets = getPlanets();
 
-print "<pre>";
-print_r($planets);
-print "</pre>";
+// print "<pre>";
+// print_r($planets);
+// print "</pre>";
 
 
 ?>
@@ -39,12 +39,16 @@ print "</pre>";
                     <tr>
                         <td><?= $planet['id']; ?></td>
                         <td><?= $planet['name']; ?></td>
-                        <td><?= $planet['description']; ?></td>
-                        <td><?= $planet['date_discovered']; ?></td>
-                        <td>Not yet added</td>
-                        <td>View</td>
-                        <td>Edit</td>
-                        <td>Delete</td>
+                        <td><?= mb_strimwidth($planet['description'], 0, 100, "..."); ?></td>
+                        <td><img src="<?= $planet['image']; ?>" alt="<?= $planet['name']; ?>" width="100" height="100"></td>
+                        <td>Not yet in db</td>
+                        <td>Not yet in db</td>
+                        <td>
+                            <a href="view.php?id=<?= $planet['id']; ?>">View</a>
+                            <a href="edit.php?id=<?= $planet['id']; ?>">Edit</a>
+                            <a href="delete.php?id=<?= $planet['id']; ?>">Delete</a>
+                        </td>
+
                     </tr>
                 <?php endforeach; ?>
             </tbody>

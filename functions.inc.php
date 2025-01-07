@@ -1,4 +1,5 @@
 <?php
+include_once "includes/db.inc.php";
 
 use Dotenv\Dotenv;
 
@@ -85,4 +86,98 @@ function get_planet_by_id(int $id): ?array
         error_log("Error fetching planet details: " . $e->getMessage());
         return null;
     }
+}
+
+function setLogin($uid = false)
+{
+    $_SESSION['loggedin'] = time() + 3600;
+
+    if ($uid) {
+        $_SESSION['uid'] = $uid;
+    }
+}
+
+function isLoggedIn(): bool
+{
+    session_start();
+
+    $loggedin = FALSE;
+
+    if (isset($_SESSION['loggedin'])) {
+        if ($_SESSION['loggedin'] > time()) {
+            $loggedin = TRUE;
+            setLogin();
+        }
+    }
+
+    return $loggedin;
+}
+
+function isValidLogin(string $mail, string $password): bool
+{
+    $sql = "SELECT id FROM users WHERE mail=:mail AND password=:password AND status = 1";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute([
+        ':mail' => $mail,
+        ':password' => md5($password)
+    ]);
+    return $stmt->fetch(PDO::FETCH_COLUMN);
+}
+
+function requiredLoggedIn()
+{
+    if (!isLoggedIn()) {
+        header("Location: login.php");
+        exit;
+    }
+}
+
+function requiredLoggedOut()
+{
+    if (isLoggedIn()) {
+        header("Location: admin.php");
+        exit;
+    }
+}
+
+function existingUsername($username)
+{
+    $pdo = connectToDB();
+    $stmt = $pdo->prepare("SELECT username FROM users WHERE username = :username");
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
+}
+
+function existingMail(string $mail): bool
+{
+    $sql = "SELECT mail FROM users WHERE mail = :mail";
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute([':mail' => $mail]);
+    return $stmt->fetch(PDO::FETCH_COLUMN);
+}
+
+function registerNewMember(string $username, string $firstname, string $lastname, string $mail, string $password): bool|int
+{
+    $db = connectToDB();
+    $sql = "INSERT INTO users(username, firstname, lastname, mail, password) VALUES (:username, :firstname, :lastname, :mail, :password)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':username' => $username,
+        ':firstname' => $firstname,
+        ':lastname' => $lastname,
+        ':mail' => $mail,
+        ':password' => md5($password),
+    ]);
+    return $db->lastInsertId();
+}
+
+function getPlanets(): array
+{
+    $sql = "SELECT * FROM planets";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

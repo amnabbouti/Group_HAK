@@ -1,5 +1,21 @@
 {
+<<<<<<< HEAD
     "require": {
         "vlucas/phpdotenv": "^5.6"
     }
+=======
+    "name": "amine/group_hak",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^5.6",
+      "ext-pdo": "*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "amnabbouti",
+            "email": "amine.abbouti@hotmail.com"
+        }
+    ]
+>>>>>>> f956906faf9c3a30d02d540ba1dc1a941e651880
 }

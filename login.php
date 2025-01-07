@@ -62,9 +62,9 @@ if (isset($_POST['mail'])) {
             </a>
             <div>
                 <ul class="nav_links">
-                    <li><a href="index.php">HOME</a></li>
-                    <li><a href="#">PPROFILE</a></li>
-                    <li><a href="#">CONTACT US</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Contact Us</a></li>
                 </ul>
             </div>
         </nav>

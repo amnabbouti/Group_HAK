@@ -177,7 +177,6 @@ if (isset($_POST['submit'])) {
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>
-            <?= "php works on the main & footer" ?>
             <ul class="footer-links">
                 <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Privacy Policy</a></li>

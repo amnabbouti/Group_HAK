@@ -246,7 +246,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>
-            <?= "php works on the main & footer" ?>
             <ul>
                 <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Privacy Policy</a></li>

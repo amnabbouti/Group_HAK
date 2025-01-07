@@ -1,4 +1,6 @@
 <?php
+
+
 // Display errors for development
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
@@ -9,6 +11,7 @@ require "includes/db.inc.php";
 include_once "includes/css_js.inc.php";
 require 'functions.inc.php';
 require 'vendor/autoload.php';
+requiredLoggedIn();
 $planets = getPlanets();
 
 // print "<pre>";

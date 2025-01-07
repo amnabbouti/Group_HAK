@@ -30,7 +30,6 @@ function getPlanets(): array
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
 //function connectToDB()
 //{
 //    $db_host = 'localhost';
@@ -48,4 +47,3 @@ function getPlanets(): array
 //    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
 //    return $db;
 //}
-

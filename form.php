@@ -1,6 +1,6 @@
 <?php
 require 'functions.inc.php';
-// requiredLoggedIn();
+requiredLoggedIn();
 
 $discoveryMethods = getDiscoveryMethods();
 $habitabilities = getHabitabilities();

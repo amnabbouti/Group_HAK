@@ -99,7 +99,6 @@ function setLogin($uid = false)
 
 function isLoggedIn(): bool
 {
-    session_start();
 
     $loggedin = FALSE;
 
@@ -214,7 +213,7 @@ function getHabitabilities(): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function insertPlanet(String $name, String $description, String $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id)
+function insertPlanet(string $name, string $description, string $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id)
 {
     $db = connectToDB();
     $sql = "INSERT INTO planets (name, description, image, length_of_year, moons, temperature, diameter, date_discovered, mass, distance_from_sun, discovery_method_id, habitability_id) VALUES (

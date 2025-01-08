@@ -56,9 +56,9 @@ if (isset($_POST['mail'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="./dist/<?= htmlspecialchars($cssPath, ENT_QUOTES, 'UTF-8') ?>"/>
-    <link rel="stylesheet" href="./dist/<?= htmlspecialchars($cssGlobal, ENT_QUOTES, 'UTF-8') ?>"/>
-    <script type="module" src="./dist/<?= htmlspecialchars($jsPath, ENT_QUOTES, 'UTF-8') ?>"></script>
+    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
+    <script type="module" src="./dist/<?= $jsPath ?>"></script>
 </head>
 
 <body>

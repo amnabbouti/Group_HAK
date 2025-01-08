@@ -13,3 +13,6 @@ vendor/
 # Ignore composer.json and composer.lock files
 composer.json
 composer.lock
+uploads
+manifest.json
+

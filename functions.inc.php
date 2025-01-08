@@ -245,3 +245,5 @@ function insertPlanet(string $name, string $description, string $image, $length_
     ]);
     return $db->lastInsertId();
 }
+
+

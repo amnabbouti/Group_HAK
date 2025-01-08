@@ -1,4 +1,10 @@
 <?php
+
+if (!empty($_SESSION['refresh_page'])) {
+    echo "<script>location.reload();</script>";
+    unset($_SESSION['refresh_page']); // Reset after refresh
+}
+
 session_start();
 require_once "includes/css_js.inc.php";
 require "includes/db.inc.php";
@@ -33,9 +39,14 @@ $planets = getPlanets();
             </a>
             <div>
                 <ul class="nav_links">
-                    <li><a href="#">Log In</a></li>
-                    <li><a href="logout.php">Logout</a></li>
-                    <li><a href="admin_register.php" class="btn btn-register-admin">Add New Admin</a></li>
+                    <li>
+                        <button onclick="location.href='logout.php'" class="btn">Logout</button>
+                    </li>
+                    <li>
+                        <button onclick="location.href='admin_register.php'" class="btn btn-register-admin">Add New
+                            Admin
+                        </button>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -43,7 +54,7 @@ $planets = getPlanets();
     <main>
         <section class="planets">
             <h1>Admin Dashboard</h1>
-            <table>
+            <table style="padding: 10px">
                 <thead>
                 <tr>
                     <th>#ID</th>
@@ -61,7 +72,7 @@ $planets = getPlanets();
                         <td><?= $planet['id']; ?></td>
                         <td><?= $planet['name']; ?></td>
                         <td><?= mb_strimwidth($planet['description'], 0, 100, "..."); ?></td>
-                        <td><img src="<?= $planet['image']; ?>" alt="<?= $planet['name']; ?>" width="140" height="100">
+                        <td><img src="<?= $planet['image']; ?>" alt="<?= $planet['name']; ?>">
                         </td>
                         <td>Not yet in db</td>
                         <td>Not yet in db</td>
@@ -100,7 +111,6 @@ $planets = getPlanets();
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>
-            <?= "php works on the main & footer" ?>
             <ul>
                 <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Privacy Policy</a></li>

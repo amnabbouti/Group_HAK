@@ -115,12 +115,21 @@ function isLoggedIn(): bool
 function isValidLogin($mail, $password)
 {
     $db = connectToDB();
-    $stmt = $db->prepare("SELECT id, password FROM users WHERE mail = :mail");
+    $stmt = $db->prepare("SELECT id, password, role FROM users WHERE mail = :mail");
     $stmt->execute([':mail' => $mail]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user && md5($password) === $user['password']) {
-        return $user['id'];
+    if ($user) {
+        if (strlen($user['password']) === 32 && md5($password) === $user['password']) {
+            //rehashing the password
+            $newHashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $updateStmt = $db->prepare("UPDATE users SET password = :password WHERE id = :id");
+            $updateStmt->execute([':password' => $newHashedPassword, ':id' => $user['id']]);
+            return $user['id'];
+        }
+        if (password_verify($password, $user['password'])) {
+            return $user['id'];
+        }
     }
     return false;
 }

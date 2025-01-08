@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session
+session_start();
 
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
@@ -26,8 +26,8 @@ if (isset($_POST['mail'])) {
 
     if (empty($errors)) {
         if ($uid = isValidLogin($_POST['mail'], $_POST['password'])) {
-            setLogin($uid); // Pass the user ID to setLogin
-            $_SESSION['id'] = $uid; // Store user ID in session
+            setLogin($uid);
+            $_SESSION['id'] = $uid;
 
             // Fetch user role
             $db = connectToDB();
@@ -35,7 +35,7 @@ if (isset($_POST['mail'])) {
             $query->execute([$uid]);
             $user = $query->fetch();
             if ($user) {
-                $_SESSION['role'] = $user['role']; // Store the user role in the session
+                $_SESSION['role'] = $user['role']; // this is for storing the user role in the session
                 if ($user['role'] === 'admin') {
                     header("Location: admin.php");
                 } else {

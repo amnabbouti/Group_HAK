@@ -15,4 +15,5 @@ composer.json
 composer.lock
 uploads
 manifest.json
+dist
 

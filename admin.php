@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once "includes/css_js.inc.php";
 
 if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
@@ -19,25 +20,19 @@ $planets = getPlanets();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./dist/<?= $cssPath ?>">
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>">
     <title>Admin page</title>
 </head>
 
 <body>
     <header>
         <nav>
-            <div class="search">
-                <form method="get" action="">
-                    <input type="text" name="name" placeholder="Search for a planet..."
-                           value="<?= $_GET['name'] ?? '' ?>">
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-            <a href="#" class="logo">
+            <a href="index.php" class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </a>
             <div>
                 <ul class="nav_links">
-                    <li><a href="#">Profile</a></li>
                     <li><a href="#">Log In</a></li>
                     <li><a href="logout.php">Logout</a></li>
                     <li><a href="admin_register.php" class="btn btn-register-admin">Add New Admin</a></li>

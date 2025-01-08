@@ -35,13 +35,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
     <script type="module"
-            src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.0.1/dist/model-viewer.min.js">
-
-    </script>
+            src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.0.1/dist/model-viewer.min.js"></script>
     <script type="module" src="public/main.js" defer></script>
+    <script src="https://kit.fontawesome.com/f5cdfe48d9.js" crossorigin="anonymous"></script>
 
 </head>
-
 <body>
     <header>
         <nav>
@@ -242,10 +240,26 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     </main>
     <footer>
         <div class="container">
-            
+
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>
+
+            <ul class="social-icons">
+                <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-facebook fa-2x"></i></a>
+                </li>
+                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-instagram fa-2x"></i></a>
+                </li>
+
+                <li><a href="https://example.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-x-twitter fa-2x"></i></a>
+                </li>
+                <li><a href="mailto:contact@millersworld.com">
+                        <i class="fa-solid fa-envelope fa-2x"></i></a>
+                </li>
+            </ul>
             <ul>
                 <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Privacy Policy</a></li>

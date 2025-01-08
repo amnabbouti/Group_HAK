@@ -19,8 +19,8 @@ html{
 }
 
 body *{
-    line-height: calc(2px + 2ex + 2px);
-    font-size: 2rem;
+    /* line-height: calc(2px + 2ex + 2px); */
+    /* font-size: 2rem; */
     font-family: 'Inter', sans-serif;
 }
 
@@ -50,6 +50,7 @@ header{
         .nav_links{
             display: flex;
             gap: 1rem;
+            align-items: center;
             
             li a{
                 font-family: 'Inter', sans-serif;

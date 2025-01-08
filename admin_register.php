@@ -108,13 +108,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="error-messages">
                     <ul>
                         <?php foreach ($errors as $error) : ?>
-                            <li><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></li>
+                            <li><?= $error; ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
             <?php elseif (!empty($success)) : ?>
                 <div class="success-message">
-                    <p><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p><?= $success; ?></p>
                 </div>
             <?php endif; ?>
 

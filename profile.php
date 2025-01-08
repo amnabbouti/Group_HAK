@@ -1,20 +1,20 @@
 <?php
 session_start();
+
 require("includes/db.inc.php");
 require("functions.inc.php");
 require_once "includes/css_js.inc.php";
+
 requiredLoggedIn();
 $db = connectToDB();
 
-// user id
 $user_id = $_SESSION['id'] ?? null;
 
-// Fetch
-$query = $db->prepare("SELECT username, firstname, lastname, mail FROM users WHERE id = ?");
+$query = $db->prepare("SELECT username, firstname, lastname, mail, profile_picture FROM users WHERE id = ?");
 $query->execute([$user_id]);
 $user = $query->fetch(PDO::FETCH_ASSOC);
 
-// user niet bekend
+// not user redirect to mainPage
 if (!$user) {
     header("Location: login.php");
     exit;
@@ -26,41 +26,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstname = trim($_POST['firstname']);
     $lastname = trim($_POST['lastname']);
     $mail = trim($_POST['mail']);
+    $profile_picture = $user['profile_picture'];
 
-    // validation
+    // Validate required fields
     if (empty($username) || empty($firstname) || empty($lastname) || empty($mail)) {
         $error_message = "All fields are required.";
     } elseif (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
         $error_message = "Invalid email format.";
     } else {
-        // error checks
+        // Check for username and email conflicts
         if ($username != $user['username'] && existingUsername($username)) {
             $error_message = "This username is already taken.";
         } elseif ($mail != $user['mail'] && existingMail($mail)) {
             $error_message = "An account with this email already exists.";
         } else {
-            // Update van db users
-            $update_query = $db->prepare("
-                UPDATE users 
-                SET username = :username, firstname = :firstname, lastname = :lastname, mail = :mail
-                WHERE id = :id
-            ");
-            $update_query->execute([
-                ':username' => $username,
-                ':firstname' => $firstname,
-                ':lastname' => $lastname,
-                ':mail' => $mail,
-                ':id' => $user_id
-            ]);
+            // profile pic
+            if (!empty($_FILES['profile_picture']['name'])) {
+                $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+                $upload_dir = 'uploads/';
+                $file_name = basename($_FILES['profile_picture']['name']);
+                $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                $file_size = $_FILES['profile_picture']['size'];
+                $file_tmp_name = $_FILES['profile_picture']['tmp_name'];
+                $new_file_name = $upload_dir . uniqid('', true) . '.' . $file_ext;
 
-            // Reload updated data
-            $user = [
-                'username' => $username,
-                'firstname' => $firstname,
-                'lastname' => $lastname,
-                'mail' => $mail
-            ];
-            $success_message = "Your profile has been updated successfully.";
+                if (!in_array($file_ext, $allowed_extensions)) {
+                    $error_message = "Invalid file type. Allowed types: JPG, JPEG, PNG, GIF.";
+                } elseif ($file_size > 2 * 1024 * 1024) {
+                    $error_message = "File size must be less than 2MB.";
+                } else {
+                    if (move_uploaded_file($file_tmp_name, $new_file_name)) {
+                        $profile_picture = $new_file_name; // file path to db
+
+                        // If the user already has a pic delete the old file
+                        if (!empty($user['profile_picture']) && file_exists($user['profile_picture'])) {
+                            unlink($user['profile_picture']);
+                        }
+                    } else {
+                        $error_message = "Failed to upload the profile picture.";
+                    }
+                }
+            }
+
+            if (empty($error_message)) {
+                $update_query = $db->prepare("
+                    UPDATE users
+                    SET username = :username, firstname = :firstname, lastname = :lastname, mail = :mail, profile_picture = :profile_picture
+                    WHERE id = :id
+                ");
+                $update_query->execute([
+                    ':username' => $username,
+                    ':firstname' => $firstname,
+                    ':lastname' => $lastname,
+                    ':mail' => $mail,
+                    ':profile_picture' => $profile_picture,
+                    ':id' => $user_id
+                ]);
+
+                $user = [
+                    'username' => $username,
+                    'firstname' => $firstname,
+                    'lastname' => $lastname,
+                    'mail' => $mail,
+                    'profile_picture' => $profile_picture
+                ];
+                $success_message = "Your profile has been updated successfully.";
+            }
         }
     }
 }
@@ -73,8 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>">
-    <link rel="stylesheet" href="./dist/<?= $cssGlobal, ENT_QUOTES, 'UTF-8' ?>">
-    <script type="module" src="./dist/<?= $jsPath, ENT_QUOTES, 'UTF-8' ?>"></script>
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>">
+    <script type="module" src="./dist/<?= $jsPath ?>"></script>
+    <script src="https://kit.fontawesome.com/f5cdfe48d9.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -86,44 +118,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li><a href="index.php">Home</a></li>
                 <li><a href="profile.php">Profile</a></li>
                 <li><a href="logout.php">Logout</a></li>
+                <li>
+                    <a href="profile.php" class="profile-picture-header">
+                        <?php if (!empty($user['profile_picture'])): ?>
+                            <img src="<?= htmlspecialchars($user['profile_picture'], ENT_QUOTES, 'UTF-8'); ?>"
+                                 alt="Profile Picture"
+                                 style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                        <?php else: ?>
+                            <i class="fa-solid fa-user"></i>
+                        <?php endif; ?>
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
     <main>
-        <section>
-            <h1>Profile</h1>
-            <?php if (!empty($error_message)): ?>
-                <p style="color: red;"><?= $error_message, ENT_QUOTES, 'UTF-8' ?></p>
-            <?php elseif (!empty($success_message)): ?>
-                <p style="color: green;"><?= $success_message, ENT_QUOTES, 'UTF-8' ?></p>
+        <section class="section1">
+            <?php if (!empty($error_message) || !empty($success_message)): ?>
+            <div class="notification <?= !empty($error_message) ? 'error' : 'success' ?> show">
+                <?= !empty($error_message) ? $error_message : $success_message ?>
+                </div><?php endif; ?>
+
+            <?php if (!empty($error_message) || !empty($success_message)): ?>
+                <script>
+                    setTimeout(() => {
+                        document.querySelector('.notification').classList.remove('show');
+                    }, 4000);
+                </script>
             <?php endif; ?>
 
             <div class="profile-details">
-                <p><strong>Username:</strong> <?= $user['username'], ENT_QUOTES, 'UTF-8' ?></p>
-                <p><strong>First Name:</strong> <?= $user['firstname'], ENT_QUOTES, 'UTF-8' ?></p>
-                <p><strong>Last Name:</strong> <?= $user['lastname'], ENT_QUOTES, 'UTF-8' ?></p>
-                <p><strong>Email:</strong> <?= $user['mail'], ENT_QUOTES, 'UTF-8' ?></p>
+                <img src="<?= $user['profile_picture'] ?? 'uploads/default-profile.png' ?>" alt="Profile Picture">
+                <span class="change-picture-icon" onclick="document.getElementById('profile_picture').click();">
+                <i class="fa-solid fa-camera fa-2x"></i></span>
+                <h2> <?= $user['firstname'] . ' ' . $user['lastname'] ?></h2>
             </div>
         </section>
 
-        <section>
+        <section class="update">
             <h2>Update Profile</h2>
-            <form method="POST" action="profile.php">
+            <form id="profile-form" method="POST" action="profile.php" enctype="multipart/form-data">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username"
-                       value="<?= $user['username'], ENT_QUOTES, 'UTF-8' ?>" required>
+                <input type="text" id="username" name="username" value="<?= $user['username'] ?>" required>
                 <br>
                 <label for="firstname">First Name:</label>
-                <input type="text" id="firstname" name="firstname"
-                       value="<?= $user['firstname'], ENT_QUOTES, 'UTF-8' ?>" required>
+                <input type="text" id="firstname" name="firstname" value="<?= $user['firstname'] ?>" required>
                 <br>
                 <label for="lastname">Last Name:</label>
-                <input type="text" id="lastname" name="lastname"
-                       value="<?= $user['lastname'], ENT_QUOTES, 'UTF-8' ?>" required>
+                <input type="text" id="lastname" name="lastname" value="<?= $user['lastname'] ?>" required>
                 <br>
                 <label for="mail">Email:</label>
-                <input type="email" id="mail" name="mail"
-                       value="<?= $user['mail'], ENT_QUOTES, 'UTF-8' ?>" required>
+                <input type="email" id="mail" name="mail" value="<?= $user['mail'] ?>" required>
+                <br>
+                <label for="profile_picture">Profile Picture:</label>
+                <input type="file" id="profile_picture" name="profile_picture">
                 <br>
                 <button type="submit">Update</button>
             </form>

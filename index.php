@@ -1,4 +1,5 @@
 <?php
+session_start(); // Start the session
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
@@ -9,6 +10,14 @@ include_once "includes/css_js.inc.php";
 require 'functions.inc.php';
 require 'vendor/autoload.php';
 $db = connectToDB();
+
+// Get user data if logged in
+$user = [];
+if (isset($_SESSION['id'])) {
+    $query = $db->prepare("SELECT * FROM users WHERE id = ?");
+    $query->execute([$_SESSION['id']]);
+    $user = $query->fetch(PDO::FETCH_ASSOC);
+}
 
 // Get featured NASA data
 $nasaData = getNasaFeaturedData();
@@ -24,7 +33,7 @@ $params = [];
 // Sorting logic
 $orderBy = "ORDER BY id ASC"; //by id
 if (!empty($_GET['sort']) && in_array($_GET['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
-    $orderBy = "ORDER BY " . htmlspecialchars($_GET['sort'], ENT_QUOTES, 'UTF-8') . " ASC";
+    $orderBy = "ORDER BY " . htmlspecialchars($_GET['sort'] . " ASC");
 }
 
 // Search functionality
@@ -92,11 +101,13 @@ if ($page > $totalPages) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miller's World</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
-    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>" />
+    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script type="module" src="/public/main.js" defer></script>
+    <script src="https://kit.fontawesome.com/f5cdfe48d9.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -106,7 +117,7 @@ if ($page > $totalPages) {
                 <!-- Planet Search -->
                 <form method="get" action="">
                     <input type="text" name="name" placeholder="Search for a planet..."
-                        value="<?= $_GET['name'] ?? '' ?>">
+                           value="<?= $_GET['name'] ?? '' ?>">
                     <button type="submit">Search</button>
                 </form>
             </div>
@@ -115,9 +126,26 @@ if ($page > $totalPages) {
             </a>
             <div>
                 <ul class="nav_links">
+                    <li><a href="profile.php">Profile</a></li>
                     <li><a href="form.php">Add a planet</a></li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="login.php">Log In</a></li>
+                    <li class="dropdown">
+                        <a href="profile.php" class="profile-picture-header">
+                            <?php if (!empty($user['profile_picture'])): ?>
+                                <img src="<?= $user['profile_picture'] ?>"
+                                     alt="Profile Picture"
+                                     style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                            <?php else: ?>
+                                <i class="fa-solid fa-user fa-xl"></i>
+                            <?php endif; ?>
+                        </a>
+                        <div class="dropdown-content">
+                            <?php if (isset($_SESSION['id']) && !empty($_SESSION['id'])): ?>
+                                <a href="logout.php">Logout</a>
+                            <?php endif; ?>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -129,14 +157,14 @@ if ($page > $totalPages) {
                 <select name="moons" id="moons">
                     <option value="">Moon Count</option>
                     <option
-                        value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
+                          value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
                         No Moons
                     </option>
                     <option value="1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == '1 Moon' ? 'selected' : '' ?>>
                         1 Moon
                     </option>
                     <option
-                        value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
+                          value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
                         More than 1 Moon
                     </option>
                 </select>
@@ -170,21 +198,21 @@ if ($page > $totalPages) {
                 <div class="curiosity-model">
                     <p id="flight">Discover Space With Miller's World</p>
                     <model-viewer
-                        id="curiosity"
-                        src="public/assets/models/space_shuttle.glb"
-                        alt="Curiosity Rover"
-                        shadow-intensity="1"
-                        background-color="#000000"
-                        camera-orbit="-75deg auto 1m"
-                        min-camera-orbit="auto auto 20m"
-                        max-camera-orbit="auto auto 20m"
-                        exposure="1"
-                        ground-plane
-                        style="width: 300px; height: 200px; overflow: hidden"
-                        shadow-intensity="1"
-                        environment-image="neutral"
-                        scale="0.5 0.5 0.5"
-                        field-of-view="90deg">
+                          id="curiosity"
+                          src="public/assets/models/space_shuttle.glb"
+                          alt="Curiosity Rover"
+                          shadow-intensity="1"
+                          background-color="#000000"
+                          camera-orbit="-75deg auto 1m"
+                          min-camera-orbit="auto auto 20m"
+                          max-camera-orbit="auto auto 20m"
+                          exposure="1"
+                          ground-plane
+                          style="width: 300px; height: 200px; overflow: hidden"
+                          shadow-intensity="1"
+                          environment-image="neutral"
+                          scale="0.5 0.5 0.5"
+                          field-of-view="90deg">
                     </model-viewer>
                 </div>
             </section>
@@ -234,7 +262,22 @@ if ($page > $totalPages) {
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>
-            <?= "php works on the main & footer" ?>
+
+            <ul class="social-icons">
+                <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-facebook fa-2x"></i></a>
+                </li>
+                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-instagram fa-2x"></i></a>
+                </li>
+
+                <li><a href="https://example.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-x-twitter fa-2x"></i></a>
+                </li>
+                <li><a href="mailto:contact@millersworld.com">
+                        <i class="fa-solid fa-envelope fa-2x"></i></a>
+                </li>
+            </ul>
             <ul>
                 <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Privacy Policy</a></li>

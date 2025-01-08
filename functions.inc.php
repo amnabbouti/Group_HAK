@@ -113,16 +113,17 @@ function isLoggedIn(): bool
     return $loggedin;
 }
 
-function isValidLogin(string $mail, string $password): bool
+function isValidLogin($mail, $password)
 {
-    $sql = "SELECT id FROM users WHERE mail=:mail AND password=:password AND status = 1";
+    $db = connectToDB();
+    $stmt = $db->prepare("SELECT id, password FROM users WHERE mail = :mail");
+    $stmt->execute([':mail' => $mail]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $stmt = connectToDB()->prepare($sql);
-    $stmt->execute([
-        ':mail' => $mail,
-        ':password' => md5($password)
-    ]);
-    return $stmt->fetch(PDO::FETCH_COLUMN);
+    if ($user && md5($password) === $user['password']) {
+        return $user['id'];
+    }
+    return false;
 }
 
 function requiredLoggedIn()
@@ -158,17 +159,18 @@ function existingMail(string $mail): bool
     return $stmt->fetch(PDO::FETCH_COLUMN);
 }
 
-function registerNewMember(string $username, string $firstname, string $lastname, string $mail, string $password): bool|int
+function registerNewMember(string $username, string $firstname, string $lastname, string $mail, string $password, string $role): bool|int
 {
     $db = connectToDB();
-    $sql = "INSERT INTO users(username, firstname, lastname, mail, password) VALUES (:username, :firstname, :lastname, :mail, :password)";
+    $sql = "INSERT INTO users(username, firstname, lastname, mail, password, role) VALUES (:username, :firstname, :lastname, :mail, :password, :role)";
     $stmt = $db->prepare($sql);
     $stmt->execute([
         ':username' => $username,
         ':firstname' => $firstname,
         ':lastname' => $lastname,
         ':mail' => $mail,
-        ':password' => md5($password),
+        ':password' => $password,
+        ':role' => $role,
     ]);
     return $db->lastInsertId();
 }
@@ -234,4 +236,18 @@ function insertPlanet(String $name, String $description, String $image, $length_
         ':habitability_id' => $habitability_id
     ]);
     return $db->lastInsertId();
+}
+
+function isAdmin(): bool
+{
+    if (!isset($_SESSION['id'])) {
+        return false;
+    }
+
+    $db = connectToDB();
+    $query = $db->prepare("SELECT role FROM users WHERE id = ?");
+    $query->execute([$_SESSION['id']]);
+    $user = $query->fetch();
+
+    return $user && $user['role'] === 'admin';
 }

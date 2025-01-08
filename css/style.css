@@ -54,7 +54,7 @@ body{
             background-color: #000000;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.63), 0 2px 10px rgba(0, 0, 0, 0.55);
             overflow: hidden;
-            height: 90vh;
+            /* height: 90vh; */
         }
         
         #picture_of_the_month{

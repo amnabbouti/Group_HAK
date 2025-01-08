@@ -13,6 +13,19 @@ if (isset($_SERVER["admin"])) {
 } elseif ($page === "register.php") {
     $manifestUrl = "./dist/.vite/manifest.json";
     $source = "js/register.js";
+
+} elseif ($page === "profile.php") {
+    $manifestUrl = "./dist/.vite/manifest.json";
+    $source = "js/profile.js";
+
+} elseif ($page === "admin_register.php") {
+    $manifestUrl = "./dist/.vite/manifest.json";
+    $source = "js/admin_register.js";
+
+} elseif ($page === "admin.php") {
+    $manifestUrl = "./dist/.vite/manifest.json";
+    $source = "js/admin.js";
+
 } else {
     $manifestUrl = "./dist/.vite/manifest.json";
     $source = "js/index.js";

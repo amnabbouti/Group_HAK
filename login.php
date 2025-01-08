@@ -1,12 +1,14 @@
 <?php
+session_start(); // Start the session
+
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
+
 require("includes/db.inc.php");
 include_once "includes/css_js.inc.php";
 require("functions.inc.php");
-
 
 requiredLoggedOut();
 
@@ -22,14 +24,26 @@ if (isset($_POST['mail'])) {
         $errors[] = "Please fill in password.";
     }
 
-    if ($uid = isValidLogin($_POST['mail'], $_POST['password'])) {
+    if (empty($errors)) {
+        if ($uid = isValidLogin($_POST['mail'], $_POST['password'])) {
+            setLogin($uid); // Pass the user ID to setLogin
+            $_SESSION['id'] = $uid; // Store user ID in session
 
-        setLogin();
-
-        header("Location: admin.php");
-        exit;
-    } else {
-        $errors[] = "E-mail and/or password is not correct.";
+            // Fetch user role
+            $db = connectToDB();
+            $query = $db->prepare("SELECT role FROM users WHERE id = ?");
+            $query->execute([$uid]);
+            $user = $query->fetch();
+            if ($user) {
+                $_SESSION['role'] = $user['role']; // Store the user role in the session
+                if ($user['role'] === 'admin') {
+                    header("Location: admin.php");
+                } else {
+                    header("Location: index.php");
+                }
+                exit;
+            }
+        }
     }
 }
 ?>
@@ -42,9 +56,9 @@ if (isset($_POST['mail'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
-    <script type="module" src="./dist/<?= $jsPath ?>"></script>
+    <link rel="stylesheet" href="./dist/<?= htmlspecialchars($cssPath, ENT_QUOTES, 'UTF-8') ?>"/>
+    <link rel="stylesheet" href="./dist/<?= htmlspecialchars($cssGlobal, ENT_QUOTES, 'UTF-8') ?>"/>
+    <script type="module" src="./dist/<?= htmlspecialchars($jsPath, ENT_QUOTES, 'UTF-8') ?>"></script>
 </head>
 
 <body>
@@ -53,7 +67,7 @@ if (isset($_POST['mail'])) {
             <div class="search">
                 <form method="get" action="">
                     <input type="text" name="name" placeholder="Search for a planet..."
-                           value="<?= $_GET['name'] ?? '' ?>">
+                           value="<?= htmlspecialchars($_GET['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                     <button type="submit">Search</button>
                 </form>
             </div>

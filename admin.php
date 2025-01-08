@@ -1,16 +1,15 @@
 <?php
 session_start();
 require_once "includes/css_js.inc.php";
+require "includes/db.inc.php";
+include_once "includes/css_js.inc.php";
+require 'functions.inc.php';
+require 'vendor/autoload.php';
 
 if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit;
 }
-
-require "includes/db.inc.php";
-include_once "includes/css_js.inc.php";
-require 'functions.inc.php';
-require 'vendor/autoload.php';
 requiredLoggedIn();
 $planets = getPlanets();
 ?>
@@ -43,43 +42,54 @@ $planets = getPlanets();
     </header>
     <main>
         <section class="planets">
-            <h1>Planets overview</h1>
+            <h1>Admin Dashboard</h1>
             <table>
                 <thead>
-                    <tr>
-                        <th>#ID</th>
-                        <th>Planet</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>Date added</th>
-                        <th>Date edited</th>
-                        <th>Actions</th>
-                    </tr>
+                <tr>
+                    <th>#ID</th>
+                    <th>Planet</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Date added</th>
+                    <th>Date edited</th>
+                    <th>Actions</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($planets as $planet): ?>
-                        <tr>
-                            <td><?= $planet['id']; ?></td>
-                            <td><?= $planet['name']; ?></td>
-                            <td><?= mb_strimwidth($planet['description'], 0, 100, "..."); ?></td>
-                            <td><img src="<?= $planet['image']; ?>" alt="<?= $planet['name']; ?>" width="100" height="100">
-                            </td>
-                            <td>Not yet in db</td>
-                            <td>Not yet in db</td>
-                            <td>
-                                <a href="detail.php?id=<?= $planet['id']; ?>">View</a>
-                                <!-- TODO edit page needs to be created -->
-                                <a href="edit.php?id=<?= $planet['id']; ?>">Edit</a>
-                                <!--  delete page  -->
-                                <form method="post" action="delete.php">
-                                    <input type="hidden" name="id" value="<?= $planet['id']; ?>">
-                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this article?');">
-                                        Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php foreach ($planets as $planet): ?>
+                    <tr>
+                        <td><?= $planet['id']; ?></td>
+                        <td><?= $planet['name']; ?></td>
+                        <td><?= mb_strimwidth($planet['description'], 0, 100, "..."); ?></td>
+                        <td><img src="<?= $planet['image']; ?>" alt="<?= $planet['name']; ?>" width="140" height="100">
+                        </td>
+                        <td>Not yet in db</td>
+                        <td>Not yet in db</td>
+                        <td class="buttons">
+                            <form method="post" action="publish.php">
+                                <input type="hidden" name="id" value="<?= $planet['id']; ?>">
+                                <button type="submit" class="publish">
+                                    <?= $planet['is_published'] ? 'Unpublish' : 'Publish'; ?>
+                                </button>
+                            </form>
+                            <form method="get" action="detail.php">
+                                <input type="hidden" name="id" value="<?= $planet['id']; ?>">
+                                <button type="submit" class="view">View</button>
+                            </form>
+                            <form method="get" action="edit.php">
+                                <input type="hidden" name="id" value="<?= $planet['id']; ?>">
+                                <button type="submit" class="edit">Edit</button>
+                            </form>
+                            <form method="post" action="delete.php">
+                                <input type="hidden" name="id" value="<?= $planet['id']; ?>">
+                                <button type="submit" class="delete"
+                                        onclick="return confirm('Are you sure you want to delete this article?');">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         </section>

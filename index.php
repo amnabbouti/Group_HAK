@@ -1,10 +1,9 @@
 <?php
-session_start(); // Start the session
+session_start();
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
-// Include necessary files and libraries
 require "includes/db.inc.php";
 include_once "includes/css_js.inc.php";
 require 'functions.inc.php';
@@ -29,21 +28,21 @@ $mediaType = $nasaData['mediaType'];
 // query filters and parameters
 $filters = [];
 $params = [];
+$filters[] = "is_published = 1";
 
-// Sorting logic
-$orderBy = "ORDER BY id ASC"; //by id
+$orderBy = "ORDER BY id ASC"; // Default order by id
 if (!empty($_GET['sort']) && in_array($_GET['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
     $orderBy = "ORDER BY " . htmlspecialchars($_GET['sort'] . " ASC");
 }
 
-// Search functionality
+// Search
 if (!empty($_GET['name'])) {
     $name = $_GET['name'];
     $filters[] = "name LIKE :name";
     $params[':name'] = "%$name%";
 }
 
-// Filtering by moons count
+// Filtering by moons
 if (isset($_GET['moons']) && !empty($_GET['moons'])) {
     $moons = $_GET['moons'];
     if ($moons == 'No Moons') {
@@ -86,7 +85,7 @@ $paginatedItems = $pagination['items'];
 $previousPage = $pagination['previousPage'];
 $nextPage = $pagination['nextPage'];
 
-// Redirect to the last page if page exceeds
+// page error handeling
 if ($page > $totalPages) {
     header("Location: ?page=$totalPages");
     exit;
@@ -226,7 +225,7 @@ if ($page > $totalPages) {
                             <div>
                                 <a href="detail.php?id=<?= $planet['id']; ?>">
                                     <img src="<?= $planet['image'] ?>"
-                                        alt="<?= $planet['name'] ?>">
+                                         alt="<?= $planet['name'] ?>">
                                 </a>
                             </div>
                         </div>

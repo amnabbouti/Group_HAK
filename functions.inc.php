@@ -245,17 +245,3 @@ function insertPlanet(string $name, string $description, string $image, $length_
     ]);
     return $db->lastInsertId();
 }
-
-function isAdmin(): bool
-{
-    if (!isset($_SESSION['id'])) {
-        return false;
-    }
-
-    $db = connectToDB();
-    $query = $db->prepare("SELECT role FROM users WHERE id = ?");
-    $query->execute([$_SESSION['id']]);
-    $user = $query->fetch();
-
-    return $user && $user['role'] === 'admin';
-}

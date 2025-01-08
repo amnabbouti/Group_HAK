@@ -1,6 +1,137 @@
 *{
+    font-size: 1.2rem;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+main{
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    line-height: 1.6;
+}
+
+.planets{
+    margin-top: 40px;
+    
+    h1{
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 25px;
+        color: #ffd700;
+    }
+    
+    table{
+        width: 90%;
+        max-width: fit-content;
+        border-collapse: collapse;
+        margin: 0 auto;
+        background-color: #1e1e1e;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+        overflow: hidden;
+        border-radius: 10px;
+        
+        thead{
+            background-color: #333;
+            
+            th{
+                padding: 15px;
+                text-align: left;
+                font-size: 1.2rem;
+                border-bottom: 2px solid #444;
+                color: #ffd700;
+                text-transform: uppercase;
+            }
+        }
+        
+        tbody{
+            tr{
+                border-bottom: 1px solid #444;
+                
+                &:hover{
+                    background-color: #2a2a2a;
+                }
+            }
+            
+            td{
+                padding: 14px 12px;
+                color: #eee;
+                text-align: left;
+                
+                img{
+                    border-radius: 6px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+                    width: 50px;
+                    height: 50px;
+                    object-fit: cover;
+                }
+                
+                a{
+                    text-decoration: none;
+                    margin-right: 10px;
+                    color: #ffd700;
+                    font-weight: bold;
+                    transition: color 0.3s ease;
+                    
+                    &:hover{
+                        color: #ffa500;
+                    }
+                }
+            }
+        }
+        
+        form{
+            display: inline;
+        }
+        
+        
+    }
+}
+
+button{
     color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Make button class styling specific */
+form button[type="submit"].view{
+    background: #1976d2;
+}
+
+form button[type="submit"].edit{
+    background: #388e3c;
+}
+
+form button[type="submit"].publish{
+    background: #fbc02d;
+    color: black;
+}
+
+form button[type="submit"].delete{
+    background: #d32f2f;
+}
+
+/* Add hover and active states for better interactivity */
+form button[type="submit"].view:hover{
+    background: #1565c0;
+}
+
+form button[type="submit"].edit:hover{
+    background: #2e7d32;
+}
+
+form button[type="submit"].publish:hover{
+    background: #f9a825;
+}
+
+form button[type="submit"].delete:hover{
+    background: #b71c1c;
 }

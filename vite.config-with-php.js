@@ -11,8 +11,6 @@ export default {
         rollupOptions: {
             input: [
                 "/js/index.js",
-                "/admin/js/index.js",
-                "/admin/js/detail.js",
                 "/js/detail.js",
                 "/js/login.js",
                 "/js/register.js",

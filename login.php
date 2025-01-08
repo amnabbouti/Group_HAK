@@ -39,7 +39,7 @@ if (isset($_POST['mail'])) {
                 if ($user['role'] === 'admin') {
                     header("Location: admin.php");
                 } else {
-                    header("Location: profile.php");
+                    header("Location: index.php");
                 }
                 exit;
             }

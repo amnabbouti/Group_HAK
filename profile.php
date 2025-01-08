@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li><a href="logout.php">Logout</a></li>
                 <li>
                     <a href="profile.php" class="profile-picture-header">
-                        <?php if (!empty($user['profile_picture'])): ?>
+                        <?php if (!empty($user['profile_picture']) && file_exists($user['profile_picture'])): ?>
                             <img src="<?= htmlspecialchars($user['profile_picture'], ENT_QUOTES, 'UTF-8'); ?>"
                                  alt="Profile Picture"
                                  style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">

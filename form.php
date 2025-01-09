@@ -1,5 +1,5 @@
 <?php
-require 'functions.inc.php';
+require_once 'init.php';
 requiredLoggedIn();
 
 $discoveryMethods = getDiscoveryMethods();
@@ -11,7 +11,6 @@ $submitted = false;
 if (isset($_POST['submit'])) {
 
     $submitted = true;
-
     $name = "";
     $description = "";
     $image = "";
@@ -218,23 +217,29 @@ if (isset($_POST['submit'])) {
 
             <!-- Distance from Sun -->
             <label for="distance_from_sun">Distance from Sun (in million km):</label>
-            <input type="number" id="distance_from_sun" name="distance_from_sun" step="0.01" value="<?= @$distance_from_sun; ?>">
+            <input type="number" id="distance_from_sun" name="distance_from_sun" step="0.01"
+                   value="<?= @$distance_from_sun; ?>">
 
             <!-- Discovery Method (Dropdown) -->
             <label for="discovery_method">Discovery Method*:</label>
             <select id="discovery_method" name="discovery_method">
-                <option <?= @$discovery_method_id == null ? 'selected' : ''; ?> value="0">Please select a discovery method</option>
+                <option <?= @$discovery_method_id == null ? 'selected' : ''; ?> value="0">Please select a discovery
+                    method
+                </option>
                 <?php foreach ($discoveryMethods as $dm): ?>
-                    <option value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
+                    <option
+                          value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
                 <?php endforeach; ?>
             </select>
 
             <!-- Habitability (Dropdown) -->
             <label for="habitability">Habitability*:</label>
             <select id="habitability" name="habitability">
-                <option <?= @$habitability_id == null ? 'selected' : ''; ?> value="0">Please select a habitability</option>
+                <option <?= @$habitability_id == null ? 'selected' : ''; ?> value="0">Please select a habitability
+                </option>
                 <?php foreach ($habitabilities as $habit): ?>
-                    <option value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
+                    <option
+                          value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
                 <?php endforeach; ?>
             </select>
 

@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once 'init.php';
 
 // Restrict access to admin users
 if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
@@ -7,12 +7,6 @@ if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
     exit;
 }
 
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-error_reporting(E_ALL);
-
-include_once "includes/css_js.inc.php";
-require("includes/db.inc.php");
 $errors = [];
 $success = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -34,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (empty($errors)) {
         try {
-            $db = connectToDB();
             $query = $db->prepare("SELECT id FROM users WHERE mail = ?");
             $query->execute([$mail]);
             if ($query->fetch()) {
@@ -95,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div>
                 <ul class="nav_links">
                     <li><a href="admin.php">Dashboard</a></li>
-                    <li><a href="index.php">Main Page</a></li>
                     <li><a href="logout.php" class="btn btn-logout">Logout</a></li>
                 </ul>
             </div>

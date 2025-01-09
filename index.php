@@ -10,6 +10,7 @@ include_once "includes/css_js.inc.php";
 require 'functions.inc.php';
 require 'vendor/autoload.php';
 $db = connectToDB();
+$url = urlencode("http://localhost:8888/index.php");
 
 // Get user data if logged in
 $user = [];
@@ -97,12 +98,18 @@ if ($page > $totalPages) {
 <html lang="en">
 
 <head>
+    <meta property="og:site_name" content="Miller's World" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miller's World</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
+    <meta property="og:title" content="Miller's World - Explore The Universe" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="<?= $featuredImage ?>" />
+    <meta property="og:url" content="<?= $url; ?>" />
+    <meta property="og:description" content="<?= $featuredDescription; ?>" />
+    <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>" />
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script type="module" src="/public/main.js" defer></script>
@@ -117,7 +124,7 @@ if ($page > $totalPages) {
                 <!-- Planet Search -->
                 <form method="get" action="">
                     <input type="text" name="name" placeholder="Search for a planet..."
-                           value="<?= $_GET['name'] ?? '' ?>">
+                        value="<?= $_GET['name'] ?? '' ?>">
                     <button type="submit">Search</button>
                 </form>
             </div>
@@ -134,8 +141,8 @@ if ($page > $totalPages) {
                         <a href="profile.php" class="profile-picture-header">
                             <?php if (!empty($user['profile_picture'])): ?>
                                 <img src="<?= $user['profile_picture'] ?>"
-                                     alt="Profile Picture"
-                                     style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                                    alt="Profile Picture"
+                                    style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
                             <?php else: ?>
                                 <i class="fa-solid fa-user fa-xl"></i>
                             <?php endif; ?>
@@ -157,14 +164,14 @@ if ($page > $totalPages) {
                 <select name="moons" id="moons">
                     <option value="">Moon Count</option>
                     <option
-                          value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
+                        value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
                         No Moons
                     </option>
                     <option value="1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == '1 Moon' ? 'selected' : '' ?>>
                         1 Moon
                     </option>
                     <option
-                          value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
+                        value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
                         More than 1 Moon
                     </option>
                 </select>
@@ -198,21 +205,21 @@ if ($page > $totalPages) {
                 <div class="curiosity-model">
                     <p id="flight">Discover Space With Miller's World</p>
                     <model-viewer
-                          id="curiosity"
-                          src="public/assets/models/space_shuttle.glb"
-                          alt="Curiosity Rover"
-                          shadow-intensity="1"
-                          background-color="#000000"
-                          camera-orbit="-75deg auto 1m"
-                          min-camera-orbit="auto auto 20m"
-                          max-camera-orbit="auto auto 20m"
-                          exposure="1"
-                          ground-plane
-                          style="width: 300px; height: 200px; overflow: hidden"
-                          shadow-intensity="1"
-                          environment-image="neutral"
-                          scale="0.5 0.5 0.5"
-                          field-of-view="90deg">
+                        id="curiosity"
+                        src="public/assets/models/space_shuttle.glb"
+                        alt="Curiosity Rover"
+                        shadow-intensity="1"
+                        background-color="#000000"
+                        camera-orbit="-75deg auto 1m"
+                        min-camera-orbit="auto auto 20m"
+                        max-camera-orbit="auto auto 20m"
+                        exposure="1"
+                        ground-plane
+                        style="width: 300px; height: 200px; overflow: hidden"
+                        shadow-intensity="1"
+                        environment-image="neutral"
+                        scale="0.5 0.5 0.5"
+                        field-of-view="90deg">
                     </model-viewer>
                 </div>
             </section>

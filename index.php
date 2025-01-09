@@ -11,6 +11,7 @@ require 'functions.inc.php';
 require 'vendor/autoload.php';
 $db = connectToDB();
 $url = urlencode("http://localhost:8888/index.php");
+$indexDescription = "Explore our comprehensive database of planets, exoplanets, and moons. Dive into detailed information about celestial bodies in our solar system and beyond, all in one place.";
 
 // Get user data if logged in
 $user = [];
@@ -107,7 +108,7 @@ if ($page > $totalPages) {
     <meta property="og:type" content="website" />
     <meta property="og:image" content="<?= $featuredImage ?>" />
     <meta property="og:url" content="<?= $url; ?>" />
-    <meta property="og:description" content="<?= $featuredDescription; ?>" />
+    <meta property="og:description" content="<?= $indexDescription; ?>" />
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
     <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>" />
     <script type="module" src="./dist/<?= $jsPath ?>"></script>

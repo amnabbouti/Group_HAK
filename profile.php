@@ -175,6 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>
+            <p>&copy; <?= date('Y'); ?> Miller's. All rights reserved.</p>
             <ul>
                 <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Privacy Policy</a></li>

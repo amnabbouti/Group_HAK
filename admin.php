@@ -33,6 +33,9 @@ $users = getAllUsers();
                             Admin
                         </button>
                     </li>
+                    <li>
+                        <button onclick="location.href='index.php'" class="btn">Logout</button>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -156,6 +159,7 @@ $users = getAllUsers();
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>
+            <p>&copy; <?= date('Y'); ?> Miller's. All rights reserved.</p>
             <ul>
                 <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Privacy Policy</a></li>

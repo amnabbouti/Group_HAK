@@ -100,7 +100,12 @@ function getAllUsers(?int $id = null): array
     }
     $stmt = $db->prepare($sql);
     $stmt->execute($params);
-    return $id !== null ? ($stmt->fetch(PDO::FETCH_ASSOC) ? [$stmt->fetch(PDO::FETCH_ASSOC)] : []) : $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($id !== null) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user ? [$user] : [];
+    }
+    // Fetch all users
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function setLogin($uid = false)

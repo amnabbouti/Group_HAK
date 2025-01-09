@@ -118,7 +118,6 @@ if ($page > $totalPages) {
                 <ul class="nav_links">
                     <li><a href="profile.php">Profile</a></li>
                     <li><a href="form.php">Add a planet</a></li>
-                    <li><a href="#">Profile</a></li>
                     <li><a href="login.php">Log In</a></li>
                     <li class="dropdown">
                         <a href="profile.php" class="profile-picture-header">

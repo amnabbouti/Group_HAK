@@ -10,7 +10,7 @@ include_once "includes/css_js.inc.php";
 require 'functions.inc.php';
 require 'vendor/autoload.php';
 $db = connectToDB();
-$url = urlencode("http://localhost:8888/index.php");
+$urlIndex = urlencode("http://localhost:8888/index.php");
 $indexDescription = "Explore our comprehensive database of planets, exoplanets, and moons. Dive into detailed information about celestial bodies in our solar system and beyond, all in one place.";
 
 // Get user data if logged in
@@ -107,7 +107,7 @@ if ($page > $totalPages) {
     <meta property="og:title" content="Miller's World - Explore The Universe" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="<?= $featuredImage ?>" />
-    <meta property="og:url" content="<?= $url; ?>" />
+    <meta property="og:url" content="<?= $urlIndex; ?>" />
     <meta property="og:description" content="<?= $indexDescription; ?>" />
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
     <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>" />

@@ -4,18 +4,26 @@ $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = handleLogin($_POST);
 }
+$urlLogin = urlencode("http://localhost:8888/login.php");
+$loginDescription = "";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <meta property="og:site_name" content="Miller's World" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
+    <meta property="og:title" content="Miller's World - Log in" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="<?= $featuredImage ?>" />
+    <meta property="og:url" content="<?= $urlLogin; ?>" />
+    <meta property="og:description" content="<?= $indexDescription; ?>" />
+    <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
+    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>" />
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
 </head>
 
@@ -25,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="search">
                 <form method="get" action="">
                     <input type="text" name="name" placeholder="Search for a planet..."
-                           value="<?= htmlspecialchars($_GET['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                        value="<?= htmlspecialchars($_GET['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                     <button type="submit">Search</button>
                 </form>
             </div>
@@ -62,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" placeholder="Enter your password"
-                               required/>
+                            required />
                     </div>
                     <div class="password">
                         <p>Forgot your password? <a href="reset-password.php">Click here to reset it.</a></p>

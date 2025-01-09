@@ -6,9 +6,7 @@
 }
 
 main{
-    padding: 30px;
-    font-family: Arial, sans-serif;
-    background-color: #121212;
+    padding: 4rem;
     line-height: 1.6;
 }
 
@@ -24,27 +22,22 @@ main{
     
     table{
         width: 100%;
-        /* max-width: fit-content; */
         border-collapse: collapse;
         margin: 0 auto;
         background-color: #1e1e1e;
         box-shadow: 0 4px 16px #000c;
         overflow: hidden;
-        /* border-radius: 10px; */
         padding: 2rem;
-        
         
         thead{
             background-color: #333;
             
             th{
-                padding: 15px;
-                font-size: 1.2rem;
+                padding: 1rem;
                 border-bottom: 2px solid #444;
                 color: #ffd700;
                 text-transform: uppercase;
                 text-align: center;
-                
             }
         }
         
@@ -59,7 +52,6 @@ main{
             }
             
             .buttons{
-                display: inline-block;
                 width: min-content;
                 
                 button{
@@ -70,13 +62,11 @@ main{
                     font-weight: 700;
                     border-radius: 3px;
                     font-size: 1rem;
-                    transition: background .3s ease;
+                    transition: background 0.3s ease;
                     box-shadow: 0 2px 4px #0003;
                     margin: 0.5rem;
                     width: 6rem;
                 }
-                
-                /* Make button class styling specific */
                 
                 form button[type="submit"].view{
                     background: #1976d2;
@@ -94,8 +84,6 @@ main{
                 form button[type="submit"].delete{
                     background: #d32f2f;
                 }
-                
-                /* Add hover and active states for better interactivity */
                 
                 form button[type="submit"].view:hover{
                     background: #1565c0;
@@ -115,9 +103,8 @@ main{
             }
             
             td{
-                padding: 0.5rem 3rem;
+                padding: 0.5rem 1rem;
                 color: #eee;
-                text-align: left;
                 vertical-align: middle;
                 
                 img{
@@ -145,9 +132,12 @@ main{
         form{
             display: inline;
         }
-        
-        
     }
 }
 
-
+th,
+td{
+    padding: 10px;
+    border: 1px solid #444;
+    text-align: center;
+}

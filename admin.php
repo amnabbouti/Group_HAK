@@ -1,23 +1,13 @@
 <?php
 
-if (!empty($_SESSION['refresh_page'])) {
-    echo "<script>location.reload();</script>";
-    unset($_SESSION['refresh_page']); // Reset after refresh
-}
-
-session_start();
-require_once "includes/css_js.inc.php";
-require "includes/db.inc.php";
-include_once "includes/css_js.inc.php";
-require 'functions.inc.php';
-require 'vendor/autoload.php';
-
+require_once 'init.php';
+requiredLoggedIn();
 if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit;
 }
-requiredLoggedIn();
 $planets = getPlanets();
+$users = getAllUsers();
 ?>
 
 <!DOCTYPE html>
@@ -72,10 +62,9 @@ $planets = getPlanets();
                         <td><?= $planet['id']; ?></td>
                         <td><?= $planet['name']; ?></td>
                         <td><?= mb_strimwidth($planet['description'], 0, 100, "..."); ?></td>
-                        <td><img src="<?= $planet['image']; ?>" alt="<?= $planet['name']; ?>">
-                        </td>
-                        <td>Not yet in db</td>
-                        <td>Not yet in db</td>
+                        <td><img src="<?= $planet['image']; ?>" alt="<?= $planet['name']; ?>"></td>
+                        <td><?= date("Y-m-d", strtotime($planet['date_added'])) ?: 'Not available'; ?></td>
+                        <td><?= $planet['date_edited'] ? date("Y-m-d", strtotime($planet['date_edited'])) : 'Never edited'; ?></td>
                         <td class="buttons">
                             <form method="post" action="publish.php">
                                 <input type="hidden" name="id" value="<?= $planet['id']; ?>">
@@ -103,11 +92,71 @@ $planets = getPlanets();
                 <?php endforeach; ?>
                 </tbody>
             </table>
+            <br>
+            <br>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <br>
+            <h1>Manage users</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if (empty($users)): ?>
+                    <tr>
+                        <td colspan="8">No users found.</td>
+                    </tr>
+                <?php else: ?>
+                    <?php foreach ($users as $user): ?>
+                        <?php $user = default_profile_picture($user); ?>
+                        <tr>
+                            <td><?= $user['id']; ?></td>
+                            <td>
+                                <img src="<?= $user['profile_picture']; ?>"
+                                     alt="<?= $user['username']; ?>"
+                                     style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;">
+                            </td>
+                            <td><?= $user['username']; ?></td>
+                            <td><?= $user['firstname']; ?></td>
+                            <td><?= $user['lastname']; ?></td>
+                            <td><?= $user['mail']; ?></td>
+                            <td>
+                                <span style="font-weight: bold; font-size: 1.2em; text-transform: uppercase;"><?= $user['role']; ?></span>
+                            </td>
+                            <td class="buttons">
+                                <form method="post" action="delete.php">
+                                    <input type="hidden" name="id" value="<?= $user['id']; ?>">
+                                    <button type="submit" class="delete"
+                                            onclick="return confirm('Are you sure you want to delete this user?');">
+                                        Delete
+                                    </button>
+                                </form>
+                                <form method="get" action="edit.php">
+                                    <input type="hidden" name="id" value="<?= $user['id']; ?>">
+                                    <button type="submit" class="edit">Edit</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                </tbody>
+            </table>
         </section>
     </main>
     <footer>
         <div class="container">
-
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>

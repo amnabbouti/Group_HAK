@@ -1,10 +1,9 @@
 <?php
 require_once 'init.php';
-requiredLoggedIn();
-
 $user_id = $_SESSION['id'] ?? null;
 $users = getAllUsers($user_id);
 $user = $users[0] ?? null;
+
 if (!$user) {
     header("Location: login.php"); // Redirect if no user
     exit;

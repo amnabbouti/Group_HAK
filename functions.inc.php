@@ -154,13 +154,13 @@ function requiredLoggedIn()
     }
 }
 
-function requiredLoggedOut()
-{
-    if (isLoggedIn()) {
-        header("Location: index.php");
-        exit;
-    }
-}
+//function requiredLoggedOut()
+//{
+//    if (isLoggedIn()) {
+//        header("Location: index.php");
+//        exit;
+//    }
+//}
 
 function existingUsername($username)
 {

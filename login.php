@@ -1,6 +1,5 @@
 <?php
 require_once 'init.php';
-requiredLoggedOut();
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = handleLogin($_POST);

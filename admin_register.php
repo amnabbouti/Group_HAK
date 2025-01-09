@@ -1,12 +1,6 @@
 <?php
 include_once 'init.php';
 
-// Restrict access to admin users
-if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit;
-}
-
 $errors = [];
 $success = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

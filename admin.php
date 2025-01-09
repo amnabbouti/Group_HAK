@@ -1,11 +1,7 @@
 <?php
 
 require_once 'init.php';
-requiredLoggedIn();
-if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit;
-}
+
 $planets = getPlanets();
 $users = getAllUsers();
 ?>

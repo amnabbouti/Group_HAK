@@ -1,7 +1,5 @@
 <?php
 require_once 'init.php';
-requiredLoggedIn();
-
 $discoveryMethods = getDiscoveryMethods();
 $habitabilities = getHabitabilities();
 

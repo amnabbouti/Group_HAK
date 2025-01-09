@@ -1,24 +1,15 @@
 <?php
-session_start();
-
-require("includes/db.inc.php");
-require("functions.inc.php");
-require_once "includes/css_js.inc.php";
-
+require_once 'init.php';
 requiredLoggedIn();
-$db = connectToDB();
 
 $user_id = $_SESSION['id'] ?? null;
-
-$query = $db->prepare("SELECT username, firstname, lastname, mail, profile_picture FROM users WHERE id = ?");
-$query->execute([$user_id]);
-$user = $query->fetch(PDO::FETCH_ASSOC);
-
-// not user redirect to mainPage
+$users = getAllUsers($user_id);
+$user = $users[0] ?? null;
 if (!$user) {
-    header("Location: login.php");
+    header("Location: login.php"); // Redirect if no user
     exit;
 }
+$user = default_profile_picture($user);
 
 // profile update
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // profile pic
             if (!empty($_FILES['profile_picture']['name'])) {
-                $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+                $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                 $upload_dir = 'uploads/';
                 $file_name = basename($_FILES['profile_picture']['name']);
                 $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
@@ -51,12 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $new_file_name = $upload_dir . uniqid('', true) . '.' . $file_ext;
 
                 if (!in_array($file_ext, $allowed_extensions)) {
-                    $error_message = "Invalid file type. Allowed types: JPG, JPEG, PNG, GIF.";
+                    $error_message = "Invalid file type. Allowed types: JPG, JPEG, PNG, GIF.,webP";
                 } elseif ($file_size > 2 * 1024 * 1024) {
                     $error_message = "File size must be less than 2MB.";
                 } else {
                     if (move_uploaded_file($file_tmp_name, $new_file_name)) {
-                        $profile_picture = $new_file_name; // file path to db
+                        $profile_picture = $new_file_name;
 
                         // If the user already has a pic delete the old file
                         if (!empty($user['profile_picture']) && file_exists($user['profile_picture'])) {
@@ -121,11 +112,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li>
                     <a href="profile.php" class="profile-picture-header">
                         <?php if (!empty($user['profile_picture']) && file_exists($user['profile_picture'])): ?>
-                            <img src="<?= htmlspecialchars($user['profile_picture'], ENT_QUOTES, 'UTF-8'); ?>"
+                            <img src="<?= $user['profile_picture']; ?>"
                                  alt="Profile Picture"
                                  style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
                         <?php else: ?>
-                            <i class="fa-solid fa-user"></i>
+                            <img src="public/assets/images/user.png"
+                                 alt="Default Profile Picture"
+                                 style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
                         <?php endif; ?>
                     </a>
                 </li>

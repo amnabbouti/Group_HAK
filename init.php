@@ -12,11 +12,12 @@ if (basename($_SERVER['PHP_SELF']) === 'admin.php' && !empty($_SESSION['refresh_
 
 //requires login
 if (in_array(basename($_SERVER['PHP_SELF']), ['admin.php', 'delete.php', 'form.php', 'login.php', 'profile.php', 'register.php']) && !isLoggedIn()) {
-    requiredLoggedIn();
+    requiredLoggedOut();
 }
 
 // extra security
-if (basename($_SERVER['PHP_SELF']) === 'admin.php' || basename($_SERVER['PHP_SELF']) === 'admin_register.php') {
+if (basename($_SERVER['PHP_SELF']) === 'admin.php' || basename($_SERVER['PHP_SELF']) === 'admin_register.php'
+    || basename($_SERVER['PHP_SELF']) === 'profile.php') {
     if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
         header("Location: login.php");
         exit;

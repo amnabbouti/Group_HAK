@@ -151,21 +151,21 @@ function isValidLogin($mail, $password)
     return false;
 }
 
-function requiredLoggedIn()
-{
-    if (!isLoggedIn()) {
-        header("Location: login.php");
-        exit;
-    }
-}
-
-//function requiredLoggedOut()
+//function requiredLoggedIn()
 //{
-//    if (isLoggedIn()) {
-//        header("Location: index.php");
+//    if (!isLoggedIn()) {
+//        header("Location: login.php");
 //        exit;
 //    }
 //}
+
+function requiredLoggedOut()
+{
+    if (isLoggedIn()) {
+        header("Location: index.php");
+        exit;
+    }
+}
 
 function existingUsername($username)
 {

@@ -1,11 +1,13 @@
 <?php
 require_once 'init.php';
+
 $user_id = $_SESSION['id'] ?? null;
 $users = getAllUsers($user_id);
 $user = $users[0] ?? null;
 
 if (!$user) {
-    header("Location: login.php"); // Redirect if no user
+    session_destroy();
+    header("Location: login.php");
     exit;
 }
 $user = default_profile_picture($user);

@@ -3,7 +3,7 @@ include_once "includes/db.inc.php";
 
 use Dotenv\Dotenv;
 
-// Gegevens ophalen van de API
+// Nasa API
 function getNasaFeaturedData()
 {
     $dotenv = Dotenv::createImmutable(__DIR__);
@@ -56,6 +56,13 @@ function paginate($planetData, $itemsPerPage, $currentPage)
     ];
 }
 
+function buildCountQuery($filters)
+{
+    // Tel query voor paginering (count query for pagination)
+    $whereClause = !empty($filters) ? "WHERE " . implode(" AND ", $filters) : "";
+    return "SELECT COUNT(*) FROM planets $whereClause";
+}
+
 function buildPlanetQuery($filters, $params, $orderBy)
 {
     // Query samenstellen om planeten op te halen
@@ -64,15 +71,8 @@ function buildPlanetQuery($filters, $params, $orderBy)
     return [$query, $params];
 }
 
-function buildCountQuery($filters)
-{
-    // Tel query voor paginering (count query for pagination)
-    $whereClause = !empty($filters) ? "WHERE " . implode(" AND ", $filters) : "";
-    return "SELECT COUNT(*) FROM planets $whereClause";
-}
 
-
-// function by id voor de detail pagina.
+// getting planets for the detail page
 function get_planet_by_id(int $id): ?array
 {
     try {
@@ -88,10 +88,29 @@ function get_planet_by_id(int $id): ?array
     }
 }
 
+// getting all the users for the admin page and profile page
+function getAllUsers(?int $id = null): array
+{
+    $db = connectToDB();
+    $sql = "SELECT id, username, firstname, lastname, mail, role, profile_picture FROM users";
+    $params = [];
+    if ($id !== null) {
+        $sql .= " WHERE id = ?";
+        $params[] = $id;
+    }
+    $stmt = $db->prepare($sql);
+    $stmt->execute($params);
+    if ($id !== null) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user ? [$user] : [];
+    }
+    // Fetch all users
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function setLogin($uid = false)
 {
     $_SESSION['loggedin'] = time() + 3600;
-
     if ($uid) {
         $_SESSION['uid'] = $uid;
     }
@@ -99,19 +118,17 @@ function setLogin($uid = false)
 
 function isLoggedIn(): bool
 {
-
     $loggedin = FALSE;
-
     if (isset($_SESSION['loggedin'])) {
         if ($_SESSION['loggedin'] > time()) {
             $loggedin = TRUE;
             setLogin();
         }
     }
-
     return $loggedin;
 }
 
+// checking valid logins
 function isValidLogin($mail, $password)
 {
     $db = connectToDB();
@@ -134,13 +151,13 @@ function isValidLogin($mail, $password)
     return false;
 }
 
-function requiredLoggedIn()
-{
-    if (!isLoggedIn()) {
-        header("Location: login.php");
-        exit;
-    }
-}
+//function requiredLoggedIn()
+//{
+//    if (!isLoggedIn()) {
+//        header("Location: login.php");
+//        exit;
+//    }
+//}
 
 function requiredLoggedOut()
 {
@@ -167,6 +184,42 @@ function existingMail(string $mail): bool
     return $stmt->fetch(PDO::FETCH_COLUMN);
 }
 
+// handeling login function
+function handleLogin(array $postData): ?array
+{
+    session_start();
+    $errors = [];
+    if (empty(trim($postData['mail'] ?? ''))) {
+        $errors[] = "Please fill in e-mail.";
+    }
+    if (empty(trim($postData['password'] ?? ''))) {
+        $errors[] = "Please fill in password.";
+    }
+    if (empty($errors)) {
+        if ($uid = isValidLogin($postData['mail'], $postData['password'])) {
+            setLogin($uid);
+            $_SESSION['id'] = $uid;
+            $db = connectToDB();
+            $query = $db->prepare("SELECT role FROM users WHERE id = ?");
+            $query->execute([$uid]);
+            $user = $query->fetch();
+            if ($user) {
+                $_SESSION['role'] = $user['role'];
+                if ($user['role'] === 'admin') {
+                    header("Location: admin.php");
+                } else {
+                    header("Location: index.php");
+                }
+                exit;
+            }
+        } else {
+            $errors[] = "Invalid email or password.";
+        }
+    }
+    return $errors;
+}
+
+// registering new users
 function registerNewMember(string $username, string $firstname, string $lastname, string $mail, string $password, string $role): bool|int
 {
     $db = connectToDB();
@@ -197,7 +250,7 @@ function deletePlanet(int $id)
 
 function getPlanets(): array
 {
-    $sql = "SELECT * FROM planets";
+    $sql = "SELECT id, name, description, image, is_published, date_added, date_edited FROM planets";
 
     $stmt = connectToDB()->prepare($sql);
     $stmt->execute();
@@ -246,16 +299,12 @@ function insertPlanet(string $name, string $description, string $image, $length_
     return $db->lastInsertId();
 }
 
-function isAdmin(): bool
+// setting a default profile picture for users that have no picture
+function default_profile_picture(array $user): array
 {
-    if (!isset($_SESSION['id'])) {
-        return false;
+    if (empty($user['profile_picture']) || !file_exists($user['profile_picture'])) {
+        $user['profile_picture'] = 'public/assets/images/user.png';
     }
-
-    $db = connectToDB();
-    $query = $db->prepare("SELECT role FROM users WHERE id = ?");
-    $query->execute([$_SESSION['id']]);
-    $user = $query->fetch();
-
-    return $user && $user['role'] === 'admin';
+    return $user;
 }
+

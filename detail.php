@@ -1,15 +1,6 @@
 <?php
 
-global $cssPath, $jsPath, $globalcssPath, $cssGlobal;
-$source = "js/detail.js";
-require_once("functions.inc.php");
-require_once 'includes/db.inc.php';
-require_once 'includes/css_js.inc.php';
-require_once 'vendor/autoload.php';
-
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-error_reporting(E_ALL);
+require_once "init.php";
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id'];

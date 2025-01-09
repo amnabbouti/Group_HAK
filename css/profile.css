@@ -30,8 +30,6 @@ body{
             border-radius: 10px;
             background-color: #0c264d57;
             
-            /* Add this CSS to your stylesheet */
-            
             .notification{
                 position: fixed;
                 padding: 20px;
@@ -61,7 +59,7 @@ body{
             }
             
             .profile-details{
-                position: relative;
+                position: relative; /* Make the container the reference for absolute positioning */
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -71,26 +69,26 @@ body{
                     height: 150px;
                     border-radius: 50%;
                     transform: translateY(-40%);
+                    box-shadow: 0 0 10px rgba(253, 253, 253, 0.35);
                 }
                 
                 h2{
-                    font-size: 4rem;
+                    font-size: 4rem; /* Keeps the size of the name text large */
                     color: #fff;
                     text-transform: uppercase;
                 }
-            }
-            
-            .profile-details .change-picture-icon{
-                position: absolute;
-                bottom: 110px;
-                right: 0;
-                background-color: rebeccapurple;
-                color: #fff;
-                border-radius: 50%;
-                padding: 10px;
-                cursor: pointer;
-                transform: translate(-30px);
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+                
+                .change-picture-icon{
+                    position: absolute; /* Ensure the icon is positioned relative to .profile-details */
+                    bottom: 30%; /* Adjust this value as needed to correctly place the icon */
+                    
+                    right: calc(50% - 20px); /* Centers icon horizontally around the image */
+                    background-color: rebeccapurple; /* Makes the icon background white for visibility */
+                    border-radius: 50%; /* Circular background for the icon */
+                    padding: 10px; /* Space around the icon */
+                    cursor: pointer; /* Add pointer cursor */
+                    transform: translateY(-80%) translateX(100%); /* Matches the translateY of the img */
+                }
             }
             
             

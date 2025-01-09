@@ -1,20 +1,9 @@
 <?php
-session_start();
+include_once 'init.php';
 
-// Restrict access to admin users
-if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit;
-}
-
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-error_reporting(E_ALL);
-
-include_once "includes/css_js.inc.php";
-require("includes/db.inc.php");
 $errors = [];
 $success = "";
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstname = trim($_POST['firstname'] ?? '');
     $lastname = trim($_POST['lastname'] ?? '');
@@ -34,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (empty($errors)) {
         try {
-            $db = connectToDB();
             $query = $db->prepare("SELECT id FROM users WHERE mail = ?");
             $query->execute([$mail]);
             if ($query->fetch()) {
@@ -59,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 );
                 $insert->execute([$firstname, $lastname, $mail, $username, $hashedPassword]);
 
-                $success = "New admin registered successfully with username: " . htmlspecialchars($username);
+                $success = "New admin registered successfully with username: " . $username;
             }
         } catch (PDOException $e) {
             $errors[] = "An error occurred: " . $e->getMessage();
@@ -95,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div>
                 <ul class="nav_links">
                     <li><a href="admin.php">Dashboard</a></li>
-                    <li><a href="index.php">Main Page</a></li>
                     <li><a href="logout.php" class="btn btn-logout">Logout</a></li>
                 </ul>
             </div>
@@ -146,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="logo">
                 <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
             </div>
-            <p>&copy; <?= date('Y'); ?> Your Company. All rights reserved.</p>
+            <p>&copy; <?= date('Y'); ?> Miller's. All rights reserved.</p>
             <ul>
                 <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Privacy Policy</a></li>

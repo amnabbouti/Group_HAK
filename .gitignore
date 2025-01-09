@@ -11,9 +11,9 @@ vendor/
 # Composer vendor directory
 
 # Ignore composer.json and composer.lock files
-composer.json
 composer.lock
+composer.json
 uploads
 manifest.json
-dist
+dist/
 

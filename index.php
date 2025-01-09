@@ -30,21 +30,21 @@ $mediaType = $nasaData['mediaType'];
 // query filters and parameters
 $filters = [];
 $params = [];
+$filters[] = "is_published = 1";
 
-// Sorting logic
-$orderBy = "ORDER BY id ASC"; //by id
+$orderBy = "ORDER BY id ASC"; // Default order by id
 if (!empty($_GET['sort']) && in_array($_GET['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
     $orderBy = "ORDER BY " . htmlspecialchars($_GET['sort'] . " ASC");
 }
 
-// Search functionality
+// Search
 if (!empty($_GET['name'])) {
     $name = $_GET['name'];
     $filters[] = "name LIKE :name";
     $params[':name'] = "%$name%";
 }
 
-// Filtering by moons count
+// Filtering by moons
 if (isset($_GET['moons']) && !empty($_GET['moons'])) {
     $moons = $_GET['moons'];
     if ($moons == 'No Moons') {
@@ -87,7 +87,7 @@ $paginatedItems = $pagination['items'];
 $previousPage = $pagination['previousPage'];
 $nextPage = $pagination['nextPage'];
 
-// Redirect to the last page if page exceeds
+// page error handeling
 if ($page > $totalPages) {
     header("Location: ?page=$totalPages");
     exit;
@@ -135,7 +135,6 @@ if ($page > $totalPages) {
                 <ul class="nav_links">
                     <li><a href="profile.php">Profile</a></li>
                     <li><a href="form.php">Add a planet</a></li>
-                    <li><a href="#">Profile</a></li>
                     <li><a href="login.php">Log In</a></li>
                     <li class="dropdown">
                         <a href="profile.php" class="profile-picture-header">

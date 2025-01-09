@@ -1,14 +1,5 @@
 <?php
-session_start();
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-error_reporting(E_ALL);
-
-require "includes/db.inc.php";
-include_once "includes/css_js.inc.php";
-require 'functions.inc.php';
-require 'vendor/autoload.php';
-$db = connectToDB();
+require_once "init.php";
 
 // Get user data if logged in
 $user = [];

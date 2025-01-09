@@ -1,17 +1,13 @@
 <?php
-session_start(); // Start the session
-
-include_once "includes/css_js.inc.php";
-require_once "includes/db.inc.php";
-require("functions.inc.php");
+require_once 'init.php';
 requiredLoggedOut();
+
 $errors = [];
 $username = "";
 $firstname = "";
 $lastname = "";
 $mail = "";
 $password = "";
-
 if (isset($_POST['submit'])) {
     if (!isset($_POST['username'])) {
         $errors[] = "Username is required.";
@@ -28,7 +24,6 @@ if (isset($_POST['submit'])) {
             $errors[] = "Username already exists.";
         }
     }
-
     if (!isset($_POST['firstname'])) {
         $errors[] = "First name is required.";
     } else {
@@ -41,7 +36,6 @@ if (isset($_POST['submit'])) {
             $errors[] = "First name can not contain special characters.";
         }
     }
-
     if (!isset($_POST['lastname'])) {
         $errors[] = "Last name is required.";
     } else {
@@ -55,7 +49,6 @@ if (isset($_POST['submit'])) {
             $errors[] = "Last name can not contain special characters.";
         }
     }
-
     if (!isset($_POST['mail'])) {
         $errors[] = "E-mail is required.";
     } else {
@@ -76,7 +69,6 @@ if (isset($_POST['submit'])) {
             $errors[] = "Password needs to contain at least 1 uppercase letter, 1 lowercase, 1 symbol, 1 number and needs to be at least 8 characters long.";
         }
     }
-
     if (count($errors) == 0) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $newId = registerNewMember($username, $firstname, $lastname, $mail, $hashedPassword, 'user');
@@ -134,7 +126,7 @@ if (isset($_POST['submit'])) {
                 <div class="error-messages">
                     <ul>
                         <?php foreach ($errors as $error): ?>
-                            <li><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></li>
+                            <li><?= $error; ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -144,22 +136,22 @@ if (isset($_POST['submit'])) {
                     <div class="form-group username">
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username" placeholder="Enter a username"
-                               value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?>"/>
+                               value="<?= $username; ?>"/>
                     </div>
                     <div class="form-group firstname">
                         <label for="firstname">Firstname</label>
                         <input type="text" id="firstname" name="firstname" placeholder="Enter your Firstname"
-                               value="<?= htmlspecialchars($firstname, ENT_QUOTES, 'UTF-8'); ?>"/>
+                               value="<?= $firstname; ?>"/>
                     </div>
                     <div class="form-group lastname">
                         <label for="lastname">Lastname</label>
                         <input type="text" id="lastname" name="lastname" placeholder="Enter your Lastname"
-                               value="<?= htmlspecialchars($lastname, ENT_QUOTES, 'UTF-8'); ?>"/>
+                               value="<?= $lastname; ?>"/>
                     </div>
                     <div class="form-group mail">
                         <label for="mail">E-mail</label>
                         <input type="email" id="mail" name="mail" placeholder="Enter a valid E-mail"
-                               value="<?= htmlspecialchars($mail, ENT_QUOTES, 'UTF-8'); ?>">
+                               value="<?= $mail; ?>">
                     </div>
                     <div class="form-group password">
                         <label for="password">Password</label>

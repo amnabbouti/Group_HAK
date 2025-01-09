@@ -1,50 +1,9 @@
 <?php
-session_start();
-
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-error_reporting(E_ALL);
-
-
-require("includes/db.inc.php");
-include_once "includes/css_js.inc.php";
-require("functions.inc.php");
-
+require_once 'init.php';
 requiredLoggedOut();
-
 $errors = [];
-
-if (isset($_POST['mail'])) {
-
-    if (!strlen($_POST['mail'])) {
-        $errors[] = "Please fill in e-mail.";
-    }
-
-    if (!strlen($_POST['password'])) {
-        $errors[] = "Please fill in password.";
-    }
-
-    if (empty($errors)) {
-        if ($uid = isValidLogin($_POST['mail'], $_POST['password'])) {
-            setLogin($uid);
-            $_SESSION['id'] = $uid;
-
-            // Fetch user role
-            $db = connectToDB();
-            $query = $db->prepare("SELECT role FROM users WHERE id = ?");
-            $query->execute([$uid]);
-            $user = $query->fetch();
-            if ($user) {
-                $_SESSION['role'] = $user['role']; // this is for storing the user role in the session
-                if ($user['role'] === 'admin') {
-                    header("Location: admin.php");
-                } else {
-                    header("Location: index.php");
-                }
-                exit;
-            }
-        }
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $errors = handleLogin($_POST);
 }
 ?>
 

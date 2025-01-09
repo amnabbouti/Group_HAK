@@ -5,6 +5,9 @@ $habitabilities = getHabitabilities();
 
 $errors = [];
 $submitted = false;
+$urlForm = urlencode("http://localhost:8888/form.php");
+$addPlanetDescription = "Contribute to Miller's World by adding new planets, moons, and exoplanets to our growing database. Share your knowledge and help expand the universe!";
+
 
 if (isset($_POST['submit'])) {
 
@@ -157,9 +160,15 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 
 <head>
+    <meta property="og:site_name" content="Miller's World" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add a planet</title>
+    <meta property="og:title" content="Miller's World - Add a planet" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="<?= $featuredImage ?>" />
+    <meta property="og:url" content="<?= $urlForm; ?>" />
+    <meta property="og:description" content="<?= $addPlanetDescription; ?>" />
 </head>
 
 <body>
@@ -216,7 +225,7 @@ if (isset($_POST['submit'])) {
             <!-- Distance from Sun -->
             <label for="distance_from_sun">Distance from Sun (in million km):</label>
             <input type="number" id="distance_from_sun" name="distance_from_sun" step="0.01"
-                   value="<?= @$distance_from_sun; ?>">
+                value="<?= @$distance_from_sun; ?>">
 
             <!-- Discovery Method (Dropdown) -->
             <label for="discovery_method">Discovery Method*:</label>
@@ -226,7 +235,7 @@ if (isset($_POST['submit'])) {
                 </option>
                 <?php foreach ($discoveryMethods as $dm): ?>
                     <option
-                          value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
+                        value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
                 <?php endforeach; ?>
             </select>
 
@@ -237,7 +246,7 @@ if (isset($_POST['submit'])) {
                 </option>
                 <?php foreach ($habitabilities as $habit): ?>
                     <option
-                          value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
+                        value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
                 <?php endforeach; ?>
             </select>
 

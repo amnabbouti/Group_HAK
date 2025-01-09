@@ -5,7 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = handleLogin($_POST);
 }
 $urlLogin = urlencode("http://localhost:8888/login.php");
-$loginDescription = "";
+$loginDescription = "Log in to your Miller's World account to explore planets, moons, and exoplanets in our detailed database. Join the adventure in space exploration today!";
+
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +22,7 @@ $loginDescription = "";
     <meta property="og:type" content="website" />
     <meta property="og:image" content="<?= $featuredImage ?>" />
     <meta property="og:url" content="<?= $urlLogin; ?>" />
-    <meta property="og:description" content="<?= $indexDescription; ?>" />
+    <meta property="og:description" content="<?= $loginDescription; ?>" />
     <link rel="stylesheet" href="./dist/<?= $cssPath ?>" />
     <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>" />
     <script type="module" src="./dist/<?= $jsPath ?>"></script>

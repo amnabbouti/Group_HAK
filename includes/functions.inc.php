@@ -1,12 +1,12 @@
 <?php
-include_once "includes/db.inc.php";
+include_once "db.inc.php";
 
 use Dotenv\Dotenv;
 
 // Nasa API
 function getNasaFeaturedData()
 {
-    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
     $dotenv->load();
     $nasaApiKey = $_ENV['NASA_API_KEY'];
     return getNasaApodData($nasaApiKey);
@@ -187,7 +187,6 @@ function existingMail(string $mail): bool
 // handeling login function
 function handleLogin(array $postData): ?array
 {
-    session_start();
     $errors = [];
     if (empty(trim($postData['mail'] ?? ''))) {
         $errors[] = "Please fill in e-mail.";

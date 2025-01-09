@@ -1,5 +1,5 @@
 <?php
-require_once 'init.php';
+include_once 'includes/init.php';
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = handleLogin($_POST);
@@ -20,27 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="search">
-                <form method="get" action="">
-                    <input type="text" name="name" placeholder="Search for a planet..."
-                           value="<?= htmlspecialchars($_GET['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-            <a href="index.php" class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </a>
-            <div>
-                <ul class="nav_links">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <?php require_once 'includes/header.php'; ?>
     <main>
         <section>
             <h1>Login</h1>
@@ -77,18 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </section>
     </main>
-    <footer>
-        <div class="container">
-            <div class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </div>
-            <ul>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </div>
-    </footer>
+    <?php require_once 'includes/footer.php'; ?>
 </body>
 
 </html>

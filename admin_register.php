@@ -1,5 +1,5 @@
 <?php
-include_once 'init.php';
+include_once 'includes/init.php';
 
 $errors = [];
 $success = "";
@@ -67,27 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="search">
-                <!-- Planet Search -->
-                <form method="get" action="">
-                    <input type="text" name="name" placeholder="Search for a planet..."
-                           value="<?= $_GET['name'] ?? '' ?>">
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-            <a href="index.php" class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </a>
-            <div>
-                <ul class="nav_links">
-                    <li><a href="admin.php">Dashboard</a></li>
-                    <li><a href="logout.php" class="btn btn-logout">Logout</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <?php require_once 'includes/header.php'; ?>
     <main>
         <section>
             <h1>Register New Admin</h1>
@@ -126,20 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </section>
     </main>
-
-    <footer>
-        <div class="container">
-
-            <div class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </div>
-            <p>&copy; <?= date('Y'); ?> Miller's. All rights reserved.</p>
-            <ul>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </div>
-    </footer>
+    <?php require_once 'includes/footer.php'; ?>
 </body>
 </html>

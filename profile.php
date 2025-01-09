@@ -1,5 +1,5 @@
 <?php
-require_once 'init.php';
+include_once 'includes/init.php';
 
 $user_id = $_SESSION['id'] ?? null;
 $users = getAllUsers($user_id);
@@ -101,31 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://kit.fontawesome.com/f5cdfe48d9.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.php" class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </a>
-            <ul class="nav_links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="profile.php">Profile</a></li>
-                <li><a href="logout.php">Logout</a></li>
-                <li>
-                    <a href="profile.php" class="profile-picture-header">
-                        <?php if (!empty($user['profile_picture']) && file_exists($user['profile_picture'])): ?>
-                            <img src="<?= $user['profile_picture']; ?>"
-                                 alt="Profile Picture"
-                                 style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
-                        <?php else: ?>
-                            <img src="public/assets/images/user.png"
-                                 alt="Default Profile Picture"
-                                 style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
-                        <?php endif; ?>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    <?php require_once 'includes/header.php'; ?>
     <main>
         <section class="section1">
             <?php if (!empty($error_message) || !empty($success_message)): ?>
@@ -171,19 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </section>
     </main>
-
-    <footer>
-        <div class="container">
-            <div class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </div>
-            <p>&copy; <?= date('Y'); ?> Miller's. All rights reserved.</p>
-            <ul>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </div>
-    </footer>
+    <?php require_once 'includes/footer.php'; ?>
 </body>
 </html>

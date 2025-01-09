@@ -54,6 +54,13 @@ header{
             
             .dropdown{
                 position: relative;
+                
+                .profile-picture-header img{
+                    width: 3rem;
+                    height: 3rem;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
             }
             
             .dropdown-content{
@@ -70,6 +77,8 @@ header{
                 overflow: hidden;
                 left: -2.5rem;
                 margin: 1rem;
+                
+                
             }
             
             .dropdown-content a{

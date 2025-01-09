@@ -1,7 +1,5 @@
 <?php
-
-require_once 'init.php';
-
+require_once 'includes/init.php';
 $planets = getPlanets();
 $users = getAllUsers();
 ?>
@@ -33,9 +31,6 @@ $users = getAllUsers();
                             Admin
                         </button>
                     </li>
-                    <li>
-                        <button onclick="location.href='index.php'" class="btn">Logout</button>
-                    </li>
                 </ul>
             </div>
         </nav>
@@ -65,7 +60,7 @@ $users = getAllUsers();
                         <td><?= date("Y-m-d", strtotime($planet['date_added'])) ?: 'Not available'; ?></td>
                         <td><?= $planet['date_edited'] ? date("Y-m-d", strtotime($planet['date_edited'])) : 'Never edited'; ?></td>
                         <td class="buttons">
-                            <form method="post" action="publish.php">
+                            <form method="post" action="includes/publish.php">
                                 <input type="hidden" name="id" value="<?= $planet['id']; ?>">
                                 <button type="submit" class="publish">
                                     <?= $planet['is_published'] ? 'Unpublish' : 'Publish'; ?>
@@ -154,19 +149,6 @@ $users = getAllUsers();
             </table>
         </section>
     </main>
-    <footer>
-        <div class="container">
-            <div class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </div>
-            <p>&copy; <?= date('Y'); ?> Miller's. All rights reserved.</p>
-            <ul>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </div>
-    </footer>
+    <?php require_once 'includes/footer.php'; ?>
 </body>
-
 </html>

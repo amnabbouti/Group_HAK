@@ -1,5 +1,5 @@
 <?php
-require_once 'init.php';
+include_once 'includes/init.php';
 $discoveryMethods = getDiscoveryMethods();
 $habitabilities = getHabitabilities();
 
@@ -163,6 +163,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
+    <?php require_once 'includes/header.php'; ?>
     <main>
 
         <h1>Add a planet</h1>
@@ -244,7 +245,7 @@ if (isset($_POST['submit'])) {
             <button type="submit" name="submit" id="submit">Submit Planet</button>
         </form>
     </main>
-
+    <?php require_once 'includes/footer.php'; ?>
 </body>
 
 </html>

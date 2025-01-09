@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "includes/css_js.inc.php";
-require_once "includes/db.inc.php";
+include_once "css_js.inc.php";
+include_once "db.inc.php";
 require_once 'functions.inc.php';
 require_once 'vendor/autoload.php';
 $db = connectToDB();

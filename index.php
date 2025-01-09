@@ -1,5 +1,5 @@
 <?php
-require_once "init.php";
+include_once 'includes/init.php';
 
 // Get user data if logged in
 $user = [];
@@ -101,45 +101,7 @@ if ($page > $totalPages) {
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="search">
-                <!-- Planet Search -->
-                <form method="get" action="">
-                    <input type="text" name="name" placeholder="Search for a planet..."
-                           value="<?= $_GET['name'] ?? '' ?>">
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-            <a href="index.php" class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </a>
-            <div>
-                <ul class="nav_links">
-                    <li><a href="profile.php">Profile</a></li>
-                    <li><a href="form.php">Add a planet</a></li>
-                    <li><a href="login.php">Log In</a></li>
-                    <li class="dropdown">
-                        <a href="profile.php" class="profile-picture-header">
-                            <?php if (!empty($user['profile_picture'])): ?>
-                                <img src="<?= $user['profile_picture'] ?>"
-                                     alt="Profile Picture"
-                                     style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
-                            <?php else: ?>
-                                <i class="fa-solid fa-user fa-xl"></i>
-                            <?php endif; ?>
-                        </a>
-                        <div class="dropdown-content">
-                            <?php if (isset($_SESSION['id']) && !empty($_SESSION['id'])): ?>
-                                <a href="logout.php">Logout</a>
-                            <?php endif; ?>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
+    <?php require_once 'includes/header.php'; ?>
     <main>
         <section class="filters">
             <form method="GET" action="">
@@ -244,36 +206,7 @@ if ($page > $totalPages) {
             </div>
         </section>
     </main>
-
-    <footer>
-        <div class="container">
-
-            <div class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </div>
-
-            <ul class="social-icons">
-                <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                        <i class="fa-brands fa-facebook fa-2x"></i></a>
-                </li>
-                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                        <i class="fa-brands fa-instagram fa-2x"></i></a>
-                </li>
-
-                <li><a href="https://example.com" target="_blank" rel="noopener noreferrer">
-                        <i class="fa-brands fa-x-twitter fa-2x"></i></a>
-                </li>
-                <li><a href="mailto:contact@millersworld.com">
-                        <i class="fa-solid fa-envelope fa-2x"></i></a>
-                </li>
-            </ul>
-            <ul>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </div>
-    </footer>
+    <?php require_once 'includes/footer.php'; ?>
 </body>
 
 </html>

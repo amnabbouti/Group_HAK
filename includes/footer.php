@@ -6,9 +6,6 @@
         </div>
 
         <ul class="social-icons">
-            <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-facebook fa-2x"></i></a>
-            </li>
             <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
                     <i class="fa-brands fa-instagram fa-2x"></i></a>
             </li>
@@ -21,9 +18,8 @@
             </li>
         </ul>
         <ul>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li><a href="../terms_privacy.php">Terms of Service</a></li>
+            <li><a href="../terms_privacy.php">Privacy Policy</a></li>
         </ul>
     </div>
 </footer>

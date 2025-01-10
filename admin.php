@@ -4,37 +4,10 @@ $planets = getPlanets();
 $users = getAllUsers();
 ?>
 
-<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>">
-    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>">
-    <title>Admin page</title>
-</head>
-
+<?php require_once 'includes/head.php'; ?>
 <body>
-    <header>
-        <nav>
-            <a href="index.php" class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </a>
-            <div>
-                <ul class="nav_links">
-                    <li>
-                        <button onclick="location.href='logout.php'" class="btn">Logout</button>
-                    </li>
-                    <li>
-                        <button onclick="location.href='admin_register.php'" class="btn btn-register-admin">Add New
-                            Admin
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <?php require_once 'includes/header.php'; ?>
     <main>
         <section class="planets">
             <h1>Admin Dashboard</h1>
@@ -60,7 +33,7 @@ $users = getAllUsers();
                         <td><?= date("Y-m-d", strtotime($planet['date_added'])) ?: 'Not available'; ?></td>
                         <td><?= $planet['date_edited'] ? date("Y-m-d", strtotime($planet['date_edited'])) : 'Never edited'; ?></td>
                         <td class="buttons">
-                            <form method="post" action="includes/publish.php">
+                            <form method="post" action="publish.php">
                                 <input type="hidden" name="id" value="<?= $planet['id']; ?>">
                                 <button type="submit" class="publish">
                                     <?= $planet['is_published'] ? 'Unpublish' : 'Publish'; ?>

@@ -89,17 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>">
-    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>">
-    <script type="module" src="./dist/<?= $jsPath ?>"></script>
-    <script src="https://kit.fontawesome.com/f5cdfe48d9.js" crossorigin="anonymous"></script>
-</head>
+<html lang="en">
+<?php require_once 'includes/head.php'; ?>
 <body>
     <?php require_once 'includes/header.php'; ?>
     <main>

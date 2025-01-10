@@ -1,105 +1,42 @@
 <?php
 include_once 'includes/init.php';
-
-// Get user data if logged in
-$user = [];
-if (isset($_SESSION['id'])) {
-    $query = $db->prepare("SELECT * FROM users WHERE id = ?");
-    $query->execute([$_SESSION['id']]);
-    $user = $query->fetch(PDO::FETCH_ASSOC);
-}
-
-// Get featured NASA data
-$nasaData = getNasaFeaturedData();
-$featuredTitle = $nasaData['title'];
-$featuredDescription = $nasaData['description'];
-$featuredImage = $nasaData['image'];
-$mediaType = $nasaData['mediaType'];
-
+$user = getLoggedInUser(); // logged in users
+$nasaData = getNasaFeaturedData();  // nasa api
 // query filters and parameters
-$filters = [];
-$params = [];
-$filters[] = "is_published = 1";
-
-$orderBy = "ORDER BY id ASC"; // Default order by id
-if (!empty($_GET['sort']) && in_array($_GET['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
-    $orderBy = "ORDER BY " . htmlspecialchars($_GET['sort'] . " ASC");
-}
-
-// Search
-if (!empty($_GET['name'])) {
-    $name = $_GET['name'];
-    $filters[] = "name LIKE :name";
-    $params[':name'] = "%$name%";
-}
-
-// Filtering by moons
-if (isset($_GET['moons']) && !empty($_GET['moons'])) {
-    $moons = $_GET['moons'];
-    if ($moons == 'No Moons') {
-        $filters[] = "moons = 0";
-    } elseif ($moons == '1 Moon') {
-        $filters[] = "moons = 1";
-    } elseif ($moons == 'More than 1 Moon') {
-        $filters[] = "moons > 1";
-    }
-}
-
-// query and count query using helper functions
-list($query, $params) = buildPlanetQuery($filters, $params, $orderBy);
-$countQuery = buildCountQuery($filters, $params);
-
-// paginated planet data
-$stmt = $db->prepare($query);
+list($filters, $params) = buildFiltersAndParams($_GET);
+$orderBy = getOrderBy($_GET);
+// Build
+$whereClause = !empty($filters) ? "WHERE " . implode(" AND ", $filters) : "";
+$query = "SELECT id, name, description, image FROM planets $whereClause $orderBy";
+$countQuery = "SELECT COUNT(*) FROM planets $whereClause"; //count
+$stmt = $db->prepare($query);  // planet data (query execution)
 foreach ($params as $key => $value) {
     $stmt->bindValue($key, $value);
 }
 $stmt->execute();
 $planetData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-//total planet count for pagination
-$countStmt = $db->prepare($countQuery);
+$countStmt = $db->prepare($countQuery); // total count
 foreach ($params as $key => $value) {
     $countStmt->bindValue($key, $value);
 }
 $countStmt->execute();
 $totalPlanets = $countStmt->fetchColumn();
-$itemsPerPage = 16;
-$totalPages = ceil($totalPlanets / $itemsPerPage);
-
-// current page number (integer)
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
 // Pagination
-$pagination = paginate($planetData, $itemsPerPage, $page);
-$paginatedItems = $pagination['items'];
-$previousPage = $pagination['previousPage'];
-$nextPage = $pagination['nextPage'];
-
-// page error handeling
+$itemsPerPage = 16;
+$totalPages = ceil($totalPlanets / $itemsPerPage);
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page > $totalPages) {
     header("Location: ?page=$totalPages");
     exit;
 }
+$pagination = paginate($planetData, $itemsPerPage, $page); // paginated data
+$paginatedItems = $pagination['items'];
+$previousPage = $pagination['previousPage'];
+$nextPage = $pagination['nextPage'];
 ?>
-
-<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miller's World</title>
-    <link rel="stylesheet" href="./dist/<?= $cssPath ?>"/>
-    <link rel="stylesheet" href="./dist/<?= $cssGlobal ?>"/>
-    <script type="module" src="./dist/<?= $jsPath ?>"></script>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script type="module" src="/public/main.js" defer></script>
-    <script src="https://kit.fontawesome.com/f5cdfe48d9.js" crossorigin="anonymous"></script>
-
-</head>
-
+<?php require_once 'includes/head.php'; ?>
 <body>
     <?php require_once 'includes/header.php'; ?>
     <main>
@@ -125,11 +62,11 @@ if ($page > $totalPages) {
         </section>
         <section class="featured-banner">
             <div id="picture_of_the_month">
-                <?php if ($mediaType === "image"): ?>
-                    <img src="<?= $featuredImage; ?>" alt="<?= $featuredTitle; ?>">
-                <?php elseif ($mediaType === "video"): ?>
+                <?php if ($nasaData['mediaType'] === "image"): ?>
+                    <img src="<?= $nasaData['image']; ?>" alt="<?= $nasaData['description']; ?>">
+                <?php elseif ($nasaData['mediaType'] === "video"): ?>
                     <video controls>
-                        <source src="<?= $featuredImage; ?>" type="video/mp4">
+                        <source src="<?= $nasaData['image']; ?>" type="video/mp4">
                         Your browser does not support video.
                     </video>
                 <?php else: ?>
@@ -139,8 +76,8 @@ if ($page > $totalPages) {
 
             <div class="content">
                 <h2>Picture of The Day</h2>
-                <h3><?= $featuredTitle; ?></h3>
-                <p><?= $featuredDescription; ?></p>
+                <h3><?= $nasaData['title']; ?></h3>
+                <p><?= $nasaData['description']; ?></p>
                 <a href="#planets">
                     <button>Explore The Universe</button>
                 </a>
@@ -208,5 +145,4 @@ if ($page > $totalPages) {
     </main>
     <?php require_once 'includes/footer.php'; ?>
 </body>
-
 </html>

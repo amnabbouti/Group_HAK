@@ -16,7 +16,8 @@ export default {
                 "/js/register.js",
                 "/js/profile.js",
                 "/js/admin_register.js",
-                "/js/admin.js"
+                "/js/admin.js",
+                "/js/form.js"
             ],
         },
     },

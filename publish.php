@@ -1,14 +1,8 @@
 <?php
-require_once 'init.php';
-// verify admin is user
-if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit;
-}
+require_once 'includes/init.php';
 
-// Ensure the request is a POST and the 'id' is provided
+// post request(id required)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-    // Sanitize the planet ID
     $planetId = intval($_POST['id']);
     $query = "SELECT is_published FROM planets WHERE id = ?";
     $pdo = connectToDB();

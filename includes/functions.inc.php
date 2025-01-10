@@ -4,24 +4,14 @@ include_once "db.inc.php";
 use Dotenv\Dotenv;
 
 // Nasa API
-function getNasaFeaturedData()
+function getNasaFeaturedData(): array
 {
     $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
     $dotenv->load();
     $nasaApiKey = $_ENV['NASA_API_KEY'];
-    return getNasaApodData($nasaApiKey);
-}
-
-function fetchDataFromApi($url)
-{
+    $url = "https://api.nasa.gov/planetary/apod?api_key={$nasaApiKey}";
     $response = @file_get_contents($url);
-    return $response ? json_decode($response, true) : null;
-}
-
-function getNasaApodData($apiKey)
-{
-    $url = "https://api.nasa.gov/planetary/apod?api_key={$apiKey}";
-    $data = fetchDataFromApi($url);
+    $data = $response ? json_decode($response, true) : null;
     if (!$data || isset($data['error'])) {
         return [
             'title' => "Astronomy Picture of the Day Unavailable",
@@ -30,7 +20,6 @@ function getNasaApodData($apiKey)
             'mediaType' => "error"
         ];
     }
-    // Gegevens structureren voor NASA APOD
     return [
         'title' => $data['title'] ?? "Astronomy Picture of the Day",
         'description' => $data['explanation'] ?? "Explore the cosmos with Miller's world!",
@@ -63,12 +52,37 @@ function buildCountQuery($filters)
     return "SELECT COUNT(*) FROM planets $whereClause";
 }
 
-function buildPlanetQuery($filters, $params, $orderBy)
+function buildFiltersAndParams(array $input): array
 {
-    // Query samenstellen om planeten op te halen
-    $whereClause = !empty($filters) ? "WHERE " . implode(" AND ", $filters) : "";
-    $query = "SELECT id, name, description, image FROM planets $whereClause $orderBy";
-    return [$query, $params];
+    $filters = ["is_published = 1"]; // Default filter
+    $params = [];
+
+    // Add name-based filter
+    if (!empty($input['name'])) {
+        $filters[] = "name LIKE :name";
+        $params[':name'] = "%" . $input['name'] . "%";
+    }
+
+    // Add moons-based filter
+    if (isset($input['moons']) && !empty($input['moons'])) {
+        if ($input['moons'] == 'No Moons') {
+            $filters[] = "moons = 0";
+        } elseif ($input['moons'] == '1 Moon') {
+            $filters[] = "moons = 1";
+        } elseif ($input['moons'] == 'More than 1 Moon') {
+            $filters[] = "moons > 1";
+        }
+    }
+
+    return [$filters, $params];
+}
+
+function getOrderBy(array $input): string
+{
+    if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
+        return "ORDER BY " . $input['sort'] . " ASC";
+    }
+    return "ORDER BY id ASC"; // Default sorting
 }
 
 
@@ -107,6 +121,19 @@ function getAllUsers(?int $id = null): array
     // Fetch all users
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getLoggedInUser(): array
+{
+    $user = [];
+    if (isset($_SESSION['id'])) {
+        $db = connectToDB(); // Assuming you use connectToDB() to get the database connection
+        $query = $db->prepare("SELECT * FROM users WHERE id = ?");
+        $query->execute([$_SESSION['id']]);
+        $user = $query->fetch(PDO::FETCH_ASSOC);
+    }
+    return $user;
+}
+
 
 function setLogin($uid = false)
 {

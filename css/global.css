@@ -4,7 +4,7 @@
 
 :root{
     font-size: 62.5%;
-    --soft-orange: hsl(175, 73%, 43%);
+    --soft-orange: hsl(180, 3%, 94%);
 }
 
 html{
@@ -129,7 +129,7 @@ header{
             button{
                 padding: 0.5rem;
                 border: none;
-                background-color: #ff6f61;
+                background-color: rebeccapurple;
                 color: white;
                 cursor: pointer;
             }

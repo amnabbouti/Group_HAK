@@ -116,23 +116,23 @@ $nextPage = $pagination['nextPage'];
         </section>
 
         <section class="planets">
-            <div class="container" id="planets">
-                <?php foreach ($paginatedItems as $planet): ?>
-                    <article>
-                        <div class="head">
-                            <div>
-                                <a href="detail.php?id=<?= $planet['id']; ?>">
-                                    <img src="<?= $planet['image'] ?>"
-                                         alt="<?= $planet['name'] ?>">
-                                </a>
-                            </div>
+            <?php foreach ($paginatedItems as $planet): ?>
+                <article class="container" id="planets">
+                    <div class="head">
+                        <div>
+                            <a href="detail.php?id=<?= $planet['id']; ?>">
+                                <img src="<?= $planet['image'] ?>"
+                                     alt="<?= $planet['name'] ?>">
+                            </a>
                         </div>
-                        <div class="foot">
-                            <h3><?= $planet['name'] ?></h3>
-                        </div>
-                    </article>
-                <?php endforeach; ?>
-            </div>
+                    </div>
+                    <div class="foot">
+                        <h3><?= $planet['name'] ?></h3>
+                        <p><?= implode(' ', array_slice(explode(' ', $planet['description']), 0, 10)) . '...'; ?></p>
+                        <a href="detail.php?id=<?= $planet['id']; ?>">DETAILS</a>
+                    </div>
+                </article>
+            <?php endforeach; ?>
         </section>
 
         <!-- Pagination -->

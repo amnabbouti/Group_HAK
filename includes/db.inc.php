@@ -39,3 +39,5 @@ function connectToDB()
 //    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
 //    return $db;
 //}
+
+

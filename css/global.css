@@ -4,14 +4,14 @@
 
 :root{
     font-size: 62.5%;
-    --soft-orange: hsl(35, 77%, 62%);
+    --soft-orange: hsl(175, 73%, 43%);
 }
 
 html{
     scroll-behavior: smooth;
     background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
     background-repeat: repeat;
-    background-color: black;
+    background-color: #171515;
 }
 
 *{
@@ -33,7 +33,6 @@ header{
     left: 0;
     right: 0;
     z-index: 100;
-    box-shadow: 0 1px 10px rgb(79, 77, 77);
     
     nav{
         display: flex;
@@ -127,21 +126,23 @@ header{
             gap: 1rem;
             align-items: center;
             
+            button{
+                padding: 0.5rem;
+                border: none;
+                background-color: #ff6f61;
+                color: white;
+                cursor: pointer;
+            }
+            
+            form{
+                display: flex;
+            }
+            
             input{
-                font-size: 1rem;
-                padding: 0.7rem 3rem;
-                background-color: #1d1d1d;
-                color: #ffffff;
-                border: 1px solid #6c757d;
-                outline: none;
-                transition: all 0.3s ease-in-out;
+                padding: 0.5rem;
+                border: none;
+                flex: 1;
                 
-                &:hover, :focus{
-                    background-color: #2c2c2c;
-                    color: #f8f9fa;
-                    border: 1px solid #17d4fc;
-                    box-shadow: 0 0 10px rgba(23, 212, 252, 0.8);
-                }
                 
                 &::placeholder{
                     color: #6c757d;
@@ -173,9 +174,7 @@ header{
 footer{
     background-color: black;
     color: white;
-    padding: 1rem 4rem;
-    text-align: center;
-    box-shadow: 0 4px 10px rgb(252, 241, 241);
+    padding: 1.5rem 4rem;
     
     .container{
         display: flex;
@@ -183,6 +182,7 @@ footer{
         flex-wrap: nowrap;
         gap: 2rem;
         align-items: center;
+        font-size: 1.2rem;
         
         
     }
@@ -195,7 +195,7 @@ footer{
         li a{
             text-decoration: none;
             color: rgba(255, 255, 255, 0.8);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             padding: 0.5rem;
             
             &:hover{

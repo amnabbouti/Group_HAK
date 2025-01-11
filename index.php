@@ -30,7 +30,7 @@ $countStmt->execute();
 $totalPlanets = $countStmt->fetchColumn();
 
 // Pagination
-$itemsPerPage = 16;
+$itemsPerPage = 12;
 $totalPages = ceil($totalPlanets / $itemsPerPage);
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page > $totalPages) {
@@ -48,26 +48,7 @@ $nextPage = $pagination['nextPage'];
 <body>
     <?php require_once 'includes/header.php'; ?>
     <main>
-        <section class="filters">
-            <form method="GET" action="">
-                <select name="moons" id="moons">
-                    <option value="">Moon Count</option>
-                    <option
-                          value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
-                        No Moons
-                    </option>
-                    <option value="1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == '1 Moon' ? 'selected' : '' ?>>
-                        1 Moon
-                    </option>
-                    <option
-                          value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
-                        More than 1 Moon
-                    </option>
-                </select>
-                <button type="submit">Filter</button>
-            </form>
 
-        </section>
         <section class="featured-banner">
             <div id="picture_of_the_month">
                 <?php if ($nasaData['mediaType'] === "image"): ?>
@@ -90,28 +71,48 @@ $nextPage = $pagination['nextPage'];
                     <button>Explore The Universe</button>
                 </a>
             </div>
-            <section class="socials">
-                <div class="curiosity-model">
-                    <p id="flight">Discover Space With Miller's World</p>
-                    <model-viewer
-                          id="curiosity"
-                          src="public/assets/models/space_shuttle.glb"
-                          alt="Curiosity Rover"
-                          shadow-intensity="1"
-                          background-color="#000000"
-                          camera-orbit="-75deg auto 1m"
-                          min-camera-orbit="auto auto 20m"
-                          max-camera-orbit="auto auto 20m"
-                          exposure="1"
-                          ground-plane
-                          style="width: 300px; height: 200px; overflow: hidden"
-                          shadow-intensity="1"
-                          environment-image="neutral"
-                          scale="0.5 0.5 0.5"
-                          field-of-view="90deg">
-                    </model-viewer>
-                </div>
-            </section>
+            <!--            <section class="socials">-->
+            <!--                <div class="curiosity-model">-->
+            <!--                    <p id="flight">Discover Space With Miller's World</p>-->
+            <!--                    <model-viewer-->
+            <!--                          id="curiosity"-->
+            <!--                          src="public/assets/models/space_shuttle.glb"-->
+            <!--                          alt="Curiosity Rover"-->
+            <!--                          shadow-intensity="1"-->
+            <!--                          background-color="#000000"-->
+            <!--                          camera-orbit="-75deg auto 1m"-->
+            <!--                          min-camera-orbit="auto auto 20m"-->
+            <!--                          max-camera-orbit="auto auto 20m"-->
+            <!--                          exposure="1"-->
+            <!--                          ground-plane-->
+            <!--                          style="width: 300px; height: 200px; overflow: hidden"-->
+            <!--                          shadow-intensity="1"-->
+            <!--                          environment-image="neutral"-->
+            <!--                          scale="0.5 0.5 0.5"-->
+            <!--                          field-of-view="90deg">-->
+            <!--                    </model-viewer>-->
+            <!--                </div>-->
+            <!--            </section>-->
+        </section>
+        <section class="filters">
+            <form method="GET" action="">
+                <select name="moons" id="moons">
+                    <option value="">Moon Count</option>
+                    <option
+                          value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
+                        No Moons
+                    </option>
+                    <option value="1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == '1 Moon' ? 'selected' : '' ?>>
+                        1 Moon
+                    </option>
+                    <option
+                          value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
+                        More than 1 Moon
+                    </option>
+                </select>
+                <button type="submit">Filter</button>
+            </form>
+
         </section>
 
         <section class="planets">

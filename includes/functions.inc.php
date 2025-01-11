@@ -8,7 +8,7 @@ function getNasaFeaturedData(): array
 {
     $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
     $dotenv->load();
-    $nasaApiKey = $_ENV['NASA_API_KEY'];
+    $nasaApiKey = $_ENV['VITE_NASA_API_KEY'];
     $url = "https://api.nasa.gov/planetary/apod?api_key={$nasaApiKey}";
     $response = @file_get_contents($url);
     $data = $response ? json_decode($response, true) : null;
@@ -45,25 +45,14 @@ function paginate($planetData, $itemsPerPage, $currentPage)
     ];
 }
 
-function buildCountQuery($filters)
-{
-    // Tel query voor paginering (count query for pagination)
-    $whereClause = !empty($filters) ? "WHERE " . implode(" AND ", $filters) : "";
-    return "SELECT COUNT(*) FROM planets $whereClause";
-}
-
 function buildFiltersAndParams(array $input): array
 {
     $filters = ["is_published = 1"]; // Default filter
     $params = [];
-
-    // Add name-based filter
     if (!empty($input['name'])) {
         $filters[] = "name LIKE :name";
         $params[':name'] = "%" . $input['name'] . "%";
     }
-
-    // Add moons-based filter
     if (isset($input['moons']) && !empty($input['moons'])) {
         if ($input['moons'] == 'No Moons') {
             $filters[] = "moons = 0";
@@ -82,7 +71,7 @@ function getOrderBy(array $input): string
     if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
         return "ORDER BY " . $input['sort'] . " ASC";
     }
-    return "ORDER BY id ASC"; // Default sorting
+    return "ORDER BY id ASC";
 }
 
 
@@ -126,7 +115,7 @@ function getLoggedInUser(): array
 {
     $user = [];
     if (isset($_SESSION['id'])) {
-        $db = connectToDB(); // Assuming you use connectToDB() to get the database connection
+        $db = connectToDB();
         $query = $db->prepare("SELECT * FROM users WHERE id = ?");
         $query->execute([$_SESSION['id']]);
         $user = $query->fetch(PDO::FETCH_ASSOC);
@@ -178,18 +167,18 @@ function isValidLogin($mail, $password)
     return false;
 }
 
-//function requiredLoggedIn()
-//{
-//    if (!isLoggedIn()) {
-//        header("Location: login.php");
-//        exit;
-//    }
-//}
+function requiredLoggedIn()
+{
+    if (!isLoggedIn()) {
+        header("Location: login.php");
+        exit;
+    }
+}
 
 function requiredLoggedOut()
 {
     if (isLoggedIn()) {
-        header("Location: index.php");
+        header("Location: login.php");
         exit;
     }
 }
@@ -234,7 +223,7 @@ function handleLogin(array $postData): ?array
                 if ($user['role'] === 'admin') {
                     header("Location: admin.php");
                 } else {
-                    header("Location: index.php");
+                    header("Location: profile.php");
                 }
                 exit;
             }

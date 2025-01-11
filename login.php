@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                required/>
                     </div>
                     <div class="password">
-                        <p>Forgot your password? <a href="reset-password.php">Click here to reset it.</a></p>
+                        <p>Forgot your password? <a href="resetpass.php">Click here to reset it.</a></p>
                     </div>
                     <div class="form-actions">
                         <button type="submit" value="submit" name="submit" class="btn">Login</button>

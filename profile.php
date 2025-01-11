@@ -1,9 +1,11 @@
 <?php
 include_once 'includes/init.php';
 
-$user_id = $_SESSION['id'] ?? null;
-$users = getAllUsers($user_id);
-$user = $users[0] ?? null;
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit;
+}
+$user = getAllUsers($_SESSION['id'] ?? null)[0] ?? null;
 
 if (!$user) {
     session_destroy();
@@ -11,7 +13,6 @@ if (!$user) {
     exit;
 }
 $user = default_profile_picture($user);
-
 // profile update
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
@@ -20,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail = trim($_POST['mail']);
     $profile_picture = $user['profile_picture'];
 
-    // Validate required fields
+    // Validation
     if (empty($username) || empty($firstname) || empty($lastname) || empty($mail)) {
         $error_message = "All fields are required.";
     } elseif (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {

@@ -25,7 +25,9 @@ if (isset($_SERVER["admin"])) {
 } elseif ($page === "admin.php") {
     $manifestUrl = "./dist/.vite/manifest.json";
     $source = "js/admin.js";
-
+} elseif ($page === "terms_privacy.php") {
+    $manifestUrl = "./dist/.vite/manifest.json";
+    $source = "js/terms_privacy.js";
 } else {
     $manifestUrl = "./dist/.vite/manifest.json";
     $source = "js/index.js";

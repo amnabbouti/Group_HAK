@@ -1,7 +1,14 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include_once 'includes/init.php';
+
+
 $user = getLoggedInUser(); // logged in users
 $nasaData = getNasaFeaturedData();  // nasa api
+
 // query filters and parameters
 list($filters, $params) = buildFiltersAndParams($_GET);
 $orderBy = getOrderBy($_GET);
@@ -35,6 +42,7 @@ $paginatedItems = $pagination['items'];
 $previousPage = $pagination['previousPage'];
 $nextPage = $pagination['nextPage'];
 ?>
+
 <html lang="en">
 <?php require_once 'includes/head.php'; ?>
 <body>

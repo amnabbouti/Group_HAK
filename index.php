@@ -173,15 +173,15 @@ $nextPage = $pagination['nextPage'];
             <div class="container">
                 <ul>
                     <?php if ($page > 1): ?>
-                        <li><a href="?page=1"><i class="fa-solid fa-angles-left"></i></a></li>
-                        <li><a href="?page=<?= $previousPage ?>"><i class="fa-solid fa-chevron-left"></i></a></li>
+                        <li><a href="?page=1&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i class="fa-solid fa-angles-left"></i></a></li>
+                        <li><a href="?page=<?= $previousPage ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i class="fa-solid fa-chevron-left"></i></a></li>
                     <?php endif; ?>
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <li><a href="?page=<?= $i ?>" class="<?= ($i == $page) ? 'active' : '' ?>"><?= $i ?></a></li>
+                        <li><a href="?page=<?= $i ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>" class="<?= ($i == $page) ? 'active' : '' ?>"><?= $i ?></a></li>
                     <?php endfor; ?>
                     <?php if ($page < $totalPages): ?>
-                        <li><a href="?page=<?= $nextPage ?>"><i class="fa-solid fa-chevron-right"></i></a></li>
-                        <li><a href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a></li>
+                        <li><a href="?page=<?= $nextPage ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i class="fa-solid fa-chevron-right"></i></a></li>
+                        <li><a href="?page=<?= $totalPages ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i class="fa-solid fa-angles-right"></i></a></li>
                     <?php endif; ?>
                 </ul>
             </div>

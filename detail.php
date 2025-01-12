@@ -1,7 +1,5 @@
 <?php
-
 include_once 'includes/init.php';
-
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id'];
     $planet = get_planet_by_id($id);
@@ -17,26 +15,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <html lang="en">
 <?php require_once 'includes/head.php'; ?>
 <body>
-    <header>
-        <nav>
-            <div class="search">
-                <form method="get" action="index.php">
-                    <input type="text" name="name" id="search" placeholder="Search for a planet...">
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-            <a href="index.php" class="logo">
-                <img src="public/assets/images/logo.svg" alt="Miller's World Logo">
-            </a>
-            <div>
-                <ul class="nav_links">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="login.php">Log In</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <?php require_once 'includes/header.php' ?>
     <main>
         <section class="planet-detail">
             <div class="container">

@@ -317,7 +317,7 @@ function insertPlanet(string $name, string $description, string $image, $length_
 function default_profile_picture(array $user): array
 {
     if (empty($user['profile_picture']) || !file_exists($user['profile_picture'])) {
-        $user['profile_picture'] = 'public/assets/images/user.jpg';
+        $user['profile_picture'] = 'public/assets/images/user.png';
     }
     return $user;
 }

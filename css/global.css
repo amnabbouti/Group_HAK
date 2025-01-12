@@ -180,31 +180,42 @@ footer{
     padding: 1.5rem 4rem;
     
     .container{
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        gap: 2rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
         align-items: center;
-        font-size: 1.2rem;
-        
-        
+        font-size: 1.4rem;
     }
     
+    .social-icons{
+        grid-column: 2 / 4;
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
     
     ul{
         display: flex;
-        gap: 1.5rem;
-        
-        li a{
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.3rem;
-            padding: 0.5rem;
-            
-            &:hover{
-                color: var(--main-color);
-            }
-        }
+        gap: 1rem;
+    }
+    
+    li a{
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.3rem;
+        padding: 0.5rem;
+    }
+    
+    li a:hover{
+        color: var(--main-color);
+    }
+    
+    
+    p{
+        text-align: end;
     }
 }
 

@@ -322,3 +322,11 @@ function default_profile_picture(array $user): array
     return $user;
 }
 
+function sortPlanets(String $sort, String $direction)
+{
+    $db = connectToDB();
+    $sql = "SELECT * FROM planets ORDER BY $sort $direction";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

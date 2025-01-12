@@ -61,10 +61,10 @@ $planets = sortPlanets($sort, $direction);
                                     <input type="hidden" name="id" value="<?= $planet['id']; ?>">
                                     <button type="submit" class="edit">Edit</button>
                                 </form>
-                                <form method="post" action="delete.php">
+                                <form method="post" action="deletePlanet.php">
                                     <input type="hidden" name="id" value="<?= $planet['id']; ?>">
                                     <button type="submit" class="delete"
-                                        onclick="return confirm('Are you sure you want to delete this article?');">
+                                        onclick="return confirm('Are you sure you want to delete this planet?');">
                                         Delete
                                     </button>
                                 </form>
@@ -117,7 +117,7 @@ $planets = sortPlanets($sort, $direction);
                                     <span style="font-weight: bold; font-size: 1.2em; text-transform: uppercase;"><?= $user['role']; ?></span>
                                 </td>
                                 <td class="buttons">
-                                    <form method="post" action="delete.php">
+                                    <form method="post" action="deleteUser.php">
                                         <input type="hidden" name="id" value="<?= $user['id']; ?>">
                                         <button type="submit" class="delete"
                                             onclick="return confirm('Are you sure you want to delete this user?');">

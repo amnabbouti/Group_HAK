@@ -263,6 +263,18 @@ function deletePlanet(int $id)
     return $db->lastInsertId();
 }
 
+function deleteUser(int $id)
+{
+    $db = connectToDB();
+    $sql = "DELETE FROM users
+            WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':id' => $id
+    ]);
+    return $db->lastInsertId();
+}
+
 function getPlanets(): array
 {
     $sql = "SELECT id, name, description, image, is_published, date_added, date_edited FROM planets";

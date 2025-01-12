@@ -7,7 +7,6 @@ $errors = [];
 $submitted = false;
 
 if (isset($_POST['submit'])) {
-
     $submitted = true;
     $name = "";
     $description = "";
@@ -158,7 +157,7 @@ if (isset($_POST['submit'])) {
 <body>
     <?php require_once 'includes/header.php'; ?>
     <main>
-
+        
         <h1>Add a planet</h1>
         <?php if (count($errors)): ?>
             <div class="error-messages">
@@ -169,49 +168,49 @@ if (isset($_POST['submit'])) {
                 </ul>
             </div>
         <?php endif; ?>
-
+        
         <form action="form.php" method="POST">
             <!-- Name -->
             <label for="name">Planet Name*:</label>
             <input type="text" id="name" name="name" value="<?= @$name; ?>">
-
+            
             <!-- Description -->
             <label for="description">Description*:</label>
             <textarea id="description" name="description" rows="4"><?= @$description; ?></textarea>
-
+            
             <!-- Image -->
             <label for="image">Image:</label>
             <input type="text" id="image" name="image" placeholder="https://..." value="<?= @$image; ?>">
-
+            
             <!-- Length of Year -->
             <label for="length_of_year">Length of Year (in Earth days):</label>
             <input type="number" id="length_of_year" name="length_of_year" step="0.01" value="<?= @$length_of_year; ?>">
-
+            
             <!-- Moons -->
             <label for="moons">Number of Moons:</label>
             <input type="number" id="moons" name="moons" value="<?= @$moons; ?>">
-
+            
             <!-- Temperature -->
             <label for="temperature">Average Temperature (°C):</label>
             <input type="text" id="temperature" name="temperature" value="<?= @$temperature; ?>">
-
+            
             <!-- Diameter -->
             <label for="diameter">Diameter (in km):</label>
             <input type="number" id="diameter" name="diameter" step="0.01" value="<?= @$diameter; ?>">
-
+            
             <!-- Date Discovered -->
             <label for="date_discovered">Date Discovered:</label>
             <input type="datetime-local" id="date_discovered" name="date_discovered" value="<?= @$date_discovered; ?>">
-
+            
             <!-- Mass -->
             <label for="mass">Mass:</label>
             <input type="text" id="mass" name="mass" placeholder="e.g., 5.972 x 10^24 kg" value="<?= @$mass; ?>">
-
+            
             <!-- Distance from Sun -->
             <label for="distance_from_sun">Distance from Sun (in million km):</label>
             <input type="number" id="distance_from_sun" name="distance_from_sun" step="0.01"
                    value="<?= @$distance_from_sun; ?>">
-
+            
             <!-- Discovery Method (Dropdown) -->
             <label for="discovery_method">Discovery Method*:</label>
             <select id="discovery_method" name="discovery_method">
@@ -223,7 +222,6 @@ if (isset($_POST['submit'])) {
                           value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
                 <?php endforeach; ?>
             </select>
-
             <!-- Habitability (Dropdown) -->
             <label for="habitability">Habitability*:</label>
             <select id="habitability" name="habitability">
@@ -234,7 +232,6 @@ if (isset($_POST['submit'])) {
                           value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
                 <?php endforeach; ?>
             </select>
-
             <button type="submit" name="submit" id="submit">Submit Planet</button>
         </form>
     </main>

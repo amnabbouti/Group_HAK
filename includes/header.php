@@ -42,7 +42,7 @@
                                 <img src="<?= $user['profile_picture'] ?>"
                                      alt="Profile Picture">
                             <?php else: ?>
-                                <img src="../public/assets/images/user.png" alt="Default Profile Picture">
+                                <img src="../public/assets/images/user.jpg" alt="Default Profile Picture">
                             <?php endif; ?>
                         </a>
                         <div class="dropdown-content">

@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lastname = trim($_POST['lastname']);
     $mail = trim($_POST['mail']);
     $profile_picture = $user['profile_picture'];
+    $user_id = $user['id'];
 
     // Validation
     if (empty($username) || empty($firstname) || empty($lastname) || empty($mail)) {

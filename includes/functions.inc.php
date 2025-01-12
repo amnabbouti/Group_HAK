@@ -68,10 +68,15 @@ function buildFiltersAndParams(array $input): array
 
 function getOrderBy(array $input): string
 {
-    if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
-        return "ORDER BY " . $input['sort'] . " ASC";
+    $orderBy = "ORDER BY id ASC";
+
+    if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered', 'distance_from_sun'])) {
+        //default to ASC if 'order' is not used, otherwise use 'desc'
+        $direction = isset($input['order']) && $input['order'] == 'desc' ? 'DESC' : 'ASC';
+        $orderBy = "ORDER BY " . $input['sort'] . " " . $direction;
     }
-    return "ORDER BY id ASC";
+
+    return $orderBy;
 }
 
 
@@ -321,4 +326,3 @@ function default_profile_picture(array $user): array
     }
     return $user;
 }
-

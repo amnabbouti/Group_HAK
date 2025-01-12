@@ -28,12 +28,12 @@ $planets = sortPlanets($sort, $direction);
             <table style="padding: 10px">
                 <thead>
                     <tr>
-                        <th><a href="?sort=id&dir=<?= ($sort == 'id' && $direction == 'ASC' ? 'down' : 'up'); ?>">#ID</a></th>
-                        <th><a href="?sort=name&dir=<?= ($sort == 'name' && $direction == 'ASC' ? 'down' : 'up'); ?>">Planet</th>
+                        <th><a href="?sort=id&dir=<?= ($sort == 'id' && $direction == 'ASC' ? 'down' : 'up'); ?>">#ID↕</a></th>
+                        <th><a href="?sort=name&dir=<?= ($sort == 'name' && $direction == 'ASC' ? 'down' : 'up'); ?>">Planet↕</th>
                         <th>Description</th>
                         <th>Image</th>
-                        <th><a href="?sort=date_added&dir=<?= ($sort == 'date_added' && $direction == 'ASC' ? 'down' : 'up'); ?>">Date added</th>
-                        <th><a href="?sort=date_edited&dir=<?= ($sort == 'date_edited' && $direction == 'ASC' ? 'down' : 'up'); ?>">Date edited</th>
+                        <th><a href="?sort=date_added&dir=<?= ($sort == 'date_added' && $direction == 'ASC' ? 'down' : 'up'); ?>">Date added↕</th>
+                        <th><a href="?sort=date_edited&dir=<?= ($sort == 'date_edited' && $direction == 'ASC' ? 'down' : 'up'); ?>">Date edited↕</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

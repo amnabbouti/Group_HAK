@@ -41,6 +41,9 @@ main {
         a {
           text-decoration: none;
           color: #ffd700;
+          &:hover {
+            color: rebeccapurple;
+          }
         }
       }
     }

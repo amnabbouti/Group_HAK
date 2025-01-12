@@ -13,6 +13,15 @@ if (!$user) {
     exit;
 }
 $user = default_profile_picture($user);
+
+// Fetch the liked planets for the user
+$stmt = $db->prepare("SELECT p.id, p.name, p.description, p.image, p.likes FROM planets p
+                      JOIN user_likes ul ON p.id = ul.planet_id
+                      WHERE ul.user_id = :userId");
+$stmt->bindParam(':userId', $_SESSION['id']);
+$stmt->execute();
+$likedPlanets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 // profile update
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
@@ -91,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <html lang="en">
-<html lang="en">
 <?php require_once 'includes/head.php'; ?>
 <body>
     <?php require_once 'includes/header.php'; ?>
@@ -138,6 +146,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <br>
                 <button type="submit">Update</button>
             </form>
+        </section>
+
+        <section class="liked-planets">
+            <h2>Liked Planets</h2>
+            <div class="crud-container">
+                <?php foreach ($likedPlanets as $planet): ?>
+                    <div class="crud-item">
+                        <div class="crud-image">
+                            <a href="detail.php?id=<?= $planet['id']; ?>">
+                                <img src="<?= $planet['image'] ?>" alt="<?= $planet['name'] ?>">
+                            </a>
+                        </div>
+                        <div class="crud-details">
+                            <h3><?= $planet['name'] ?></h3>
+                            <p><?= implode(' ', array_slice(explode(' ', $planet['description']), 0, 10)) . '...'; ?></p>
+                            <div class="like-container">
+                                <span class="like-count"><?= $planet['likes'] ?></span>
+                                <button class="like-button" data-planet-id="<?= $planet['id']; ?>">
+                                    <i class="fa fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </section>
     </main>
     <?php require_once 'includes/footer.php'; ?>

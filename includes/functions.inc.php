@@ -8,7 +8,7 @@ function getNasaFeaturedData(): array
 {
     $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
     $dotenv->load();
-    $nasaApiKey = $_ENV['VITE_NASA_API_KEY'];
+    $nasaApiKey = $_ENV['NASA_API_KEY'];
     $url = "https://api.nasa.gov/planetary/apod?api_key={$nasaApiKey}";
     $response = @file_get_contents($url);
     $data = $response ? json_decode($response, true) : null;
@@ -313,6 +313,48 @@ function insertPlanet(string $name, string $description, string $image, $length_
     return $db->lastInsertId();
 }
 
+function updatePlanet(int $planet_id, string $name, string $description, string $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id)
+{
+    $db = connectToDB();
+    $stmt = $db->prepare("SELECT id FROM planets WHERE name = :name AND id != :planet_id");
+    $stmt->execute(['name' => $name, 'planet_id' => $planet_id]);
+    if ($stmt->rowCount() > 0) {
+        return false;
+    }
+    $sql = "UPDATE planets SET 
+                name = :name, 
+                description = :description, 
+                image = :image, 
+                length_of_year = :length_of_year, 
+                moons = :moons, 
+                temperature = :temperature, 
+                diameter = :diameter, 
+                date_discovered = :date_discovered, 
+                mass = :mass, 
+                distance_from_sun = :distance_from_sun, 
+                discovery_method_id = :discovery_method_id, 
+                habitability_id = :habitability_id 
+            WHERE id = :planet_id";
+    $stmt = $db->prepare($sql);
+    $params = [
+        'planet_id' => $planet_id,
+        'name' => $name,
+        'description' => $description,
+        'image' => $image,
+        'length_of_year' => $length_of_year,
+        'moons' => $moons,
+        'temperature' => $temperature,
+        'diameter' => $diameter,
+        'date_discovered' => $date_discovered,
+        'mass' => $mass,
+        'distance_from_sun' => $distance_from_sun,
+        'discovery_method_id' => $discovery_method_id,
+        'habitability_id' => $habitability_id
+    ];
+    return $stmt->execute($params);
+}
+
+
 // setting a default profile picture for users that have no picture
 function default_profile_picture(array $user): array
 {
@@ -321,4 +363,3 @@ function default_profile_picture(array $user): array
     }
     return $user;
 }
-

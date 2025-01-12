@@ -151,13 +151,64 @@ if (isset($_POST['submit'])) {
     }
 }
 
+if (isset($_GET['id'])) {
+    $planet_id = $_GET['id'];
+    $planet = get_planet_by_id($planet_id);
+    if ($planet) {
+        $name = $planet['name'];
+        $description = $planet['description'];
+        $image = $planet['image'];
+        $length_of_year = $planet['length_of_year'];
+        $moons = $planet['moons'];
+        $temperature = $planet['temperature'];
+        $diameter = $planet['diameter'];
+        $date_discovered = $planet['date_discovered'];
+        $mass = $planet['mass'];
+        $distance_from_sun = $planet['distance_from_sun'];
+        $discovery_method_id = $planet['discovery_method_id'];
+        $habitability_id = $planet['habitability_id'];
+    } else {
+        header("Location: admin.php?error=Planet not found.");
+        exit;
+    }
+}
+
+
+if (isset($_POST['submit'])) {
+    $submitted = true;
+    if (isset($_GET['id'])) {
+        $planet_id = $_GET['id'];
+        if (count($errors) == 0) {
+            $result = updatePlanet($planet_id, $name, $description, $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id);
+            if ($result) {
+                header("Location: index.php?message=Planet successfully updated.");
+                exit;
+            } else {
+                $errors[] = "Failed to update planet in the database.";
+            }
+        }
+    } else {
+        if (count($errors) == 0) {
+            // Check for duplicates before inserting
+            $result = insertPlanet($name, $description, $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id);
+            if ($result) {
+                header("Location: index.php?message=Planet successfully added.");
+                exit;
+            } else {
+                $errors[] = "A planet with the name '$name' already exists in the database.";
+            }
+        }
+    }
+}
+
 ?>
 <html lang="en">
 <?php require_once 'includes/head.php'; ?>
+
 <body>
     <?php require_once 'includes/header.php'; ?>
     <main>
-        
+
         <h1>Add a planet</h1>
         <?php if (count($errors)): ?>
             <div class="error-messages">
@@ -168,49 +219,49 @@ if (isset($_POST['submit'])) {
                 </ul>
             </div>
         <?php endif; ?>
-        
+
         <form action="form.php" method="POST">
             <!-- Name -->
             <label for="name">Planet Name*:</label>
             <input type="text" id="name" name="name" value="<?= @$name; ?>">
-            
+
             <!-- Description -->
             <label for="description">Description*:</label>
             <textarea id="description" name="description" rows="4"><?= @$description; ?></textarea>
-            
+
             <!-- Image -->
             <label for="image">Image:</label>
             <input type="text" id="image" name="image" placeholder="https://..." value="<?= @$image; ?>">
-            
+
             <!-- Length of Year -->
             <label for="length_of_year">Length of Year (in Earth days):</label>
             <input type="number" id="length_of_year" name="length_of_year" step="0.01" value="<?= @$length_of_year; ?>">
-            
+
             <!-- Moons -->
             <label for="moons">Number of Moons:</label>
             <input type="number" id="moons" name="moons" value="<?= @$moons; ?>">
-            
+
             <!-- Temperature -->
             <label for="temperature">Average Temperature (°C):</label>
             <input type="text" id="temperature" name="temperature" value="<?= @$temperature; ?>">
-            
+
             <!-- Diameter -->
             <label for="diameter">Diameter (in km):</label>
             <input type="number" id="diameter" name="diameter" step="0.01" value="<?= @$diameter; ?>">
-            
+
             <!-- Date Discovered -->
             <label for="date_discovered">Date Discovered:</label>
             <input type="datetime-local" id="date_discovered" name="date_discovered" value="<?= @$date_discovered; ?>">
-            
+
             <!-- Mass -->
             <label for="mass">Mass:</label>
             <input type="text" id="mass" name="mass" placeholder="e.g., 5.972 x 10^24 kg" value="<?= @$mass; ?>">
-            
+
             <!-- Distance from Sun -->
             <label for="distance_from_sun">Distance from Sun (in million km):</label>
             <input type="number" id="distance_from_sun" name="distance_from_sun" step="0.01"
-                   value="<?= @$distance_from_sun; ?>">
-            
+                value="<?= @$distance_from_sun; ?>">
+
             <!-- Discovery Method (Dropdown) -->
             <label for="discovery_method">Discovery Method*:</label>
             <select id="discovery_method" name="discovery_method">
@@ -219,7 +270,7 @@ if (isset($_POST['submit'])) {
                 </option>
                 <?php foreach ($discoveryMethods as $dm): ?>
                     <option
-                          value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
+                        value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
                 <?php endforeach; ?>
             </select>
             <!-- Habitability (Dropdown) -->
@@ -229,10 +280,10 @@ if (isset($_POST['submit'])) {
                 </option>
                 <?php foreach ($habitabilities as $habit): ?>
                     <option
-                          value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
+                        value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
                 <?php endforeach; ?>
             </select>
-            <button type="submit" name="submit" id="submit">Submit Planet</button>
+            <button type="submit" name="submit" id="submit"><?= isset($_GET['id']) ? 'Update Planet' : 'Submit Planet'; ?></button>
         </form>
     </main>
     <?php require_once 'includes/footer.php'; ?>

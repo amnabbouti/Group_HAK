@@ -266,6 +266,14 @@ function deletePlanet(int $id)
 function deleteUser(int $id)
 {
     $db = connectToDB();
+
+    // Delete all likes associated with the user to avoid foreign key constraints
+    $sql = "DELETE FROM user_likes WHERE user_id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':id' => $id
+    ]);
+
     $sql = "DELETE FROM users
             WHERE id = :id";
     $stmt = $db->prepare($sql);

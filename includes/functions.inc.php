@@ -263,6 +263,18 @@ function deletePlanet(int $id)
     return $db->lastInsertId();
 }
 
+function deleteUser(int $id)
+{
+    $db = connectToDB();
+    $sql = "DELETE FROM users
+            WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':id' => $id
+    ]);
+    return $db->lastInsertId();
+}
+
 function getPlanets(): array
 {
     $sql = "SELECT id, name, description, image, is_published, date_added, date_edited FROM planets";
@@ -322,3 +334,11 @@ function default_profile_picture(array $user): array
     return $user;
 }
 
+function sortPlanets(String $sort, String $direction)
+{
+    $db = connectToDB();
+    $sql = "SELECT * FROM planets ORDER BY $sort $direction";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

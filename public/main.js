@@ -19,84 +19,61 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
-// shuttle
-document.addEventListener("DOMContentLoaded", () => {
-    const shuttle = document.querySelector("model-viewer#curiosity");
-    const exploreMoreButton = document.querySelector("a[href='#planets'] button");
-    const screenHeight = window.innerHeight;
-    const screenWidth = window.innerWidth;
-    let positionX = -150; // Startpositie van de shuttle
-    let positionY = -40;
-    const animationSpeed = 5;
-    let isAnimating = false;
-
-    // Zet het shuttle op de startpositie aan het begin
-    function stopAtStart() {
-        shuttle.style.left = "150px";
-        shuttle.style.top = `${positionY}px`;
-        shuttle.style.transition = "none";
-    }
-
-    // Laat de shuttle naar binnen vliegen
-    function flyIn() {
-        positionX = -150; // de rustpositie
-        function animate() {
-            if (positionX < 150) {
-                positionX += animationSpeed;
-                shuttle.style.left = `${positionX}px`;
-                shuttle.style.top = `${positionY}px`;
-                requestAnimationFrame(animate);
-            } else {
-                stopAtStart();
+// cards motion
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
             }
-        }
+        });
+    }, {threshold: 0.1});
 
-        animate();
-    }
-
-    // Animeren tot het einde van het scherm
-    function animateToEnd() {
-        isAnimating = true;
-
-        function animate() {
-            if (positionX < screenWidth) {
-                positionX += animationSpeed;
-                shuttle.style.left = `${positionX}px`;
-                shuttle.style.top = `${positionY}px`;
-                requestAnimationFrame(animate);
-                if (positionX >= screenWidth) {
-                    shuttle.style.opacity = "0";
-                    shuttle.style.transition = "opacity 0.5s ease";
-                    window.scrollTo({top: screenHeight, behavior: "smooth"});
-                }
-                requestAnimationFrame(animate);
-            } else {
-                isAnimating = false;
-                shuttle.style.display = "none";
-            }
-        }
-
-        animate();
-    }
-
-    shuttle.addEventListener("load", () => {
-        flyIn();
-    });
-
-    // Triggert animatie wanneer de knop wordt aangeklikt
-    exploreMoreButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (!isAnimating) {
-            shuttle.style.opacity = "1";
-            shuttle.style.display = "";
-            positionX = 150;
-            animateToEnd();
-        }
+    document.querySelectorAll('.planets .container').forEach(container => {
+        observer.observe(container);
     });
 });
 
 
+// drop down filters
+const dropdownButton = document.getElementById('dropdownButton');
+const dropdownContent = document.getElementById('dropdownContent');
+dropdownButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    dropdownContent.classList.toggle('show');
+});
+document.addEventListener('click', function (e) {
+    if (!dropdownButton.contains(e.target) && !dropdownContent.contains(e.target)) {
+        dropdownContent.classList.remove('show');
+    }
+});
 
+
+document.addEventListener('DOMContentLoaded', function () {
+    const likeButtons = document.querySelectorAll('.like-button');
+
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const planetId = this.getAttribute('data-planet-id');
+            const likeCountElement = document.getElementById(`like-count-${planetId}`);
+
+            fetch('like.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `id=${planetId}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        likeCountElement.textContent = data.likes;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+});
 
 

@@ -4,7 +4,12 @@
 
 :root{
     font-size: 62.5%;
-    --soft-orange: hsl(180, 3%, 94%);
+    --white: hsl(180, 3%, 94%);
+    --text-opacity: 1;
+    --p-color: rgba(161, 161, 170, var(--text-opacity));
+    --main-color: rebeccapurple;
+    --border-radius: 4px;
+    
 }
 
 html{
@@ -15,15 +20,15 @@ html{
 }
 
 *{
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body *{
-    /* line-height: calc(2px + 2ex + 2px); */
-    /* font-size: 2rem; */
     font-family: 'Inter', sans-serif;
 }
-
 
 header{
     background-color: black;
@@ -69,12 +74,12 @@ header{
                 position: absolute;
                 background-color: #f9f9f9;
                 min-width: 100px;
-                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
                 z-index: 1;
                 visibility: hidden;
                 border-radius: 4px;
                 overflow: hidden;
-                left: -2.5rem;
+                left: -3rem;
                 margin: 1rem;
                 
                 
@@ -82,7 +87,7 @@ header{
             
             .dropdown-content a{
                 color: black;
-                padding: 12px 16px;
+                padding: 1.2rem 1.6rem;
                 text-decoration: none;
                 display: block;
                 font-size: 1.4rem;
@@ -109,27 +114,25 @@ header{
                 font-size: 1.4rem;
                 color: #ffffff;
                 text-decoration: none;
-                /* background-color: var(--buttons-color); */
                 padding: 1rem;
-                /* border-radius: 4px; */
-                /* box-shadow: 0 4px 10px rgba(7, 64, 248, 0.87); */
                 transition: all 0.3s ease-in-out;
                 
                 &:hover{
-                    color: #17d4fc;
+                    color: var(--main-color);
                 }
             }
         }
         
         .search{
             display: flex;
-            gap: 1rem;
             align-items: center;
+            border-radius: 4px;
+            overflow: hidden;
             
             button{
                 padding: 0.5rem;
                 border: none;
-                background-color: rebeccapurple;
+                background-color: var(--main-color);
                 color: white;
                 cursor: pointer;
             }
@@ -164,7 +167,7 @@ header{
             
             &:hover{
                 background-color: #1d1e21;
-                color: #17d4fc;
+                color: var(--main-color);
             }
         }
     }
@@ -199,7 +202,7 @@ footer{
             padding: 0.5rem;
             
             &:hover{
-                color: #1fb9a7;
+                color: var(--main-color);
             }
         }
     }

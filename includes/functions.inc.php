@@ -68,7 +68,7 @@ function buildFiltersAndParams(array $input): array
 
 function getOrderBy(array $input): string
 {
-    $orderBy = "ORDER BY id ASC";
+    $orderBy = "ORDER BY name ASC";
 
     if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered', 'distance_from_sun'])) {
         //default to ASC if 'order' is not used, otherwise use 'desc'

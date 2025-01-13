@@ -68,10 +68,15 @@ function buildFiltersAndParams(array $input): array
 
 function getOrderBy(array $input): string
 {
-    if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
-        return "ORDER BY " . $input['sort'] . " ASC";
+    $orderBy = "ORDER BY name ASC";
+
+    if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered', 'distance_from_sun'])) {
+        //default to ASC if 'order' is not used, otherwise use 'desc'
+        $direction = isset($input['order']) && $input['order'] == 'desc' ? 'DESC' : 'ASC';
+        $orderBy = "ORDER BY " . $input['sort'] . " " . $direction;
     }
-    return "ORDER BY id ASC";
+
+    return $orderBy;
 }
 
 
@@ -107,7 +112,7 @@ function getAllUsers(?int $id = null): array
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ? [$user] : [];
     }
-
+    // Fetch all users
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -167,13 +172,13 @@ function isValidLogin($mail, $password)
     return false;
 }
 
-//function requiredLoggedIn()
-//{
-//    if (!isLoggedIn()) {
-//        header("Location: login.php");
-//        exit;
-//    }
-//}
+function requiredLoggedIn()
+{
+    if (!isLoggedIn()) {
+        header("Location: login.php");
+        exit;
+    }
+}
 
 function requiredLoggedOut()
 {

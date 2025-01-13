@@ -254,6 +254,13 @@ function registerNewMember(string $username, string $firstname, string $lastname
 function deletePlanet(int $id)
 {
     $db = connectToDB();
+
+    $sql = "DELETE FROM user_likes WHERE planet_id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':id' => $id
+    ]);
+
     $sql = "DELETE FROM planets
             WHERE id = :id";
     $stmt = $db->prepare($sql);

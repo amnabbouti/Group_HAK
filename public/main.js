@@ -37,16 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // drop down for the filters
-const dropdownButton = document.getElementById('dropdownButton');
-const dropdownContent = document.getElementById('dropdownContent');
-dropdownButton.addEventListener('click', function (e) {
-    e.preventDefault();
-    dropdownContent.classList.toggle('show');
-});
-document.addEventListener('click', function (e) {
-    if (!dropdownButton.contains(e.target) && !dropdownContent.contains(e.target)) {
-        dropdownContent.classList.remove('show');
-    }
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('dropdownButton').addEventListener('click', function () {
+        document.getElementById('dropdownContent').classList.toggle('show');
+    });
 });
 
 
@@ -58,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             const planetId = this.getAttribute('data-planet-id');
             const likeCountElement = document.getElementById(`like-count-${planetId}`);
+            const likeButton = this;
+            const planetElement = document.getElementById(`planet-${planetId}`);
 
             fetch('like.php', {
                 method: 'POST',
@@ -70,6 +66,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     if (data.success) {
                         likeCountElement.textContent = data.likes;
+                        if (data.liked) {
+                            likeButton.classList.add('liked');
+                        } else {
+                            likeButton.classList.remove('liked');
+                            planetElement.remove();
+                        }
                     }
                 })
                 .catch(error => console.error('Error:', error));

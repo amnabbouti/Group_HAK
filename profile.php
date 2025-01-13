@@ -128,6 +128,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </section>
 
+        <section class="liked-planets">
+            <h2>Liked Planets</h2>
+            <div class="crud-container">
+                <?php if (empty($likedPlanets)): ?>
+                    <p>No liked planets.</p>
+                <?php else: ?>
+                    <?php foreach ($likedPlanets as $planet): ?>
+                        <div class="crud-item" id="planet-<?= $planet['id']; ?>">
+                            <div class="crud-image">
+                                <a href="detail.php?id=<?= $planet['id']; ?>">
+                                    <img src="<?= $planet['image'] ?>" alt="<?= $planet['name'] ?>">
+                                </a>
+                            </div>
+                            <div class="crud-details">
+                                <h3><?= $planet['name'] ?></h3>
+                                <p><?= implode(' ', array_slice(explode(' ', $planet['description']), 0, 10)) . '...'; ?></p>
+                                <div class="like-container">
+                                    <span class="like-count"
+                                          id="like-count-<?= $planet['id']; ?>"><?= $planet['likes'] ?></span>
+                                    <button class="like-button liked" data-planet-id="<?= $planet['id']; ?>">
+                                        <i class="fa-solid fa-heart full-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </section>
+
         <section class="update">
             <h2>Update Profile</h2>
             <form id="profile-form" method="POST" action="profile.php" enctype="multipart/form-data">
@@ -149,32 +179,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit">Update</button>
             </form>
         </section>
-
-        <section class="liked-planets">
-            <h2>Liked Planets</h2>
-            <div class="crud-container">
-                <?php foreach ($likedPlanets as $planet): ?>
-                    <div class="crud-item">
-                        <div class="crud-image">
-                            <a href="detail.php?id=<?= $planet['id']; ?>">
-                                <img src="<?= $planet['image'] ?>" alt="<?= $planet['name'] ?>">
-                            </a>
-                        </div>
-                        <div class="crud-details">
-                            <h3><?= $planet['name'] ?></h3>
-                            <p><?= implode(' ', array_slice(explode(' ', $planet['description']), 0, 10)) . '...'; ?></p>
-                            <div class="like-container">
-                                <span class="like-count"><?= $planet['likes'] ?></span>
-                                <button class="like-button" data-planet-id="<?= $planet['id']; ?>">
-                                    <i class="fa fa-heart"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </section>
     </main>
     <?php require_once 'includes/footer.php'; ?>
 </body>
+</html>
 </html>

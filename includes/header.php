@@ -15,11 +15,16 @@ if (isset($_SESSION['id'])) {
             <div>
                 <ul class="nav_links">
                     <li>
-                        <button onclick="location.href='logout.php'" class="btn">Logout</button>
+                        <button onclick="location.href='logout.php'" class="button">Logout</button>
                     </li>
                     <li>
                         <button onclick="location.href='admin_register.php'" class="btn btn-register-admin">
                             Add New Admin
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="location.href='admin_register.php'" class="btn btn-register-admin">
+                            Main Page
                         </button>
                     </li>
                 </ul>

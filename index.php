@@ -8,6 +8,16 @@ include_once 'includes/init.php';
 $user = getLoggedInUser(); // logged in users
 $nasaData = getNasaFeaturedData();  // nasa api
 
+
+// fetching liked planets for users
+$likedPlanets = [];
+if ($user) {
+    $stmt = $db->prepare("SELECT planet_id FROM user_likes WHERE user_id = :userId");
+    $stmt->bindParam(':userId', $user['id']);
+    $stmt->execute();
+    $likedPlanets = $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
+
 // query filters and parameters
 list($filters, $params) = buildFiltersAndParams($_GET);
 $orderBy = getOrderBy($_GET);
@@ -73,70 +83,75 @@ $nextPage = $pagination['nextPage'];
                 </a>
             </div>
         </section>
+
         <section class="filters">
             <form method="GET" action="">
                 <div class="filter-dropdown">
                     <a class="filter-dropdown-button" id="dropdownButton">Filters <span class="dropdown-arrow"><i
-                                class="fa fa-chevron-down"></i></span></a>
+                                  class="fa fa-chevron-down"></i></span></a>
                     <div class="filter-dropdown-content" id="dropdownContent">
                         <div class="filter-group">
                             <span class="filter-label">Moon Count</span>
                             <select name="moons" id="moons">
                                 <option value="">Select Moon Count</option>
                                 <option
-                                    value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
+                                      value="No Moons" <?= isset($_GET['moons']) && $_GET['moons'] == 'No Moons' ? 'selected' : '' ?>>
                                     No Moons
                                 </option>
                                 <option
-                                    value="1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == '1 Moon' ? 'selected' : '' ?>>
+                                      value="1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == '1 Moon' ? 'selected' : '' ?>>
                                     1 Moon
                                 </option>
                                 <option
-                                    value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
+                                      value="More than 1 Moon" <?= isset($_GET['moons']) && $_GET['moons'] == 'More than 1 Moon' ? 'selected' : '' ?>>
                                     More than 1 Moon
                                 </option>
                             </select>
                         </div>
-                        <button type="submit">Apply</button>
-                    </div>
-                </div>
-            </form>
-            <form method="GET" action="">
-                <div class="filter-dropdown">
-                    <a class="filter-dropdown-button" id="dropdownButton">Sorting <span class="dropdown-arrow"><i
-                                class="fa fa-chevron-down"></i></span></a>
-                    <div class="filter-dropdown-content" id="dropdownContent">
                         <div class="filter-group">
-                            <span class="filter-label">A</span>
-                            <select name="filter" id="filter">
-                                <option value="">B</option>
+                            <span class="filter-label">Sort By</span>
+                            <select name="sort" id="sort">
+                                <option
+                                      value="name" <?= isset($_GET['sort']) && $_GET['sort'] == 'name' ? 'selected' : '' ?>>
+                                    Name
+                                </option>
+                                <option
+                                      value="diameter" <?= isset($_GET['sort']) && $_GET['sort'] == 'diameter' ? 'selected' : '' ?>>
+                                    Diameter
+                                </option>
+                                <option
+                                      value="moons" <?= isset($_GET['sort']) && $_GET['sort'] == 'moons' ? 'selected' : '' ?>>
+                                    Moons
+                                </option>
+                                <option
+                                      value="date_discovered" <?= isset($_GET['sort']) && $_GET['sort'] == 'date_discovered' ? 'selected' : '' ?>>
+                                    Date Discovered
+                                </option>
+                                <option
+                                      value="distance_from_sun" <?= isset($_GET['sort']) && $_GET['sort'] == 'distance_from_sun' ? 'selected' : '' ?>>
+                                    Distance From Sun
+                                </option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-label">Order</span>
+                            <select name="order" id="order">
+                                <option
+                                      value="asc" <?= isset($_GET['order']) && $_GET['order'] == 'asc' ? 'selected' : '' ?>>
+                                    Ascending (A-Z)
+                                </option>
+                                <option
+                                      value="desc" <?= isset($_GET['order']) && $_GET['order'] == 'desc' ? 'selected' : '' ?>>
+                                    Descending (Z-A)
+                                </option>
                             </select>
                         </div>
                         <button type="submit">Apply</button>
                     </div>
                 </div>
             </form>
-            <form method="GET" action="">
-                <div class="filter-dropdown">
-                    <span class="filter-label">Sort By</span>
-                    <select name="sort" id="sort" onchange="this.form.submit()">
-                        <option value="name" <?= isset($_GET['sort']) && $_GET['sort'] == 'name' ? 'selected' : '' ?>>Name</option>
-                        <option value="diameter" <?= isset($_GET['sort']) && $_GET['sort'] == 'diameter' ? 'selected' : '' ?>>Diameter</option>
-                        <option value="moons" <?= isset($_GET['sort']) && $_GET['sort'] == 'moons' ? 'selected' : '' ?>>Moons</option>
-                        <option value="date_discovered" <?= isset($_GET['sort']) && $_GET['sort'] == 'date_discovered' ? 'selected' : '' ?>>Date Discovered</option>
-                        <option value="distance_from_sun" <?= isset($_GET['sort']) && $_GET['sort'] == 'distance_from_sun' ? 'selected' : '' ?>>Distance From Sun</option>
-                    </select>
-                </div>
-
-                <div class="filter-dropdown">
-                    <span class="filter-label">Order</span>
-                    <select name="order" id="order" onchange="this.form.submit()">
-                        <option value="asc" <?= isset($_GET['order']) && $_GET['order'] == 'asc' ? 'selected' : '' ?>>Ascending (A-Z)</option>
-                        <option value="desc" <?= isset($_GET['order']) && $_GET['order'] == 'desc' ? 'selected' : '' ?>>Descending (Z-A)</option>
-                    </select>
-                </div>
-            </form>
         </section>
+
 
         <section class="planets">
             <?php foreach ($paginatedItems as $planet): ?>
@@ -146,7 +161,7 @@ $nextPage = $pagination['nextPage'];
                             <div>
                                 <a href="detail.php?id=<?= $planet['id']; ?>">
                                     <img src="<?= $planet['image'] ?>"
-                                        alt="<?= $planet['name'] ?>">
+                                         alt="<?= $planet['name'] ?>">
                                 </a>
                             </div>
                         </div>
@@ -157,8 +172,10 @@ $nextPage = $pagination['nextPage'];
                                 <a href="detail.php?id=<?= $planet['id']; ?>">DETAILS</a>
                                 <div class="like-container">
                                     <span class="like-count"
-                                        id="like-count-<?= $planet['id']; ?>"><?= $planet['likes'] ?? 0 ?></span>
-                                    <button class="like-button" data-planet-id="<?= $planet['id']; ?>">
+                                          id="like-count-<?= $planet['id']; ?>"><?= $planet['likes'] ?? 0 ?></span>
+                                    <button
+                                          class="like-button <?= in_array($planet['id'], $likedPlanets) ? 'liked' : '' ?>"
+                                          data-planet-id="<?= $planet['id']; ?>">
                                         <i class="fa-solid fa-heart full-heart"></i>
                                         <i class="fa-regular fa-heart empty-heart"></i>
                                     </button>
@@ -173,15 +190,24 @@ $nextPage = $pagination['nextPage'];
             <div class="container">
                 <ul>
                     <?php if ($page > 1): ?>
-                        <li><a href="?page=1&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i class="fa-solid fa-angles-left"></i></a></li>
-                        <li><a href="?page=<?= $previousPage ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i class="fa-solid fa-chevron-left"></i></a></li>
+                        <li><a href="?page=1&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i
+                                      class="fa-solid fa-angles-left"></i></a></li>
+                        <li>
+                            <a href="?page=<?= $previousPage ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i
+                                      class="fa-solid fa-chevron-left"></i></a></li>
                     <?php endif; ?>
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <li><a href="?page=<?= $i ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>" class="<?= ($i == $page) ? 'active' : '' ?>"><?= $i ?></a></li>
+                        <li>
+                            <a href="?page=<?= $i ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"
+                               class="<?= ($i == $page) ? 'active' : '' ?>"><?= $i ?></a></li>
                     <?php endfor; ?>
                     <?php if ($page < $totalPages): ?>
-                        <li><a href="?page=<?= $nextPage ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i class="fa-solid fa-chevron-right"></i></a></li>
-                        <li><a href="?page=<?= $totalPages ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i class="fa-solid fa-angles-right"></i></a></li>
+                        <li>
+                            <a href="?page=<?= $nextPage ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i
+                                      class="fa-solid fa-chevron-right"></i></a></li>
+                        <li>
+                            <a href="?page=<?= $totalPages ?>&sort=<?= $_GET['sort'] ?? '' ?>&order=<?= $_GET['order'] ?? 'asc' ?>"><i
+                                      class="fa-solid fa-angles-right"></i></a></li>
                     <?php endif; ?>
                 </ul>
             </div>

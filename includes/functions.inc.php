@@ -63,7 +63,13 @@ function buildFiltersAndParams(array $input): array
         }
     }
 
-    return [$filters, $params];
+    $orderBy = "ORDER BY name ASC"; // Default sorting
+    if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered', 'distance_from_sun'])) {
+        $direction = isset($input['order']) && $input['order'] == 'desc' ? 'DESC' : 'ASC';
+        $orderBy = "ORDER BY " . $input['sort'] . " " . $direction;
+    }
+
+    return [$filters, $params, $orderBy];
 }
 
 function getOrderBy(array $input): string
@@ -71,7 +77,6 @@ function getOrderBy(array $input): string
     $orderBy = "ORDER BY name ASC";
 
     if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered', 'distance_from_sun'])) {
-        //default to ASC if 'order' is not used, otherwise use 'desc'
         $direction = isset($input['order']) && $input['order'] == 'desc' ? 'DESC' : 'ASC';
         $orderBy = "ORDER BY " . $input['sort'] . " " . $direction;
     }
@@ -259,6 +264,11 @@ function registerNewMember(string $username, string $firstname, string $lastname
 function deletePlanet(int $id)
 {
     $db = connectToDB();
+    $sql = "DELETE FROM user_likes WHERE planet_id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':id' => $id
+    ]);
     $sql = "DELETE FROM planets
             WHERE id = :id";
     $stmt = $db->prepare($sql);
@@ -271,6 +281,11 @@ function deletePlanet(int $id)
 function deleteUser(int $id)
 {
     $db = connectToDB();
+    $sql = "DELETE FROM user_likes WHERE user_id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':id' => $id
+    ]);
     $sql = "DELETE FROM users
             WHERE id = :id";
     $stmt = $db->prepare($sql);
@@ -396,7 +411,7 @@ function deleteToken($token)
     $stmt->execute();
 }
 
-function existingName(String $name): bool
+function existingName(string $name): bool
 {
     $sql = "SELECT name FROM planets WHERE name = :name";
     $stmt = connectToDB()->prepare($sql);

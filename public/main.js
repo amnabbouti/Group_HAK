@@ -49,7 +49,6 @@ document.addEventListener('click', function (e) {
     }
 });
 
-
 document.addEventListener('DOMContentLoaded', function () {
     const likeButtons = document.querySelectorAll('.like-button');
 
@@ -57,20 +56,18 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             const planetId = this.getAttribute('data-planet-id');
             const likeCountElement = document.getElementById(`like-count-${planetId}`);
-            const isLiked = this.classList.contains('liked');
 
             fetch('like.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: `id=${planetId}&action=${isLiked ? 'unlike' : 'like'}`
+                body: `id=${planetId}`
             })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         likeCountElement.textContent = data.likes;
-                        this.classList.toggle('liked', !isLiked);
                     }
                 })
                 .catch(error => console.error('Error:', error));

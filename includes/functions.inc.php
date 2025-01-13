@@ -107,7 +107,7 @@ function getAllUsers(?int $id = null): array
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ? [$user] : [];
     }
-    // Fetch all users
+
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 

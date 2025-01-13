@@ -313,45 +313,30 @@ function insertPlanet(string $name, string $description, string $image, $length_
     return $db->lastInsertId();
 }
 
-function updatePlanet(int $planet_id, string $name, string $description, string $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id)
+function updatePlanet(int $id, string $name, string $description, string $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id): bool|int
 {
     $db = connectToDB();
-    $stmt = $db->prepare("SELECT id FROM planets WHERE name = :name AND id != :planet_id");
-    $stmt->execute(['name' => $name, 'planet_id' => $planet_id]);
-    if ($stmt->rowCount() > 0) {
-        return false;
-    }
-    $sql = "UPDATE planets SET 
-                name = :name, 
-                description = :description, 
-                image = :image, 
-                length_of_year = :length_of_year, 
-                moons = :moons, 
-                temperature = :temperature, 
-                diameter = :diameter, 
-                date_discovered = :date_discovered, 
-                mass = :mass, 
-                distance_from_sun = :distance_from_sun, 
-                discovery_method_id = :discovery_method_id, 
-                habitability_id = :habitability_id 
-            WHERE id = :planet_id";
+    $sql = "UPDATE planets SET name= :name, description= :description, image= :image, length_of_year= :length_of_year, moons= :moons, temperature= :temperature, diameter= :diameter, date_discovered= :date_discovered, mass= :mass, distance_from_sun= :distance_from_sun, discovery_method_id= :discovery_method_id, habitability_id= :habitability_id 
+            WHERE id = :id";
     $stmt = $db->prepare($sql);
-    $params = [
-        'planet_id' => $planet_id,
-        'name' => $name,
-        'description' => $description,
-        'image' => $image,
-        'length_of_year' => $length_of_year,
-        'moons' => $moons,
-        'temperature' => $temperature,
-        'diameter' => $diameter,
-        'date_discovered' => $date_discovered,
-        'mass' => $mass,
-        'distance_from_sun' => $distance_from_sun,
-        'discovery_method_id' => $discovery_method_id,
-        'habitability_id' => $habitability_id
-    ];
-    return $stmt->execute($params);
+    $stmt->execute([
+        ':id' => $id,
+        ':name' => $name,
+        ':description' => $description,
+        ':image' => $image,
+        ':length_of_year' => $length_of_year,
+        ':moons' => $moons,
+        ':temperature' => $temperature,
+        ':diameter' => $diameter,
+        ':date_discovered' => $date_discovered,
+        ':mass' => $mass,
+        ':distance_from_sun' => $distance_from_sun,
+        ':discovery_method_id' => $discovery_method_id,
+        ':habitability_id' => $habitability_id
+    ]);
+
+    $success = (bool)$stmt->rowCount();
+    return $success ? $id : false;
 }
 
 // get userbyid for updating user details/edit button

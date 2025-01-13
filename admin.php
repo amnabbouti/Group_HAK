@@ -44,7 +44,7 @@ $users = getAllUsers();
                                     <input type="hidden" name="id" value="<?= $planet['id']; ?>">
                                     <button type="submit" class="view">View</button>
                                 </form>
-                                <form method="get" action="form.php">
+                                <form method="get" action="edit.php">
                                     <input type="hidden" name="id" value="<?= $planet['id']; ?>">
                                     <button type="submit" class="edit">Edit</button>
                                 </form>

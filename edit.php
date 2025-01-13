@@ -6,6 +6,28 @@ $habitabilities = getHabitabilities();
 $errors = [];
 $submitted = false;
 
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $planet = get_planet_by_id($id);
+    if ($planet) {
+        $name = $planet['name'];
+        $description = $planet['description'];
+        $image = $planet['image'];
+        $length_of_year = $planet['length_of_year'];
+        $moons = $planet['moons'];
+        $temperature = $planet['temperature'];
+        $diameter = $planet['diameter'];
+        $date_discovered = $planet['date_discovered'];
+        $mass = $planet['mass'];
+        $distance_from_sun = $planet['distance_from_sun'];
+        $discovery_method_id = $planet['discovery_method_id'];
+        $habitability_id = $planet['habitability_id'];
+    } else {
+        header("Location: admin.php?error=Planet not found.");
+        exit;
+    }
+}
+
 if (isset($_POST['submit'])) {
     $submitted = true;
     $name = "";
@@ -140,9 +162,9 @@ if (isset($_POST['submit'])) {
         // Als er geen fouten zijn, verwerk de gegevens
         if (count($errors) == 0) {
             // Plaats hier de code om de gegevens in de database op te slaan.
-            $result = insertPlanet($name, $description, $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id);
+            $result = updatePlanet((int)$id, $name, $description, $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id);
             if ($result) {
-                header("Location: index.php?message=Planet successfully added.");
+                header("Location: admin.php?message=Planet successfully updated.");
                 exit;
             } else {
                 $errors[] = "Failed to insert planet into the database.";
@@ -150,6 +172,10 @@ if (isset($_POST['submit'])) {
         }
     }
 }
+
+
+
+
 
 ?>
 <html lang="en">
@@ -170,7 +196,7 @@ if (isset($_POST['submit'])) {
             </div>
         <?php endif; ?>
 
-        <form action="form.php" method="POST">
+        <form action="edit.php" method="POST">
             <!-- Name -->
             <label for="name">Planet Name*:</label>
             <input type="text" id="name" name="name" value="<?= @$name; ?>">

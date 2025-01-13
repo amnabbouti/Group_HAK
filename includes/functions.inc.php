@@ -342,3 +342,51 @@ function sortPlanets(string $sort, string $direction)
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+// password reset
+function getUserByEmail($mail)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM users WHERE mail = :mail");
+    $stmt->bindParam(':mail', $mail);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function saveToken($userId, $token, $expiry)
+{
+    global $db;
+    $stmt = $db->prepare("INSERT INTO password_resets (user_id, token, expiry) VALUES (:user_id, :token, :expiry)");
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->bindParam(':token', $token);
+    $stmt->bindParam(':expiry', $expiry);
+    $stmt->execute();
+}
+
+function getToken($token)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM password_resets WHERE token = :token");
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
+function updatePassword($userId, $password)
+{
+    global $db;
+    $stmt = $db->prepare("UPDATE users SET password = :password WHERE id = :id");
+    $stmt->bindParam(':password', $password);
+    $stmt->bindParam(':id', $userId);
+    $stmt->execute();
+}
+
+function deleteToken($token)
+{
+    global $db;
+    $stmt = $db->prepare("DELETE FROM password_resets WHERE token = :token");
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+}

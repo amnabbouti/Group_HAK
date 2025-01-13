@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// drop down filters
+// drop down for the filters
 const dropdownButton = document.getElementById('dropdownButton');
 const dropdownContent = document.getElementById('dropdownContent');
 dropdownButton.addEventListener('click', function (e) {
@@ -49,6 +49,8 @@ document.addEventListener('click', function (e) {
     }
 });
 
+
+// likes for the users
 document.addEventListener('DOMContentLoaded', function () {
     const likeButtons = document.querySelectorAll('.like-button');
 

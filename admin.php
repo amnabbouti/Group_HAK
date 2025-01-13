@@ -162,54 +162,18 @@ $planets = sortPlanets($sort, $direction);
                                     <form method="post" action="delete.php">
                                         <input type="hidden" name="id" value="<?= $user['id']; ?>">
                                         <button type="submit" class="delete"
-                                            <?php if (empty($users)): ?>
-                                            <tr>
-                                <td colspan="8">No users found.</td>
+                                            onclick="return confirm('Are you sure you want to delete this user?');">
+                                            Delete
+                                        </button>
+                                    </form>
+                                    <form method="get" action="register.php">
+                                        <input type="hidden" name="id" value="<?= $user['id']; ?>">
+                                        <button type="submit" class="edit">Edit</button>
+                                    </form>
+                                </td>
                             </tr>
-                        <?php else: ?>
-                            <?php foreach ($users as $user): ?>
-                                <?php $user = default_profile_picture($user); ?>
-                                <tr>
-                                    <td><?= $user['id']; ?></td>
-                                    <td>
-                                        <img src="<?= $user['profile_picture']; ?>"
-                                            alt="<?= $user['username']; ?>"
-                                            style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;">
-                                    </td>
-                                    <td><?= $user['username']; ?></td>
-                                    <td><?= $user['firstname']; ?></td>
-                                    <td><?= $user['lastname']; ?></td>
-                                    <td><?= $user['mail']; ?></td>
-                                    <td>
-                                        <span style="font-weight: bold; font-size: 1.2em; text-transform: uppercase;"><?= $user['role']; ?></span>
-                                    </td>
-                                    <td class="buttons">
-                                        <form method="post" action="deleteUser.php">
-                                            <input type="hidden" name="id" value="<?= $user['id']; ?>">
-                                            <button type="submit" class="delete"
-                                                onclick="return confirm('Are you sure you want to delete this user?');">
-                                                Delete
-                                            </button>
-                                        </form>
-                                        <form method="get" action="register.php">
-                                            <input type="hidden" name="id" value="<?= $user['id']; ?>">
-                                            <button type="submit" class="edit">Edit</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                        Delete
-                        </button>
-                        </form>
-                        <form method="get" action="edit.php">
-                            <input type="hidden" name="id" value="<?= $user['id']; ?>">
-                            <button type="submit" class="edit">Edit</button>
-                        </form>
-                        </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </section>

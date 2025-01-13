@@ -30,6 +30,8 @@ if (isset($_GET['id'])) {
 
 if (isset($_POST['submit'])) {
     $submitted = true;
+    $id = $_POST['id'];
+
     $name = "";
     $description = "";
     $image = "";
@@ -167,16 +169,12 @@ if (isset($_POST['submit'])) {
                 header("Location: admin.php?message=Planet successfully updated.");
                 exit;
             } else {
+                header("Location: admin.php?message=Failed to update planet.");
                 $errors[] = "Failed to insert planet into the database.";
             }
         }
     }
 }
-
-
-
-
-
 ?>
 <html lang="en">
 <?php require_once 'includes/head.php'; ?>
@@ -197,6 +195,8 @@ if (isset($_POST['submit'])) {
         <?php endif; ?>
 
         <form action="edit.php" method="POST">
+            <!-- Hidden input $id -->
+            <input type="hidden" name="id" value="<?= @$id; ?>">
             <!-- Name -->
             <label for="name">Planet Name*:</label>
             <input type="text" id="name" name="name" value="<?= @$name; ?>">

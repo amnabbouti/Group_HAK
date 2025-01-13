@@ -351,9 +351,8 @@ function updatePlanet(int $id, string $name, string $description, string $image,
         ':discovery_method_id' => $discovery_method_id,
         ':habitability_id' => $habitability_id
     ]);
-
     $success = (bool)$stmt->rowCount();
-    return $success ? $id : false;
+    return $success ? $db->lastInsertId() : false;
 }
 
 // get userbyid for updating user details/edit button

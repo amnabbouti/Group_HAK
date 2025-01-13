@@ -178,7 +178,7 @@ if (isset($_POST['submit'])) {
     $submitted = true;
     if (isset($_GET['id'])) {
         $planet_id = $_GET['id'];
-        if (count($errors) == 0) {
+        if (count($errors) === 0) {
             $result = updatePlanet($planet_id, $name, $description, $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id);
             if ($result) {
                 header("Location: index.php?message=Planet successfully updated.");

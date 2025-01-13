@@ -354,6 +354,57 @@ function updatePlanet(int $planet_id, string $name, string $description, string 
     return $stmt->execute($params);
 }
 
+// get userbyid for updating user details/edit button
+function getUserById(int $id): ?array
+{
+    try {
+        $db = connectToDB();
+        $sql = "SELECT id, username, firstname, lastname, mail, role, profile_picture FROM users WHERE id = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user ? $user : null;
+    } catch (PDOException $e) {
+        error_log("Error fetching user details: " . $e->getMessage());
+        return null;
+    }
+}
+
+// Update user details
+function updateMember(int $id, string $username, string $firstname, string $lastname, string $mail, ?string $profile_picture): bool
+{
+    try {
+        $db = connectToDB();
+        $stmt = $db->prepare("SELECT id FROM users WHERE (username = :username OR mail = :mail) AND id != :id");
+        $stmt->execute([':username' => $username, ':mail' => $mail, ':id' => $id]);
+        if ($stmt->rowCount() > 0) {
+            return false;
+        }
+        $sql = "UPDATE users SET 
+                    username = :username,
+                    firstname = :firstname,
+                    lastname = :lastname,
+                    mail = :mail,
+                    profile_picture = :profile_picture
+                WHERE id = :id";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':id' => $id,
+            ':username' => $username,
+            ':firstname' => $firstname,
+            ':lastname' => $lastname,
+            ':mail' => $mail,
+            ':profile_picture' => $profile_picture ?? $profile_picture == 'public/assets/images/user.jpg',
+        ]);
+        return true;
+    } catch (PDOException $e) {
+        error_log("Error updating user details: " . $e->getMessage());
+        return false;
+    }
+}
+
+
 
 // setting a default profile picture for users that have no picture
 function default_profile_picture(array $user): array

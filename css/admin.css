@@ -1,150 +1,153 @@
-* {
-  font-size: 1.2rem;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-main {
-  padding: 4rem;
-  line-height: 1.6;
+main{
+    padding: 4rem;
+    line-height: 1.6;
 }
 
-.planets {
-  margin-top: 40px;
-
-  h1 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 25px;
-    color: #ffd700;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0 auto;
-    background-color: #1e1e1e;
-    box-shadow: 0 4px 16px #000c;
-    overflow: hidden;
-    padding: 2rem;
-
-    thead {
-      background-color: #333;
-
-      th {
-        padding: 1rem;
-        border-bottom: 2px solid #444;
-        color: #ffd700;
-        text-transform: uppercase;
+.planets{
+    margin-top: 40px;
+    
+    h1{
+        font-size: 2.5rem;
         text-align: center;
-        a {
-          text-decoration: none;
-          color: #ffd700;
-          &:hover {
-            color: rebeccapurple;
-          }
-        }
-      }
+        margin-bottom: 25px;
+        color: var(--main-color);
+        font-weight: bold;
     }
-
-    tbody {
-      tr {
-        border-bottom: 1px solid #444;
-        align-items: center;
-
-        &:hover {
-          background-color: #2a2a2a;
+    
+    table{
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        background-color: #1e1e1e;
+        box-shadow: 0 4px 16px #000c;
+        overflow: hidden;
+        padding: 2rem;
+        
+        thead{
+            background-color: #333;
+            
+            th{
+                padding: 1rem;
+                border-bottom: 2px solid #444;
+                color: #ffd700;
+                text-transform: uppercase;
+                text-align: center;
+                
+                a{
+                    text-decoration: none;
+                    color: #ffd700;
+                    
+                    &:hover{
+                        color: rebeccapurple;
+                    }
+                }
+            }
         }
-      }
-
-      .buttons {
-        width: min-content;
-
-        button {
-          color: #fff;
-          border: none;
-          padding: 0.5rem;
-          cursor: pointer;
-          font-weight: 700;
-          border-radius: 3px;
-          font-size: 1rem;
-          transition: background 0.3s ease;
-          box-shadow: 0 2px 4px #0003;
-          margin: 0.5rem;
-          width: 6rem;
+        
+        tbody{
+            tr{
+                border-bottom: 1px solid #444;
+                align-items: center;
+                
+                &:hover{
+                    background-color: #2a2a2a;
+                }
+            }
+            
+            .buttons{
+                width: min-content;
+                
+                button{
+                    color: #fff;
+                    border: none;
+                    padding: 0.5rem;
+                    cursor: pointer;
+                    font-weight: 700;
+                    border-radius: 3px;
+                    font-size: 1rem;
+                    transition: background 0.3s ease;
+                    box-shadow: 0 2px 4px #0003;
+                    margin: 0.5rem;
+                    width: 6rem;
+                }
+                
+                form button[type="submit"].view{
+                    background: #1976d2;
+                }
+                
+                form button[type="submit"].edit{
+                    background: #388e3c;
+                }
+                
+                form button[type="submit"].publish{
+                    background: #fbc02d;
+                    color: black;
+                }
+                
+                form button[type="submit"].delete{
+                    background: #d32f2f;
+                }
+                
+                form button[type="submit"].view:hover{
+                    background: #1565c0;
+                }
+                
+                form button[type="submit"].edit:hover{
+                    background: #2e7d32;
+                }
+                
+                form button[type="submit"].publish:hover{
+                    background: #f9a825;
+                }
+                
+                form button[type="submit"].delete:hover{
+                    background: #b71c1c;
+                }
+            }
+            
+            td{
+                padding: 0.5rem 1rem;
+                color: #eee;
+                vertical-align: middle;
+                
+                img{
+                    border-radius: 6px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+                    width: 80px;
+                    height: 80px;
+                    object-fit: cover;
+                }
+                
+                a{
+                    text-decoration: none;
+                    margin-right: 10px;
+                    color: #ffd700;
+                    font-weight: bold;
+                    transition: color 0.3s ease;
+                    
+                    &:hover{
+                        color: #ffa500;
+                    }
+                }
+            }
         }
-
-        form button[type="submit"].view {
-          background: #1976d2;
+        
+        form{
+            display: inline;
         }
-
-        form button[type="submit"].edit {
-          background: #388e3c;
-        }
-
-        form button[type="submit"].publish {
-          background: #fbc02d;
-          color: black;
-        }
-
-        form button[type="submit"].delete {
-          background: #d32f2f;
-        }
-
-        form button[type="submit"].view:hover {
-          background: #1565c0;
-        }
-
-        form button[type="submit"].edit:hover {
-          background: #2e7d32;
-        }
-
-        form button[type="submit"].publish:hover {
-          background: #f9a825;
-        }
-
-        form button[type="submit"].delete:hover {
-          background: #b71c1c;
-        }
-      }
-
-      td {
-        padding: 0.5rem 1rem;
-        color: #eee;
-        vertical-align: middle;
-
-        img {
-          border-radius: 6px;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
-          width: 80px;
-          height: 80px;
-          object-fit: cover;
-        }
-
-        a {
-          text-decoration: none;
-          margin-right: 10px;
-          color: #ffd700;
-          font-weight: bold;
-          transition: color 0.3s ease;
-
-          &:hover {
-            color: #ffa500;
-          }
-        }
-      }
     }
-
-    form {
-      display: inline;
-    }
-  }
 }
 
 th,
-td {
-  padding: 10px;
-  border: 1px solid #444;
-  text-align: center;
+td{
+    padding: 10px;
+    border: 1px solid #444;
+    text-align: center;
 }

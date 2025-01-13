@@ -115,7 +115,6 @@ main{
                 
                 &:hover{
                     background: linear-gradient(135deg, #105ad1, #0b367d);
-                    transform: scale(1.05);
                     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
                 }
             }

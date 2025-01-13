@@ -26,7 +26,6 @@ if (isset($_POST['id']) && is_numeric($_POST['id'])) {
         $stmt->bindParam(':planetId', $id);
         $stmt->execute();
     }
-    //
     $stmt = $db->prepare("SELECT likes FROM planets WHERE id = :id");
     $stmt->bindParam(':id', $id);
     $stmt->execute();

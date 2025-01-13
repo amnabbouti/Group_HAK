@@ -1,3 +1,11 @@
+<?php
+include_once 'includes/init.php';
+if (isset($_SESSION['id'])) {
+    $user = getAllUsers($_SESSION['id'])[0] ?? null;
+    $user = default_profile_picture($user);
+}
+?>
+
 <?php if (basename($_SERVER['PHP_SELF']) === 'admin.php'): ?>
     <header>
         <nav>
@@ -33,21 +41,24 @@
             </a>
             <div>
                 <ul class="nav_links">
-                    <li><a href="../profile.php">Profile</a></li>
+                    <!--                    <li><a href="../profile.php">Profile</a></li>-->
                     <li><a href="../form.php">Add a planet</a></li>
-                    <li><a href="../login.php">Log In</a></li>
+                    <!--                    <li><a href="../login.php">Log In</a></li>-->
                     <li class="dropdown">
                         <a href="../profile.php" class="profile-picture-header">
-                            <?php if (!empty($user['profile_picture'])): ?>
-                                <img src="<?= $user['profile_picture'] ?>"
-                                     alt="Profile Picture">
+                            <?php if (isset($_SESSION['id']) && !empty($user['profile_picture'])): ?>
+                                <img src="<?= $user['profile_picture'] ?>" alt="Profile Picture">
                             <?php else: ?>
-                                <img src="../public/assets/images/user.jpg" alt="Default Profile Picture">
+                                <img src="../public/assets/images/user.png" alt="Default Profile Picture">
                             <?php endif; ?>
                         </a>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['id']) && !empty($_SESSION['id'])): ?>
                                 <a href="../logout.php">Logout</a>
+                                <a href="../login.php">Login</a>
+                                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                                    <a href="../admin.php">Admin</a>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
                     </li>

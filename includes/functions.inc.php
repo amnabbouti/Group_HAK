@@ -68,10 +68,15 @@ function buildFiltersAndParams(array $input): array
 
 function getOrderBy(array $input): string
 {
-    if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered'])) {
-        return "ORDER BY " . $input['sort'] . " ASC";
+    $orderBy = "ORDER BY name ASC";
+
+    if (!empty($input['sort']) && in_array($input['sort'], ['name', 'diameter', 'moons', 'date_discovered', 'distance_from_sun'])) {
+        //default to ASC if 'order' is not used, otherwise use 'desc'
+        $direction = isset($input['order']) && $input['order'] == 'desc' ? 'DESC' : 'ASC';
+        $orderBy = "ORDER BY " . $input['sort'] . " " . $direction;
     }
-    return "ORDER BY id ASC";
+
+    return $orderBy;
 }
 
 
@@ -263,6 +268,18 @@ function deletePlanet(int $id)
     return $db->lastInsertId();
 }
 
+function deleteUser(int $id)
+{
+    $db = connectToDB();
+    $sql = "DELETE FROM users
+            WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':id' => $id
+    ]);
+    return $db->lastInsertId();
+}
+
 function getPlanets(): array
 {
     $sql = "SELECT id, name, description, image, is_published, date_added, date_edited FROM planets";
@@ -410,7 +427,72 @@ function updateMember(int $id, string $username, string $firstname, string $last
 function default_profile_picture(array $user): array
 {
     if (empty($user['profile_picture']) || !file_exists($user['profile_picture'])) {
-        $user['profile_picture'] = 'public/assets/images/user.jpg';
+        $user['profile_picture'] = '../public/assets/images/user.png';
     }
     return $user;
+}
+
+function sortPlanets(string $sort, string $direction)
+{
+    $db = connectToDB();
+    $sql = "SELECT * FROM planets ORDER BY $sort $direction";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+// password reset
+function getUserByEmail($mail)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM users WHERE mail = :mail");
+    $stmt->bindParam(':mail', $mail);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function saveToken($userId, $token, $expiry)
+{
+    global $db;
+    $stmt = $db->prepare("INSERT INTO password_resets (user_id, token, expiry) VALUES (:user_id, :token, :expiry)");
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->bindParam(':token', $token);
+    $stmt->bindParam(':expiry', $expiry);
+    $stmt->execute();
+}
+
+function getToken($token)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM password_resets WHERE token = :token");
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
+function updatePassword($userId, $password)
+{
+    global $db;
+    $stmt = $db->prepare("UPDATE users SET password = :password WHERE id = :id");
+    $stmt->bindParam(':password', $password);
+    $stmt->bindParam(':id', $userId);
+    $stmt->execute();
+}
+
+function deleteToken($token)
+{
+    global $db;
+    $stmt = $db->prepare("DELETE FROM password_resets WHERE token = :token");
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+}
+
+function existingName(String $name): bool
+{
+    $sql = "SELECT name FROM planets WHERE name = :name";
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute([':name' => $name]);
+    return $stmt->fetch(PDO::FETCH_COLUMN);
 }

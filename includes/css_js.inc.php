@@ -28,6 +28,10 @@ if (isset($_SERVER["admin"])) {
 } elseif ($page === "terms_privacy.php") {
     $manifestUrl = "./dist/.vite/manifest.json";
     $source = "js/terms_privacy.js";
+
+} elseif ($page === "form.php") {
+    $manifestUrl = "./dist/.vite/manifest.json";
+    $source = "js/form.js";
 } else {
     $manifestUrl = "./dist/.vite/manifest.json";
     $source = "js/index.js";

@@ -95,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="password" name="password" id="password" required>
                 </div>
                 <button type="submit" class="btn">Register Admin</button>
+                <button type="button" class="btn" onclick="window.location.href='admin.php';">Back to Dashboard</button>
             </form>
         </section>
     </main>

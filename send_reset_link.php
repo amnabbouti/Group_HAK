@@ -1,7 +1,5 @@
 <?php
 
-include_once 'includes/init.php';
-
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 

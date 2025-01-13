@@ -418,3 +418,28 @@ function existingName(string $name): bool
     $stmt->execute([':name' => $name]);
     return $stmt->fetch(PDO::FETCH_COLUMN);
 }
+
+
+function updatePlanet(int $id, string $name, string $description, string $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id): bool|int
+{
+    $db = connectToDB();
+    $sql = "UPDATE planets SET name= :name, description= :description, image= :image, length_of_year= :length_of_year, moons= :moons, temperature= :temperature, diameter= :diameter, date_discovered= :date_discovered, mass= :mass, distance_from_sun= :distance_from_sun, discovery_method_id= :discovery_method_id, habitability_id= :habitability_id 
+            WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':id' => $id,
+        ':name' => $name,
+        ':description' => $description,
+        ':image' => $image,
+        ':length_of_year' => $length_of_year,
+        ':moons' => $moons,
+        ':temperature' => $temperature,
+        ':diameter' => $diameter,
+        ':date_discovered' => $date_discovered,
+        ':mass' => $mass,
+        ':distance_from_sun' => $distance_from_sun,
+        ':discovery_method_id' => $discovery_method_id,
+        ':habitability_id' => $habitability_id
+    ]);
+    return $db->lastInsertId();
+}

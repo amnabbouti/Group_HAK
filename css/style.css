@@ -419,11 +419,6 @@ body{
         header{
             padding: 1rem 2rem;
             
-            nav{
-                .nav_links{
-                    display: none;
-                }
-            }
         }
         
         main{
@@ -452,7 +447,6 @@ body{
             }
             
             .planets{
-                padding: 10rem;
                 grid-template-columns: repeat(2, 1fr);
                 
                 .container{
@@ -499,9 +493,14 @@ body{
             
             .planets{
                 grid-template-columns: 1fr;
+                padding: 5rem 0;
                 
                 .container{
                     grid-template-columns: 1fr;
+                    
+                    article{
+                        max-width: 350px;
+                    }
                 }
             }
         }

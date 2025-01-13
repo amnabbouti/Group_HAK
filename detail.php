@@ -43,7 +43,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <?php endif; ?>
                 </div>
                 <div class="planet-info-container">
-                    <h1><?= $planet['name'] ?></h1>
                     <p><?= $planet['description'] ?></p>
                     <table>
                         <tr>

@@ -23,7 +23,7 @@ if (isset($_SESSION['id'])) {
                         </button>
                     </li>
                     <li>
-                        <button onclick="location.href='admin_register.php'" class="btn btn-register-admin">
+                        <button onclick="location.href='index.php'" class="btn btn-register-admin">
                             Main Page
                         </button>
                     </li>
@@ -35,7 +35,7 @@ if (isset($_SESSION['id'])) {
     <header>
         <nav>
             <div class="search">
-                <form method="get" action="">
+                <form method="get" action="../index.php">
                     <input type="text" name="name" placeholder="Search for a planet..."
                            value="<?= $_GET['name'] ?? '' ?>">
                     <button type="submit">Search</button>

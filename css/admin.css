@@ -148,3 +148,25 @@ td {
   border: 1px solid #444;
   text-align: center;
 }
+
+.success-messages {
+  background: rgba(113, 241, 122, 0.8);
+  color: #ffffff;
+  background: rgba(98, 209, 105, 0.8);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 1rem;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+  }
+}

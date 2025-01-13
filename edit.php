@@ -161,20 +161,14 @@ if (isset($_POST['submit'])) {
             $habitability_id = (int)$_POST['habitability'];
         }
 
-        // Als er geen fouten zijn, verwerk de gegevens
         if (count($errors) == 0) {
-            // Plaats hier de code om de gegevens in de database op te slaan.
             $result = updatePlanet((int)$id, $name, $description, $image, $length_of_year, $moons, $temperature, $diameter, $date_discovered, $mass, $distance_from_sun, $discovery_method_id, $habitability_id);
-            if ($result) {
-                header("Location: admin.php?message=Planet successfully updated.");
-                exit;
-            } else {
-                header("Location: admin.php?message=Failed to update planet.");
-                $errors[] = "Failed to insert planet into the database.";
-            }
+            header("Location: admin.php?message=Record with id $id ($name) is successfully edited...");
+            exit;
         }
     }
 }
+
 ?>
 <html lang="en">
 <?php require_once 'includes/head.php'; ?>

@@ -25,6 +25,13 @@ $planets = sortPlanets($sort, $direction);
     <main>
         <section class="planets">
             <h1>Admin Dashboard</h1>
+            <?php if (isset($_GET['message'])): ?>
+                <div class="success-messages">
+                    <ul>
+                        <li><?= $_GET['message']; ?></li>
+                    </ul>
+                </div>
+            <?php endif; ?>
             <table style="padding: 10px">
                 <thead>
                     <tr>

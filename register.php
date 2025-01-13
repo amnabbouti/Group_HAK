@@ -12,7 +12,7 @@ $id = "";
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $user = getUserById($id); // Fetch user data from the database
+    $user = getUserById($id);
     if ($user) {
         $username = $user['username'];
         $firstname = $user['firstname'];
@@ -66,6 +66,7 @@ if (isset($_POST['submit'])) {
 
     if (isset($_POST['password']) && strlen($_POST['password']) > 0) {
         $password = $_POST['password'];
+        // added a "." as regex for the username, we can delete it afterwards.
         if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/", $password)) {
             $errors[] = "Password needs to contain at least 1 uppercase letter, 1 lowercase, 1 symbol, 1 number and needs to be at least 8 characters long.";
         }

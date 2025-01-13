@@ -138,7 +138,8 @@ $nextPage = $pagination['nextPage'];
                                     <span class="like-count"
                                           id="like-count-<?= $planet['id']; ?>"><?= $planet['likes'] ?? 0 ?></span>
                                     <button class="like-button" data-planet-id="<?= $planet['id']; ?>">
-                                        <i class="fa-regular fa-heart"></i>
+                                        <i class="fa-solid fa-heart full-heart"></i>
+                                        <i class="fa-regular fa-heart empty-heart"></i>
                                     </button>
                                 </div>
                             </div>
@@ -147,7 +148,6 @@ $nextPage = $pagination['nextPage'];
                 </div>
             <?php endforeach; ?>
         </section>
-        <!-- Pagination -->
         <section class="pagination">
             <div class="container">
                 <ul>

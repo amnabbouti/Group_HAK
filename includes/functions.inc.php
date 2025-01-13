@@ -167,13 +167,13 @@ function isValidLogin($mail, $password)
     return false;
 }
 
-function requiredLoggedIn()
-{
-    if (!isLoggedIn()) {
-        header("Location: login.php");
-        exit;
-    }
-}
+//function requiredLoggedIn()
+//{
+//    if (!isLoggedIn()) {
+//        header("Location: login.php");
+//        exit;
+//    }
+//}
 
 function requiredLoggedOut()
 {
@@ -329,12 +329,12 @@ function insertPlanet(string $name, string $description, string $image, $length_
 function default_profile_picture(array $user): array
 {
     if (empty($user['profile_picture']) || !file_exists($user['profile_picture'])) {
-        $user['profile_picture'] = 'public/assets/images/user.png';
+        $user['profile_picture'] = '../public/assets/images/user.png';
     }
     return $user;
 }
 
-function sortPlanets(String $sort, String $direction)
+function sortPlanets(string $sort, string $direction)
 {
     $db = connectToDB();
     $sql = "SELECT * FROM planets ORDER BY $sort $direction";

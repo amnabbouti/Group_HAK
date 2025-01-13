@@ -1,6 +1,7 @@
 <?php
 include_once 'includes/init.php';
 $errors = [];
+$success = [];
 $username = "";
 $firstname = "";
 $lastname = "";
@@ -112,33 +113,40 @@ if (isset($_POST['submit'])) {
                             <li><?= $error; ?></li>
                         <?php endforeach; ?>
                     </ul>
+                <?php else: ?>
+                    <div class="success-messages">
+                        <ul>
+                            <?php foreach ($success as $message): ?>
+                                <li><?= $message; ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                <div class="form-wrapper">
+                    <form method="post" action="register.php?id=<?= $id; ?>">
+                        <div class="form-group username">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" placeholder="Enter a username" value="<?= $username; ?>" />
+                        </div>
+                        <div class="form-group firstname">
+                            <label for="firstname">Firstname</label>
+                            <input type="text" id="firstname" name="firstname" placeholder="Enter your Firstname" value="<?= $firstname; ?>" />
+                        </div>
+                        <div class="form-group lastname">
+                            <label for="lastname">Lastname</label>
+                            <input type="text" id="lastname" name="lastname" placeholder="Enter your Lastname" value="<?= $lastname; ?>" />
+                        </div>
+                        <div class="form-group mail">
+                            <label for="mail">E-mail</label>
+                            <input type="email" id="mail" name="mail" placeholder="Enter a valid E-mail" value="<?= $mail; ?>">
+                        </div>
+                        <div class="form-group password">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Enter a new password (optional)" />
+                        </div>
+                        <button type="submit" name="submit">Save</button>
+                    </form>
                 </div>
-            <?php endif; ?>
-            <div class="form-wrapper">
-                <form method="post" action="register.php?id=<?= $id; ?>">
-                    <div class="form-group username">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="Enter a username" value="<?= $username; ?>" />
-                    </div>
-                    <div class="form-group firstname">
-                        <label for="firstname">Firstname</label>
-                        <input type="text" id="firstname" name="firstname" placeholder="Enter your Firstname" value="<?= $firstname; ?>" />
-                    </div>
-                    <div class="form-group lastname">
-                        <label for="lastname">Lastname</label>
-                        <input type="text" id="lastname" name="lastname" placeholder="Enter your Lastname" value="<?= $lastname; ?>" />
-                    </div>
-                    <div class="form-group mail">
-                        <label for="mail">E-mail</label>
-                        <input type="email" id="mail" name="mail" placeholder="Enter a valid E-mail" value="<?= $mail; ?>">
-                    </div>
-                    <div class="form-group password">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Enter a new password (optional)" />
-                    </div>
-                    <button type="submit" name="submit">Save</button>
-                </form>
-            </div>
         </section>
     </main>
     <?php require_once 'includes/footer.php'; ?>

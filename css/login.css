@@ -106,10 +106,11 @@ main{
                 display: flex;
                 justify-content: center;
                 width: 100%;
+                margin-bottom: 4rem;
             }
             
             button.btn{
-                background: linear-gradient(135deg, #1a72e4, #0d47a1);
+                background: var(--main-color);
                 color: #fff;
                 border: none;
                 padding: 1rem 2rem;
@@ -120,56 +121,16 @@ main{
                 transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
                 
                 &:hover{
-                    background: linear-gradient(135deg, #105ad1, #0b367d);
-                    transform: scale(1.05);
+                    background: #695183;
                     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
                 }
             }
         }
-    }
-}
-
-
-.signup-link{
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 1.2rem;
-    
-    p{
-        font-size: 1.2rem;
-        color: #e4e8ee;
-    }
-    
-    a{
-        text-decoration: none;
-        font-weight: bold;
-        color: #aad1fa;
-        transition: color 0.3s ease-in-out;
         
-        &:hover{
-            color: #e4e8ee;
+        .signup-link{
+            display: grid;
+            gap: 0.5rem;
         }
     }
 }
 
-.error-messages{
-    background: rgba(248, 215, 218, 0.8);
-    color: #721c24;
-    border: 1px solid rgba(245, 198, 203, 0.8);
-    border-radius: 12px;
-    padding: 1rem;
-    width: 100%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    margin-top: 1rem;
-    
-    ul{
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        
-        li{
-            font-size: 1.2rem;
-            line-height: 1.5;
-        }
-    }
-}

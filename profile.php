@@ -62,7 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $profile_picture = $new_file_name;
 
                         // If the user already has a pic delete the old file
-                        if (!empty($user['profile_picture']) && file_exists($user['profile_picture'])) {
+                        $default_picture = 'uploads/default-profile.png';
+                        if (!empty($user['profile_picture']) && $user['profile_picture'] !== $default_picture && file_exists($user['profile_picture'])) {
                             unlink($user['profile_picture']);
                         }
                     } else {

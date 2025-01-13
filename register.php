@@ -11,6 +11,7 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 $id = "";
 
 
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $user = getUserById($id);
@@ -80,7 +81,7 @@ if (isset($_POST['submit'])) {
             } else {
                 updateMember($id, $username, $firstname, $lastname, $mail, $hashedPassword);
             }
-            $_SESSION['message'] = "User updated successfully.";
+            $success[] = "User updated successfully.";
         } else {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $newId = registerNewMember($username, $firstname, $lastname, $mail, $hashedPassword, 'user');
@@ -113,7 +114,7 @@ if (isset($_POST['submit'])) {
                             <li><?= $error; ?></li>
                         <?php endforeach; ?>
                     </ul>
-                <?php else: ?>
+                <?php elseif (count($success)): ?>
                     <div class="success-messages">
                         <ul>
                             <?php foreach ($success as $message): ?>

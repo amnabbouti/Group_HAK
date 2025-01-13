@@ -33,6 +33,9 @@ if (isset($_POST['submit'])) {
             } else {
                 $name = $_POST['name'];
             }
+            if (existingName($name) == true) {
+                $errors[] = "Planet already exists.";
+            }
         }
 
         // Validatie voor beschrijving
@@ -154,6 +157,7 @@ if (isset($_POST['submit'])) {
 ?>
 <html lang="en">
 <?php require_once 'includes/head.php'; ?>
+
 <body>
     <?php require_once 'includes/header.php'; ?>
     <main>
@@ -188,7 +192,7 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                     <label for="length_of_year">Length of Year (in Earth days):</label>
                     <input type="number" id="length_of_year" name="length_of_year" step="0.01"
-                           value="<?= @$length_of_year; ?>">
+                        value="<?= @$length_of_year; ?>">
                 </div>
 
                 <div class="form-group">
@@ -209,19 +213,19 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                     <label for="date_discovered">Date Discovered:</label>
                     <input type="datetime-local" id="date_discovered" name="date_discovered"
-                           value="<?= @$date_discovered; ?>">
+                        value="<?= @$date_discovered; ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="mass">Mass:</label>
                     <input type="text" id="mass" name="mass" placeholder="e.g., 5.972 x 10^24 kg"
-                           value="<?= @$mass; ?>">
+                        value="<?= @$mass; ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="distance_from_sun">Distance from Sun (in million km):</label>
                     <input type="number" id="distance_from_sun" name="distance_from_sun" step="0.01"
-                           value="<?= @$distance_from_sun; ?>">
+                        value="<?= @$distance_from_sun; ?>">
                 </div>
 
                 <div class="form-group">
@@ -232,7 +236,7 @@ if (isset($_POST['submit'])) {
                         </option>
                         <?php foreach ($discoveryMethods as $dm): ?>
                             <option
-                                  value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
+                                value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -245,7 +249,7 @@ if (isset($_POST['submit'])) {
                         </option>
                         <?php foreach ($habitabilities as $habit): ?>
                             <option
-                                  value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
+                                value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

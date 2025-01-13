@@ -395,3 +395,11 @@ function deleteToken($token)
     $stmt->bindParam(':token', $token);
     $stmt->execute();
 }
+
+function existingName(String $name): bool
+{
+    $sql = "SELECT name FROM planets WHERE name = :name";
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute([':name' => $name]);
+    return $stmt->fetch(PDO::FETCH_COLUMN);
+}

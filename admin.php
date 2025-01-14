@@ -22,8 +22,12 @@ $planets = sortPlanets($sort, $direction);
 <body>
     <?php require_once 'includes/header.php'; ?>
     <main>
-        <section class="planets">
+        <div>
             <h1>Admin Dashboard</h1>
+        </div>
+        <hr>
+        <section class="planets">
+            <h2>Manage Planets</h2>
             <table style="padding: 10px">
                 <thead>
                 <tr>
@@ -85,7 +89,7 @@ $planets = sortPlanets($sort, $direction);
             <hr>
             <br>
             <br>
-            <h1>Manage users</h1>
+            <h2>Manage users</h2>
             <table>
                 <thead>
                 <tr>

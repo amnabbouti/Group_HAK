@@ -58,12 +58,14 @@ if (isset($_SESSION['id'])) {
                             <?php endif; ?>
                         </a>
                         <div class="dropdown-content">
+                            <a href="../profile.php">Profile</a>
                             <?php if (isset($_SESSION['id']) && !empty($_SESSION['id'])): ?>
                                 <a href="../logout.php">Logout</a>
-                                <a href="../login.php">Login</a>
                                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                                     <a href="../admin.php">Admin</a>
                                 <?php endif; ?>
+                            <?php else: ?>
+                                <a href="../login.php">Login</a>
                             <?php endif; ?>
                         </div>
                     </li>

@@ -130,30 +130,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <section class="liked-planets">
             <h2>Liked Planets</h2>
+            <?php if (empty($likedPlanets)): ?>
+                <div class="no-liked-planets">
+                    <p>No liked planets yet! Start exploring and discover new planets to like.</p>
+                    <a href="index.php" class="explore-button">Explore Planets</a>
+                </div>
+            <?php else: ?>
             <div class="crud-container">
-                <?php if (empty($likedPlanets)): ?>
-                    <p>No liked planets.</p>
-                <?php else: ?>
-                    <?php foreach ($likedPlanets as $planet): ?>
-                        <div class="crud-item" id="planet-<?= $planet['id']; ?>">
-                            <div class="crud-image">
-                                <a href="detail.php?id=<?= $planet['id']; ?>">
-                                    <img src="<?= $planet['image'] ?>" alt="<?= $planet['name'] ?>">
-                                </a>
-                            </div>
-                            <div class="crud-details">
-                                <h3><?= $planet['name'] ?></h3>
-                                <p><?= implode(' ', array_slice(explode(' ', $planet['description']), 0, 10)) . '...'; ?></p>
-                                <div class="like-container">
+                <?php foreach ($likedPlanets as $planet): ?>
+                    <div class="crud-item" id="planet-<?= $planet['id']; ?>">
+                        <div class="crud-image">
+                            <a href="detail.php?id=<?= $planet['id']; ?>">
+                                <img src="<?= $planet['image'] ?>" alt="<?= $planet['name'] ?>">
+                            </a>
+                        </div>
+                        <div class="crud-details">
+                            <h3><?= $planet['name'] ?></h3>
+                            <p><?= implode(' ', array_slice(explode(' ', $planet['description']), 0, 10)) . '...'; ?></p>
+                            <div class="like-container">
                                     <span class="like-count"
                                           id="like-count-<?= $planet['id']; ?>"><?= $planet['likes'] ?></span>
-                                    <button class="like-button liked" data-planet-id="<?= $planet['id']; ?>">
-                                        <i class="fa-solid fa-heart full-heart"></i>
-                                    </button>
-                                </div>
+                                <button class="like-button liked" data-planet-id="<?= $planet['id']; ?>">
+                                    <i class="fa-solid fa-heart full-heart"></i>
+                                </button>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+                    </div>
+                <?php endforeach; ?>
                 <?php endif; ?>
             </div>
         </section>

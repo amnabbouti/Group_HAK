@@ -3,7 +3,7 @@ body{
 }
 
 .planet-detail{
-    padding: 3rem;
+    padding: 0 10rem;
     margin: 2rem auto;
 }
 
@@ -12,45 +12,56 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    margin-top: 4rem;
 }
 
 img{
     width: 100%;
-    max-width: 800px;
+    max-width: 500px;
     height: auto;
     box-shadow: 0 4px 1.5rem rgba(0, 0, 0, 0.1);
-    border-radius: 1.5rem;
+    border-radius: 4px;
     border: solid 1px rgba(255, 255, 255, 0.91);
 }
 
 .planet-image h2{
-    font-size: 4rem;
+    font-size: 3rem;
     color: var(--main-color);
-    margin: 0;
     padding: 1rem 0;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.81);
+    font-weight: bold;
+    margin-bottom: 4rem;
 }
 
 .planet-info-container{
     margin-top: 3rem;
-    padding: 2rem;
-    border-radius: 1.5rem;
-    box-shadow: 0 0.4rem 1.5rem rgba(0, 0, 0, 0.1);
+    padding: 5rem;
+    border-radius: 4px;
+    box-shadow: 0 0.4rem 2rem rgb(0, 0, 0);
+    background-color: rgba(7, 7, 7, 0.85);
 }
 
 .planet-info-container h1{
     color: var(--main-color);
-    font-size: 4rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
     text-transform: uppercase;
+    
+}
+
+.planet-info-container h3{
+    color: var(--main-color);
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 3rem;
 }
 
 .planet-info-container p{
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--white);
     line-height: 1.8;
-    margin-bottom: 2rem;
+    margin-bottom: 10rem;
 }
 
 .planet-info-container table{
@@ -58,15 +69,14 @@ img{
     border-collapse: collapse;
     margin-top: 1rem;
     color: var(--white);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    background-color: rgba(7, 7, 7, 0.85);
     overflow: hidden;
-    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.2rem 1rem rebeccapurple;
 }
 
 .planet-info-container th, .planet-info-container td{
-    padding: 1.5rem;
+    padding: 2rem;
     text-align: left;
 }
 
@@ -77,12 +87,14 @@ img{
 }
 
 .planet-info-container tr:nth-child(even) td{
+
 }
 
 .planet-info-container tr:hover td{
     transition: background-color 0.3s ease;
+    
 }
 
 .planet-info-container td{
-    color: #555;
+    color: #e1e1e1;
 }

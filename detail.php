@@ -43,7 +43,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <?php endif; ?>
                 </div>
                 <div class="planet-info-container">
+                    <h3>Description</h3>
                     <p><?= $planet['description'] ?></p>
+                    <h3>Details</h3>
                     <table>
                         <tr>
                             <th>Property</th>
@@ -51,11 +53,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         </tr>
                         <tr>
                             <td><strong>Mass</strong></td>
-                            <td><?= $planet['mass'] ?> kg</td>
+                            <td><?= $planet['mass'] ?></td>
                         </tr>
                         <tr>
-                            <td><strong>Distance from the Sun</strong></td>
-                            <td><?= $planet['distance_from_sun'] ?></td>
+                            <td><strong>Distance from the Sun (million Km)</strong></td>
+                            <td><?= $planet['distance_from_sun'] ?> </td>
                         </tr>
                         <tr>
                             <td><strong>Gasses</strong></td>
@@ -74,7 +76,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             <td><?= $planet['temperature'] ?? 'Unknown' ?></td>
                         </tr>
                         <tr>
-                            <td><strong>Diameter</strong></td>
+                            <td><strong>Diameter (km)</strong></td>
                             <td><?= $planet['diameter'] ?? 'Unknown' ?></td>
                         </tr>
                         <tr>
@@ -101,6 +103,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
         </section>
+
+    
     </main>
     <?php require_once 'includes/footer.php'; ?>
 </body>

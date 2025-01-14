@@ -66,7 +66,7 @@ $planets = sortPlanets($sort, $direction);
                                 <input type="hidden" name="id" value="<?= $planet['id']; ?>">
                                 <button type="submit" class="view">View</button>
                             </form>
-                            <form method="get" action="register.php">
+                            <form method="get" action="edit.php">
                                 <input type="hidden" name="id" value="<?= $planet['id']; ?>">
                                 <button type="submit" class="edit">Edit</button>
                             </form>
@@ -133,7 +133,7 @@ $planets = sortPlanets($sort, $direction);
                                         Delete
                                     </button>
                                 </form>
-                                <form method="get" action="edit.php">
+                                <form method="get" action="register.php">
                                     <input type="hidden" name="id" value="<?= $user['id']; ?>">
                                     <button type="submit" class="edit">Edit</button>
                                 </form>

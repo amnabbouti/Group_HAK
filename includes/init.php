@@ -17,7 +17,7 @@ if (in_array(basename($_SERVER['PHP_SELF']), ['admin.php', 'delete.php', 'form.p
     requiredLoggedOut();
 }
 //security rules for functionalities that requires login
-if (basename($_SERVER['PHP_SELF']) === 'admin.php' || basename($_SERVER['PHP_SELF']) === 'admin_register.php' || basename($_SERVER['PHP_SELF']) === 'form.php') {
+if (basename($_SERVER['PHP_SELF']) === 'admin.php' || basename($_SERVER['PHP_SELF']) === 'admin_register.php' || basename($_SERVER['PHP_SELF']) === 'form.php' || basename($_SERVER['PHP_SELF']) === 'edit.php') {
     if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
         header("Location: login.php");
         exit;

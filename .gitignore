@@ -12,7 +12,7 @@ vendor/
 
 # Ignore composer.json and composer.lock files
 composer.lock
-composer.json
+
 uploads
 manifest.json
 dist/

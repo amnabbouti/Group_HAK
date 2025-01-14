@@ -8,7 +8,7 @@ require_once 'includes/css_js.inc.php';
     <div class="terms">
         <h1>Terms of Service & Privacy Policy</h1>
         <h2>Terms of Service</h2>
-        <p><strong>Effective Date:</strong> 2025-01-01</p>
+        <p><strong>Effective Date: <strong>2025-01-01</strong></p>
         <p>Welcome to <strong>Miller's World</strong>! By using our website, you agree to these Terms of Service.
             If you do not agree, do not use the website or its services.</p>
 
@@ -81,7 +81,7 @@ require_once 'includes/css_js.inc.php';
                   href="mailto:Millersworld@space.be">Millersworld@space.be</a></p>
 
         <h2 id="privacy-policy">Privacy Policy</h2>
-        <p><strong>Effective Date:</strong> [Insert Date]</p>
+        <p><strong>Effective Date:</strong> <strong>2025-01-01</strong></p>
         <p>
             At <strong>Miller's World</strong>, we value your privacy. This Privacy Policy explains what data we
             collect, how we use it, and how you can control your information.

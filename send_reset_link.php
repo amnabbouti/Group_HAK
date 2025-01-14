@@ -13,11 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user) {
         $token = bin2hex(random_bytes(50));
         $expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
-
         saveToken($user['id'], $token, $expiry);
-
-        $resetLink = "http://yourdomain.com/reset_password.php?token=$token";
-
+        $resetLink = " i should add here my domain$token";
         $mail = new PHPMailer(true);
         try {
             //server
@@ -30,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $mail->Port = 587;
 
             //Recipients
-            $mail->setFrom('your_email@example.com', 'Mailer');
+            $mail->setFrom('my email', 'Mailer');
             $mail->addAddress($email);
 
             //Content

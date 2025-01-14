@@ -19,6 +19,7 @@ export default {
                 "/js/admin.js",
                 "/js/form.js",
                 "/js/terms_privacy.js",
+                "/js/edit.js",
             ],
         },
     },

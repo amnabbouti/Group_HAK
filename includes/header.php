@@ -44,7 +44,7 @@ if (isset($_SESSION['id'])) {
             <a href="../index.php" class="logo" onclick="location.href='/index.php'">
                 <img src="../public/assets/images/logo.svg" alt="Miller's World Logo">
             </a>
-            <div>
+            <div class="links">
                 <ul class="nav_links">
                     <!--                    <li><a href="../profile.php">Profile</a></li>-->
                     <li><a href="../form.php">Add a planet</a></li>

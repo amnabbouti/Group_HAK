@@ -177,7 +177,7 @@ if (isset($_POST['submit'])) {
     <?php require_once 'includes/header.php'; ?>
     <main>
 
-        <h1>Add a planet</h1>
+        <h1>Edit Planet</h1>
         <?php if (count($errors)): ?>
             <div class="error-messages">
                 <ul>
@@ -188,63 +188,70 @@ if (isset($_POST['submit'])) {
             </div>
         <?php endif; ?>
 
-        <form action="edit.php" method="POST">
-            <!-- Hidden input $id -->
-            <input type="hidden" name="id" value="<?= @$id; ?>">
-            <!-- Name -->
-            <label for="name">Planet Name*:</label>
-            <input type="text" id="name" name="name" value="<?= @$name; ?>">
+        <section>
 
-            <label for="description">Description*:</label>
-            <textarea id="description" name="description" rows="4"><?= @$description; ?></textarea>
+            <form action="edit.php" method="POST">
+                <!-- Hidden input $id -->
+                <input type="hidden" name="id" value="<?= @$id; ?>">
+                <!-- Name -->
+                <label for="name">Planet Name*:</label>
+                <input type="text" id="name" name="name" value="<?= @$name; ?>">
 
-            <label for="image">Image:</label>
-            <input type="text" id="image" name="image" placeholder="https://..." value="<?= @$image; ?>">
+                <label for="description">Description*:</label>
+                <textarea id="description" name="description" rows="4"><?= @$description; ?></textarea>
 
-            <label for="length_of_year">Length of Year (in Earth days):</label>
-            <input type="number" id="length_of_year" name="length_of_year" step="0.01" value="<?= @$length_of_year; ?>">
+                <label for="image">Image:</label>
+                <input type="text" id="image" name="image" placeholder="https://..." value="<?= @$image; ?>">
 
-            <label for="moons">Number of Moons:</label>
-            <input type="number" id="moons" name="moons" value="<?= @$moons; ?>">
+                <label for="length_of_year">Length of Year (in Earth days):</label>
+                <input type="number" id="length_of_year" name="length_of_year" step="0.01"
+                       value="<?= @$length_of_year; ?>">
 
-            <label for="temperature">Average Temperature (°C):</label>
-            <input type="text" id="temperature" name="temperature" value="<?= @$temperature; ?>">
+                <label for="moons">Number of Moons:</label>
+                <input type="number" id="moons" name="moons" value="<?= @$moons; ?>">
 
-            <label for="diameter">Diameter (in km):</label>
-            <input type="number" id="diameter" name="diameter" step="0.01" value="<?= @$diameter; ?>">
+                <label for="temperature">Average Temperature (°C):</label>
+                <input type="text" id="temperature" name="temperature" value="<?= @$temperature; ?>">
 
-            <label for="date_discovered">Date Discovered:</label>
-            <input type="datetime-local" id="date_discovered" name="date_discovered" value="<?= @$date_discovered; ?>">
+                <label for="diameter">Diameter (in km):</label>
+                <input type="number" id="diameter" name="diameter" step="0.01" value="<?= @$diameter; ?>">
 
-            <label for="mass">Mass:</label>
-            <input type="text" id="mass" name="mass" placeholder="e.g., 5.972 x 10^24 kg" value="<?= @$mass; ?>">
+                <label for="date_discovered">Date Discovered:</label>
+                <input type="datetime-local" id="date_discovered" name="date_discovered"
+                       value="<?= @$date_discovered; ?>">
 
-            <label for="distance_from_sun">Distance from Sun (in million km):</label>
-            <input type="number" id="distance_from_sun" name="distance_from_sun" step="0.01"
-                   value="<?= @$distance_from_sun; ?>">
+                <label for="mass">Mass:</label>
+                <input type="text" id="mass" name="mass" placeholder="e.g., 5.972 x 10^24 kg" value="<?= @$mass; ?>">
 
-            <label for="discovery_method">Discovery Method*:</label>
-            <select id="discovery_method" name="discovery_method">
-                <option <?= @$discovery_method_id == null ? 'selected' : ''; ?> value="0">Please select a discovery
-                    method
-                </option>
-                <?php foreach ($discoveryMethods as $dm): ?>
-                    <option
-                          value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
-                <?php endforeach; ?>
-            </select>
-            <label for="habitability">Habitability*:</label>
-            <select id="habitability" name="habitability">
-                <option <?= @$habitability_id == null ? 'selected' : ''; ?> value="0">Please select a habitability
-                </option>
-                <?php foreach ($habitabilities as $habit): ?>
-                    <option
-                          value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
-                <?php endforeach; ?>
-            </select>
-            <button type="submit" name="submit"
-                    id="submit"><?= isset($_GET['id']) ? 'Update Planet' : 'Submit Planet'; ?></button>
-        </form>
+                <label for="distance_from_sun">Distance from Sun (in million km):</label>
+                <input type="number" id="distance_from_sun" name="distance_from_sun" step="0.01"
+                       value="<?= @$distance_from_sun; ?>">
+
+                <label for="discovery_method">Discovery Method*:</label>
+                <select id="discovery_method" name="discovery_method">
+                    <option <?= @$discovery_method_id == null ? 'selected' : ''; ?> value="0">Please select a discovery
+                        method
+                    </option>
+                    <?php foreach ($discoveryMethods as $dm): ?>
+                        <option
+                              value="<?= $dm['id']; ?>" <?= $dm['id'] == @$discovery_method_id ? 'selected' : ''; ?>><?= $dm['name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="habitability">Habitability*:</label>
+                <select id="habitability" name="habitability">
+                    <option <?= @$habitability_id == null ? 'selected' : ''; ?> value="0">Please select a habitability
+                    </option>
+                    <?php foreach ($habitabilities as $habit): ?>
+                        <option
+                              value="<?= $habit['id']; ?>" <?= $habit['id'] == @$habitability_id ? 'selected' : ''; ?>><?= $habit['atmosphere_type']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="submit" name="submit"
+                        id="submit"><?= isset($_GET['id']) ? 'Update Planet' : 'Submit Planet'; ?></button>
+
+                <button type="button" onclick="window.location.href='admin.php'">Cancel</button>
+            </form>
+        </section>
     </main>
     <?php require_once 'includes/footer.php'; ?>
 </body>

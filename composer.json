@@ -1,0 +1,8 @@
+{
+    "require": {
+        "vlucas/phpdotenv": "^5.6",
+      "ext-mbstring": "*",
+      "ext-pdo": "*",
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

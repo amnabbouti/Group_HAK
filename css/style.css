@@ -121,7 +121,7 @@ body{
         #picture_of_the_month img{
             width: 100%;
             height: auto;
-            max-height: 600px;
+            min-height: 600px;
             object-fit: cover;
             object-position: center;
         }
@@ -129,7 +129,7 @@ body{
         .featured-banner .content{
             display: grid;
             align-items: center;
-            padding: 0 4rem 0 4rem;
+            padding: 2rem 4rem 2rem 4rem;
             color: #fff;
             
             h2{
@@ -447,7 +447,8 @@ body{
             }
             
             .planets{
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
+                padding: 5rem;
                 
                 .container{
                     grid-template-columns: repeat(2, 1fr);
@@ -473,10 +474,12 @@ body{
                     
                     h3{
                         font-size: 4rem;
+                        margin-bottom: 1.5rem;
                     }
                     
                     p{
                         font-size: 1.6rem;
+                        margin-bottom: 2rem;
                     }
                     
                     button{
@@ -502,6 +505,10 @@ body{
                         max-width: 350px;
                     }
                 }
+            }
+            
+            #picture_of_the_month img{
+                min-height: 300px;
             }
         }
     }

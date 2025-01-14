@@ -203,7 +203,7 @@ body{
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 1.5rem;
-    padding: 2rem;
+    padding: 2rem 0;
     
     
     .crud-item{
@@ -213,6 +213,7 @@ body{
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         height: 200px;
+        min-width: 150px;
     }
     
     .crud-item:hover{
@@ -295,6 +296,11 @@ body{
             }
             
             
+        }
+        
+        .crud-container{
+            grid-template-columns: repeat(3, 1fr);
+            padding: 2rem 0;
         }
     }
 }

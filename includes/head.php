@@ -19,6 +19,10 @@
             echo "Add Planet";
         } elseif (basename($_SERVER['PHP_SELF']) === 'register.php') {
             echo "Registration";
+        } elseif (basename($_SERVER['PHP_SELF']) === 'edit.php') {
+            echo "Edit Planet";
+        } elseif (basename($_SERVER['PHP_SELF']) === 'edit_user.php') {
+            echo "Edit User";
         }
         ?>
     </title>

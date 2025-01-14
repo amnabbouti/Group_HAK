@@ -46,9 +46,7 @@ if (isset($_SESSION['id'])) {
             </a>
             <div class="links">
                 <ul class="nav_links">
-                    <!--                    <li><a href="../profile.php">Profile</a></li>-->
                     <li><a href="../form.php">Add a planet</a></li>
-                    <!--                    <li><a href="../login.php">Log In</a></li>-->
                     <li class="dropdown">
                         <a href="../profile.php" class="profile-picture-header">
                             <?php if (isset($_SESSION['id']) && !empty($user['profile_picture'])): ?>

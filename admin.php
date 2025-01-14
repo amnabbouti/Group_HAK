@@ -133,7 +133,7 @@ $planets = sortPlanets($sort, $direction);
                                         Delete
                                     </button>
                                 </form>
-                                <form method="get" action="register.php">
+                                <form method="get" action="edit_user.php">
                                     <input type="hidden" name="id" value="<?= $user['id']; ?>">
                                     <button type="submit" class="edit">Edit</button>
                                 </form>

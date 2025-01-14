@@ -10,6 +10,19 @@ $password = "";
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 $id = "";
 
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $user = getUserById((int)$id);
+    if ($user) {
+        $username = $user['username'];
+        $firstname = $user['firstname'];
+        $lastname = $user['lastname'];
+        $mail = $user['mail'];
+    } else {
+        $errors[] = "User not found.";
+    }
+}
+
 if (isset($_POST['submit'])) {
     if (!isset($_POST['username']) || strlen($_POST['username']) < 1) {
         $errors[] = "Username is required.";

@@ -76,7 +76,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             <td><?= $planet['temperature'] ?? 'Unknown' ?></td>
                         </tr>
                         <tr>
-                            <td><strong>Diameter (km)</strong></td>
+                            <td><strong>Diameter</strong></td>
                             <td><?= $planet['diameter'] ?? 'Unknown' ?></td>
                         </tr>
                         <tr>
@@ -103,8 +103,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
         </section>
-
-    
     </main>
     <?php require_once 'includes/footer.php'; ?>
 </body>
